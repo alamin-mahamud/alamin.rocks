@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3081:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8081
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+  backend:
+    build: ./backend
+    ports:
+      - "8081:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5443/alamin_rocks
+      - REDIS_URL=redis://redis:6390
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - FRONTEND_URL=http://localhost:3081
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./backend:/app
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=alamin_rocks
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5443:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6390:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:

@@ -1,16 +1,12 @@
-# Base Image
-FROM python:3.8
+FROM python:3.11-slim
 
-# Disabling Python Output Buffering
-# https://stackoverflow.com/questions/107705/disable-output-buffering
-ENV PYTHONUNBUFFERED 1
-
-RUN mkdir /app
 WORKDIR /app
-RUN mkdir src
 
-COPY ./requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
-COPY ./src /app/src/
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Solarized Light Theme */
+    --background: 44 87% 94%; /* base3 #fdf6e3 */
+    --foreground: 194 14% 40%; /* base00 #657b83 */
+    --primary: 205 69% 98%; /* base2 #eee8d5 */
+    --primary-foreground: 194 14% 40%; /* base00 #657b83 */
+    --secondary: 44 87% 94%; /* base3 #fdf6e3 */
+    --secondary-foreground: 194 14% 40%; /* base00 #657b83 */
+    --muted: 205 69% 98%; /* base2 #eee8d5 */
+    --muted-foreground: 180 7% 60%; /* base1 #93a1a1 */
+    --accent: 68 100% 30%; /* green #859900 */
+    --accent-foreground: 44 87% 94%; /* base3 #fdf6e3 */
+    --border: 180 7% 80%; /* base1 lighter */
+    --card: 44 87% 94%; /* base3 #fdf6e3 */
+    --destructive: 1 71% 52%; /* red #dc322f */
+    --warning: 45 100% 35%; /* yellow #b58900 */
+    --info: 205 56% 76%; /* blue #268bd2 */
+    --success: 68 100% 30%; /* green #859900 */
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-feature-settings: "rlig" 1, "calt" 1, "liga" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-weight: 600;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
