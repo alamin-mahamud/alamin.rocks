@@ -83,7 +83,7 @@ const Footer = () => {
         <div className="border-t border-solarized-base01 mt-8 pt-8 text-center">
           <p className="text-solarized-base1 flex items-center justify-center mono">
             <Terminal size={16} className="mr-2 text-solarized-green" />
-            Built with passion © {currentYear} Md. Alamin Mahamud
+            Built with passion © {currentYear} Alamin Mahamud
             <Terminal size={16} className="ml-2 text-solarized-green" />
           </p>
         </div>

@@ -14,10 +14,10 @@ const Hero = () => {
           <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6 mono">
             Hi, I&apos;m{" "}
             <span className="text-solarized-blue">
-              Md. Alamin Mahamud
+              Alamin!
             </span>
           </h1>
-          
+
           <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed mono">
             Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.
           </p>
