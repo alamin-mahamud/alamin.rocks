@@ -2,8 +2,12 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/contexts/ThemeContext"
+import { AccessibilityProvider } from "@/contexts/AccessibilityContext"
 import FloatingThemeToggle from "@/components/FloatingThemeToggle"
 import ThemeTransition from "@/components/ThemeTransition"
+import AccessibilityPanel from "@/components/AccessibilityPanel"
+import SkipNavigation from "@/components/SkipNavigation"
+import AccessibilityTester from "@/components/AccessibilityTester"
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://alamin.rocks'),
@@ -83,12 +87,17 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <ThemeProvider>
-          <Suspense fallback={<HeroSkeleton />}>
-            {children}
-          </Suspense>
-          <FloatingThemeToggle />
-          <ThemeTransition />
-          <PerformanceMonitor />
+          <AccessibilityProvider>
+            <SkipNavigation />
+            <Suspense fallback={<HeroSkeleton />}>
+              {children}
+            </Suspense>
+            <FloatingThemeToggle />
+            <AccessibilityPanel />
+            <AccessibilityTester />
+            <ThemeTransition />
+            <PerformanceMonitor />
+          </AccessibilityProvider>
         </ThemeProvider>
       </body>
     </html>

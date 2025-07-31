@@ -12,18 +12,31 @@ import AIAssistant from "@/components/AIAssistant"
 
 export default function Home() {
   return (
-    <main>
-      <Navigation />
-      <Hero />
-      <About />
-      <TechStack />
-      <Achievements />
-      <Terminal />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
+    <>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-md">
+        Skip to main content
+      </a>
+      
+      <header role="banner">
+        <Navigation />
+      </header>
+      
+      <main id="main-content" role="main" tabIndex={-1}>
+        <Hero />
+        <About />
+        <TechStack />
+        <Achievements />
+        <Terminal />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
+      
+      <footer id="footer" role="contentinfo">
+        <Footer />
+      </footer>
+      
       <AIAssistant />
-    </main>
+    </>
   )
 }
