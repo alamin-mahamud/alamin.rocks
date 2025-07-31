@@ -76,10 +76,10 @@ const Hero = () => {
                 <div className="w-3 h-3 rounded-full bg-solarized-yellow"></div>
                 <div className="w-3 h-3 rounded-full bg-solarized-green"></div>
               </div>
-              <Terminal size={16} className="text-solarized-green" />
-              <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$ whoami</span>
             </div>
             <div className="text-left text-solarized-base0 mono text-sm">
+              <Terminal size={16} className="text-solarized-green" />
+              <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$ whoami</span>
               <span className="text-solarized-blue">{displayText}</span>
               <span className={`text-solarized-green ${isTyping ? 'animate-pulse' : 'opacity-0'}`}>|</span>
             </div>
