@@ -171,14 +171,14 @@ const AIAssistant = () => {
       <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse opacity-50"></div>
+          className="group relative bg-gradient-to-r from-accent to-accent/80 text-accent-foreground p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/80 rounded-full animate-pulse opacity-50"></div>
           <MessageCircle size={24} className="relative z-10" />
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-accent to-accent/70 text-accent-foreground rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
             <Brain size={12} />
           </div>
         </button>
-        <div className="absolute bottom-16 right-0 bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-sm">
+        <div className="absolute bottom-16 right-0 bg-card text-foreground px-3 py-2 rounded-lg shadow-lg border border-border opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-sm">
           Ask me about Alamin&apos;s experience!
         </div>
       </div>
@@ -186,7 +186,7 @@ const AIAssistant = () => {
   }
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl transition-all duration-300 ${
+    <div className={`fixed bottom-6 right-6 z-50 bg-card border border-border rounded-xl shadow-2xl transition-all duration-300 ${
       isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
     }`}>
       {/* Header */}
@@ -273,7 +273,7 @@ const AIAssistant = () => {
 
           {/* Quick Questions */}
           {messages.length <= 1 && (
-            <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+            <div className="p-4 border-t border-border">
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Quick questions:</p>
               <div className="grid grid-cols-2 gap-2">
                 {quickQuestions.slice(0, 4).map((q) => (
@@ -293,7 +293,7 @@ const AIAssistant = () => {
           )}
 
           {/* Input */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+          <div className="p-4 border-t border-border">
             <div className="flex items-center space-x-2">
               <input
                 ref={inputRef}
@@ -302,7 +302,7 @@ const AIAssistant = () => {
                 onChange={(e) => setCurrentMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Ask about Alamin's experience..."
-                className="flex-1 px-3 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:text-white"
+                className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent text-foreground mono transition-all duration-200"
               />
               <button
                 onClick={() => handleSendMessage()}
