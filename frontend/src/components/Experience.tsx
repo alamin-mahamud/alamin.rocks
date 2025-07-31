@@ -135,7 +135,7 @@ const Experience = () => {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-solarized-green"></div>
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-accent"></div>
           
           <div className="space-y-12">
             {experiences.map((exp, index) => (
@@ -143,26 +143,26 @@ const Experience = () => {
                 {/* Timeline dot */}
                 <div className={`absolute left-6 w-4 h-4 rounded-full border-2 ${
                   exp.current 
-                    ? 'bg-solarized-green border-solarized-green shadow-lg shadow-solarized-green/50' 
-                    : 'bg-background border-solarized-base1'
+                    ? 'bg-accent border-accent shadow-lg shadow-accent/50' 
+                    : 'bg-background border-muted-foreground'
                 } z-10`}>
                   {exp.current && (
-                    <div className="absolute inset-1 bg-solarized-green rounded-full animate-pulse"></div>
+                    <div className="absolute inset-1 bg-accent rounded-full animate-pulse"></div>
                   )}
                 </div>
 
                 {/* Content */}
                 <div className="ml-16 flex-1">
-                  <div className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="bg-card border border-border rounded-lg p-6 shadow-sm card-hover">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
                       <div className="flex-1">
                         <h3 className="text-xl font-semibold text-foreground mono">
                           {exp.role}
                         </h3>
-                        <div className="flex items-center gap-2 text-solarized-blue font-medium mono">
+                        <div className="flex items-center gap-2 text-accent font-medium mono">
                           <span>{exp.company}</span>
                           {exp.website && (
-                            <ExternalLink size={14} className="text-solarized-base1" />
+                            <ExternalLink size={14} className="text-muted-foreground" />
                           )}
                         </div>
                       </div>
@@ -172,7 +172,7 @@ const Experience = () => {
                           <Calendar size={14} />
                           <span>{exp.duration}</span>
                           {exp.current && (
-                            <span className="ml-2 px-2 py-1 bg-solarized-green text-solarized-base3 text-xs rounded-full">
+                            <span className="ml-2 px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full">
                               Current
                             </span>
                           )}
@@ -186,13 +186,13 @@ const Experience = () => {
 
                     <div className="space-y-4">
                       <div>
-                        <h4 className="text-sm font-medium text-solarized-base01 mono mb-2">
+                        <h4 className="text-sm font-medium text-muted-foreground mono mb-2">
                           # Key Achievements:
                         </h4>
                         <ul className="space-y-1">
                           {exp.achievements.map((achievement, idx) => (
                             <li key={idx} className="text-sm text-foreground mono flex items-start">
-                              <span className="text-solarized-green mr-2 mt-1">•</span>
+                              <span className="text-accent mr-2 mt-1">•</span>
                               <span className="flex-1">{achievement}</span>
                             </li>
                           ))}
@@ -200,14 +200,14 @@ const Experience = () => {
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-medium text-solarized-base01 mono mb-2">
+                        <h4 className="text-sm font-medium text-muted-foreground mono mb-2">
                           # Technologies:
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {exp.technologies.map((tech, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 bg-muted text-muted-foreground text-xs mono rounded border border-border hover:bg-solarized-base2 transition-colors"
+                              className="badge-tech mono"
                             >
                               {tech}
                             </span>

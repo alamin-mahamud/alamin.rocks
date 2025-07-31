@@ -59,7 +59,7 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-card rounded-lg p-8 shadow-sm border border-border">
+            <div className="bg-card rounded-lg p-8 shadow-sm border border-border card-hover">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -73,7 +73,7 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-solarized-green focus:border-solarized-green mono"
+                      className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent mono transition-all duration-200"
                       placeholder="enter_your_name"
                     />
                   </div>
@@ -88,7 +88,7 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-solarized-green focus:border-solarized-green mono"
+                      className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent mono transition-all duration-200"
                       placeholder="user@domain.com"
                     />
                   </div>
@@ -104,7 +104,7 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent mono transition-all duration-200"
                     placeholder="topic_of_discussion"
                   />
                 </div>
@@ -120,27 +120,27 @@ const Contact = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-border rounded bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent mono transition-all duration-200"
                     placeholder="# Tell me about your project or just say hello...\n# Use this space to describe your needs\n# I'll get back to you soon!"
                   />
                 </div>
 
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-solarized-green/10 border border-solarized-green rounded">
-                    <p className="text-solarized-green mono">✓ Message sent successfully! I&apos;ll get back to you soon.</p>
+                  <div className="p-4 bg-accent/10 border border-accent rounded">
+                    <p className="text-accent mono">✓ Message sent successfully! I&apos;ll get back to you soon.</p>
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="p-4 bg-solarized-red/10 border border-solarized-red rounded">
-                    <p className="text-solarized-red mono">✗ Error: Failed to send message. Please try again.</p>
+                  <div className="p-4 bg-destructive/10 border border-destructive rounded">
+                    <p className="text-destructive mono">✗ Error: Failed to send message. Please try again.</p>
                   </div>
                 )}
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center px-6 py-3 bg-solarized-green text-solarized-base3 rounded hover:bg-solarized-cyan transition-colors disabled:opacity-50 disabled:cursor-not-allowed mono font-medium"
+                  className="w-full flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground rounded hover:bg-accent/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mono font-medium hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   {isSubmitting ? (
                     "Sending message..."
@@ -156,28 +156,28 @@ const Contact = () => {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-card rounded-lg p-6 shadow-sm border border-border card-hover">
               <div className="flex items-center mb-4">
-                <Mail size={24} className="text-solarized-blue mr-3" />
+                <Mail size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">email:</h3>
               </div>
-              <p className="text-solarized-blue mono">hello@alamin.rocks</p>
+              <p className="text-accent mono">hello@alamin.rocks</p>
             </div>
 
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-card rounded-lg p-6 shadow-sm border border-border card-hover">
               <div className="flex items-center mb-4">
-                <Phone size={24} className="text-solarized-green mr-3" />
+                <Phone size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">phone:</h3>
               </div>
-              <p className="text-solarized-green mono">+880 168 7060 434</p>
+              <p className="text-accent mono">+880 168 7060 434</p>
             </div>
 
-            <div className="bg-card rounded-lg p-6 shadow-sm border border-border">
+            <div className="bg-card rounded-lg p-6 shadow-sm border border-border card-hover">
               <div className="flex items-center mb-4">
-                <MapPin size={24} className="text-solarized-orange mr-3" />
+                <MapPin size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">location:</h3>
               </div>
-              <p className="text-solarized-orange mono">Istanbul, Turkey</p>
+              <p className="text-accent mono">Istanbul, Turkey</p>
             </div>
           </div>
         </div>

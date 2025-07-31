@@ -378,7 +378,7 @@ const Projects = () => {
                     {project.technologies.slice(0, isHovered ? project.technologies.length : 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 bg-muted text-foreground text-xs rounded border border-border hover:bg-accent/10 hover:border-accent/30 transition-all duration-300"
+                        className="badge-tech mono"
                       >
                         {tech}
                       </span>
@@ -392,7 +392,7 @@ const Projects = () => {
                 </div>
 
                 {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-cyan-500/5 rounded-lg transition-opacity duration-300 ${
+                <div className={`absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-xl transition-opacity duration-300 ${
                   isHovered ? 'opacity-100' : 'opacity-0'
                 } pointer-events-none`} />
               </div>

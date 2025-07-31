@@ -46,7 +46,7 @@ const About = () => {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="px-3 py-1 bg-background rounded border border-border text-sm text-foreground mono hover:bg-solarized-base2 transition-colors"
+                  className="badge-tech mono"
                 >
                   {skill}
                 </span>
@@ -54,24 +54,24 @@ const About = () => {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-8 shadow-sm border border-border">
+          <div className="bg-card rounded-lg p-8 shadow-sm border border-border card-hover">
             <h3 className="text-xl font-semibold text-foreground mb-6 mono"># Quick Facts</h3>
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">location:</span>
-                <span className="text-solarized-blue mono">Istanbul, Turkey / Remote</span>
+                <span className="text-accent mono">Istanbul, Turkey / Remote</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">experience:</span>
-                <span className="text-solarized-green mono">10+ Years</span>
+                <span className="text-accent mono">10+ Years</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">focus:</span>
-                <span className="text-solarized-cyan mono">DevOps & SRE</span>
+                <span className="text-accent mono">DevOps & SRE</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">interests:</span>
-                <span className="text-solarized-magenta mono">Cloud Architecture, AI, Podcasting</span>
+                <span className="text-accent mono">Cloud Architecture, AI, Podcasting</span>
               </div>
             </div>
           </div>

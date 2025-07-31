@@ -102,6 +102,7 @@
   .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
   .text-5xl { font-size: 3rem; line-height: 1; }
   .text-6xl { font-size: 3.75rem; line-height: 1; }
+  .text-7xl { font-size: 4.5rem; line-height: 1; }
 
   /* Vercel button styles */
   .btn {
@@ -115,18 +116,35 @@
     padding: 0 16px;
     height: 36px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .btn-secondary {
     @apply btn border border-border bg-background hover:bg-muted focus-visible:ring-accent;
     padding: 0 16px;
     height: 36px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .btn-ghost {
     @apply btn hover:bg-muted hover:text-foreground focus-visible:ring-accent;
     padding: 0 12px;
     height: 36px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-1px);
   }
 
   .btn-lg {
@@ -253,5 +271,37 @@
   .screen-reader-mode * {
     transition: none !important;
     animation: none !important;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border hover:-translate-y-1;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-all duration-200;
+  }
+
+  .badge-featured {
+    @apply badge bg-foreground text-background;
+  }
+
+  .badge-ai {
+    @apply badge bg-accent text-accent-foreground;
+  }
+
+  .badge-tech {
+    @apply badge bg-muted text-foreground border border-border hover:bg-accent/10 hover:border-accent/30;
+  }
+
+  /* Label positioning utilities */
+  .label-container {
+    @apply absolute top-4 left-4 z-10 flex gap-2 flex-wrap;
+  }
+
+  /* Ensure labels don't overlap with content */
+  .content-with-labels {
+    @apply pt-12;
   }
 }

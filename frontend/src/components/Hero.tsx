@@ -76,7 +76,7 @@ const Hero = () => {
 
           <h1 className="text-5xl sm:text-7xl font-bold text-foreground mb-6 tracking-tight">
             Hi, I&apos;m{" "}
-            <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
               Alamin
             </span>
           </h1>
@@ -106,23 +106,23 @@ const Hero = () => {
               href="https://github.com/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-ghost group"
+              className="btn btn-ghost group hover:text-accent"
             >
-              <Github size={20} className="transition-colors" />
+              <Github size={20} className="transition-all duration-200 group-hover:scale-110" />
             </a>
             <a
               href="https://linkedin.com/in/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-ghost group"
+              className="btn btn-ghost group hover:text-accent"
             >
-              <Linkedin size={20} className="transition-colors" />
+              <Linkedin size={20} className="transition-all duration-200 group-hover:scale-110" />
             </a>
             <a
               href="mailto:hello@alamin.rocks"
-              className="btn btn-ghost group"
+              className="btn btn-ghost group hover:text-accent"
             >
-              <Mail size={20} className="transition-colors" />
+              <Mail size={20} className="transition-all duration-200 group-hover:scale-110" />
             </a>
           </div>
 
@@ -131,9 +131,9 @@ const Hero = () => {
               onClick={scrollToProjects}
               className="btn btn-primary btn-lg group relative overflow-hidden"
             >
-              <Code size={18} className="mr-2" />
+              <Code size={18} className="mr-2 transition-transform duration-200 group-hover:scale-110" />
               View My Work
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
             <a
               href="#contact"
@@ -148,9 +148,9 @@ const Hero = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <button
             onClick={scrollToProjects}
-            className="btn btn-ghost p-3 rounded-full"
+            className="btn btn-ghost p-3 rounded-full hover:text-accent transition-colors duration-200"
           >
-            <ArrowDown size={20} />
+            <ArrowDown size={20} className="transition-transform duration-200 hover:scale-110" />
           </button>
         </div>
       </div>
