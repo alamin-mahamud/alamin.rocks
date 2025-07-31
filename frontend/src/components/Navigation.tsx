@@ -8,27 +8,27 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const navItems = [
-    { name: "~/", href: "/" },
-    { name: "about.md", href: "#about" },
-    { name: "experience.log", href: "#experience" },
-    { name: "projects/", href: "#projects" },
-    { name: "contact.sh", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "#about" },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ]
 
   return (
     <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-md z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-xl font-semibold text-foreground mono">
-            alamin@rocks:~$
+          <Link href="/" className="text-lg font-semibold text-foreground">
+            Alamin
           </Link>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-muted-foreground hover:text-solarized-green transition-colors mono"
+                className="btn btn-ghost btn-sm"
               >
                 {item.name}
               </Link>
@@ -36,22 +36,22 @@ const Navigation = () => {
           </div>
 
           <button
-            className="md:hidden"
+            className="btn btn-ghost btn-sm md:hidden"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={24} className="text-foreground" /> : <Menu size={24} className="text-foreground" />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
       {isOpen && (
         <div className="md:hidden bg-background border-t border-border">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="p-4 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 text-muted-foreground hover:text-solarized-green transition-colors mono"
+                className="btn btn-ghost btn-sm w-full justify-start"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}

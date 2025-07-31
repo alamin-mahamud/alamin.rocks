@@ -53,123 +53,94 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-16 bg-background relative overflow-hidden">
-      {/* Background particles/grid */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="grid grid-cols-12 grid-rows-12 h-full w-full">
-          {Array.from({ length: 144 }).map((_, i) => (
-            <div
-              key={i}
-              className="border border-solarized-base1 animate-pulse"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            />
-          ))}
-        </div>
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+          backgroundSize: '24px 24px'
+        }} />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="animate-fade-up">
-          {/* Enhanced Terminal-style greeting */}
-          <div className="mb-8 bg-solarized-base03/90 rounded-lg p-4 max-w-2xl mx-auto backdrop-blur-sm border border-solarized-green/30">
-            <div className="flex items-center mb-2">
-              <div className="flex space-x-2 mr-4">
-                <div className="w-3 h-3 rounded-full bg-solarized-red"></div>
-                <div className="w-3 h-3 rounded-full bg-solarized-yellow"></div>
-                <div className="w-3 h-3 rounded-full bg-solarized-green"></div>
-              </div>
-            </div>
-            <div className="flex items-center mb-2">
-              <Terminal size={16} className="text-solarized-green" />
-              <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$ whoami</span>
-            </div>
-            <div className="text-left text-solarized-base0 mono text-sm">
-              <span className="text-solarized-blue">{displayText}</span>
-              <span className={`text-solarized-green ${isTyping ? 'animate-pulse' : 'opacity-0'}`}>|</span>
+          {/* Clean role display */}
+          <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted/50 rounded-full border border-border/50">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium">
+                {displayText}
+                <span className={`ml-1 ${isTyping ? 'animate-pulse' : 'opacity-0'}`}>|</span>
+              </span>
             </div>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6 mono">
+          <h1 className="text-5xl sm:text-7xl font-bold text-foreground mb-6 tracking-tight">
             Hi, I&apos;m{" "}
-            <span className="text-solarized-blue relative">
-              Alamin!
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-solarized-green rounded-full animate-ping"></div>
+            <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Alamin
             </span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed mono">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.
           </p>
 
-          {/* Animated metrics */}
-          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-green/30 hover:border-solarized-green/60 transition-colors">
-              <div className="flex items-center justify-center mb-2">
-                <Cloud className="text-solarized-blue mr-2" size={24} />
-                <span className="text-2xl font-bold text-solarized-green mono">$1M+</span>
-              </div>
-              <p className="text-sm text-muted-foreground mono">Cloud Cost Savings</p>
+          {/* Metrics */}
+          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-foreground mb-1">$1M+</div>
+              <div className="text-sm text-muted-foreground">Cloud Cost Savings</div>
             </div>
-
-            <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-cyan/30 hover:border-solarized-cyan/60 transition-colors">
-              <div className="flex items-center justify-center mb-2">
-                <Zap className="text-solarized-cyan mr-2" size={24} />
-                <span className="text-2xl font-bold text-solarized-cyan mono">$20M+</span>
-              </div>
-              <p className="text-sm text-muted-foreground mono">SaaS ARR Impact</p>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-foreground mb-1">$20M+</div>
+              <div className="text-sm text-muted-foreground">SaaS ARR Impact</div>
             </div>
-
-            <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-magenta/30 hover:border-solarized-magenta/60 transition-colors">
-              <div className="flex items-center justify-center mb-2">
-                <Code className="text-solarized-magenta mr-2" size={24} />
-                <span className="text-2xl font-bold text-solarized-magenta mono">10+</span>
-              </div>
-              <p className="text-sm text-muted-foreground mono">Years Experience</p>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-foreground mb-1">10+</div>
+              <div className="text-sm text-muted-foreground">Years Experience</div>
             </div>
           </div>
 
-          <div className="flex justify-center space-x-6 mb-12">
+          <div className="flex justify-center gap-3 mb-12">
             <a
               href="https://github.com/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 rounded-lg bg-card/80 backdrop-blur-sm hover:bg-solarized-base03 transition-all duration-300 border border-solarized-green/30 hover:border-solarized-green hover:shadow-lg hover:shadow-solarized-green/20 transform hover:scale-105"
+              className="btn btn-ghost group"
             >
-              <Github size={24} className="text-foreground group-hover:text-solarized-green transition-colors" />
+              <Github size={20} className="transition-colors" />
             </a>
             <a
               href="https://linkedin.com/in/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 rounded-lg bg-card/80 backdrop-blur-sm hover:bg-solarized-base03 transition-all duration-300 border border-solarized-blue/30 hover:border-solarized-blue hover:shadow-lg hover:shadow-solarized-blue/20 transform hover:scale-105"
+              className="btn btn-ghost group"
             >
-              <Linkedin size={24} className="text-foreground group-hover:text-solarized-blue transition-colors" />
+              <Linkedin size={20} className="transition-colors" />
             </a>
             <a
               href="mailto:hello@alamin.rocks"
-              className="group p-4 rounded-lg bg-card/80 backdrop-blur-sm hover:bg-solarized-base03 transition-all duration-300 border border-solarized-cyan/30 hover:border-solarized-cyan hover:shadow-lg hover:shadow-solarized-cyan/20 transform hover:scale-105"
+              className="btn btn-ghost group"
             >
-              <Mail size={24} className="text-foreground group-hover:text-solarized-cyan transition-colors" />
+              <Mail size={20} className="transition-colors" />
             </a>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
               onClick={scrollToProjects}
-              className="group px-8 py-4 bg-gradient-to-r from-solarized-green to-solarized-cyan text-solarized-base3 rounded-lg hover:from-solarized-cyan hover:to-solarized-blue transition-all duration-300 mono font-medium transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden"
+              className="btn btn-primary btn-lg group relative overflow-hidden"
             >
-              <span className="relative z-10 flex items-center justify-center">
-                <Code size={20} className="mr-2" />
-                View My Work
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <Code size={18} className="mr-2" />
+              View My Work
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
             </button>
             <a
               href="#contact"
-              className="group px-8 py-4 border-2 border-solarized-green text-foreground rounded-lg hover:bg-solarized-green hover:text-solarized-base3 transition-all duration-300 mono font-medium transform hover:scale-105 relative overflow-hidden"
+              className="btn btn-secondary btn-lg"
             >
-              <span className="relative z-10 flex items-center justify-center">
-                <Terminal size={20} className="mr-2" />
-                Get In Touch
-              </span>
+              <Terminal size={18} className="mr-2" />
+              Get In Touch
             </a>
           </div>
         </div>
@@ -177,9 +148,9 @@ const Hero = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <button
             onClick={scrollToProjects}
-            className="p-3 rounded-full bg-solarized-green/20 backdrop-blur-sm border border-solarized-green/30 hover:border-solarized-green hover:bg-solarized-green/30 transition-all duration-300"
+            className="btn btn-ghost p-3 rounded-full"
           >
-            <ArrowDown size={24} className="text-solarized-green" />
+            <ArrowDown size={20} />
           </button>
         </div>
       </div>

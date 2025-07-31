@@ -220,25 +220,21 @@ const Projects = () => {
     <section id="projects" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 mono">
-            $ find ~/projects -type f -name &quot;*.innovation&quot;
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
+            Featured Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mono">
-            # Cutting-edge AI & infrastructure projects with real-world impact
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Cutting-edge AI & infrastructure projects with real-world impact
           </p>
         </div>
 
         {/* Category filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg border transition-all duration-300 text-sm ${
-                selectedCategory === category
-                  ? "bg-accent text-accent-foreground border-accent shadow-lg"
-                  : "bg-card text-muted-foreground border-border hover:border-accent/50 hover:text-foreground"
-              }`}
+              className={selectedCategory === category ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'}
             >
               {category === 'all' ? 'All Projects' : category}
             </button>
@@ -253,28 +249,19 @@ const Projects = () => {
             return (
               <div
                 key={project.id}
-                className={`group relative bg-card rounded-lg border border-border overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5 transform hover:scale-[1.02] ${
-                  project.featured ? 'ring-2 ring-accent/20' : ''
-                }`}
+                className="group relative bg-card rounded-xl border border-border/50 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border"
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
-                style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Badges container */}
-                <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
-                  {/* Featured badge */}
+                {/* Badges */}
+                <div className="absolute top-4 left-4 z-10 flex gap-2">
                   {project.featured && (
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-sm">
-                      <Star size={12} className="mr-1" />
-                      FEATURED
+                    <div className="bg-foreground text-background px-2 py-1 rounded text-xs font-medium">
+                      Featured
                     </div>
                   )}
-                  {!project.featured && <div />}
-                  
-                  {/* AI-powered badge */}
                   {project.aiPowered && (
-                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-sm">
-                      <Brain size={12} className="mr-1" />
+                    <div className="bg-muted text-muted-foreground px-2 py-1 rounded text-xs font-medium">
                       AI
                     </div>
                   )}
@@ -284,29 +271,24 @@ const Projects = () => {
                   {/* Header */}
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                      <h3 className="text-xl font-semibold text-foreground mb-2">
                         {project.title}
                       </h3>
-                      <div className="flex items-center gap-4 text-sm">
-                        <span className={`mono font-medium ${getStatusColor(project.status)}`}>
-                          #{project.status.replace('-', '_')}
-                        </span>
-                        <span className="text-muted-foreground">
-                          {project.category}
-                        </span>
+                      <div className="text-sm text-muted-foreground">
+                        {project.category}
                       </div>
                     </div>
                     
-                    <div className="flex space-x-2">
+                    <div className="flex gap-1">
                       {project.demo_url && (
                         <a
                           href={project.demo_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-muted-foreground hover:text-accent hover:scale-110 transition-all duration-300 rounded-lg hover:bg-accent/10"
+                          className="btn btn-ghost btn-sm p-2"
                           title="Live Demo"
                         >
-                          <Play size={20} />
+                          <Play size={16} />
                         </a>
                       )}
                       {project.github_url && (
@@ -314,10 +296,10 @@ const Projects = () => {
                           href={project.github_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-muted-foreground hover:text-blue-500 hover:scale-110 transition-all duration-300 rounded-lg hover:bg-blue-500/10"
+                          className="btn btn-ghost btn-sm p-2"
                           title="Source Code"
                         >
-                          <Github size={20} />
+                          <Github size={16} />
                         </a>
                       )}
                       {project.live_url && (
@@ -325,10 +307,10 @@ const Projects = () => {
                           href={project.live_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-muted-foreground hover:text-cyan-500 hover:scale-110 transition-all duration-300 rounded-lg hover:bg-cyan-500/10"
+                          className="btn btn-ghost btn-sm p-2"
                           title="Live Site"
                         >
-                          <ExternalLink size={20} />
+                          <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
@@ -425,13 +407,10 @@ const Projects = () => {
               href="https://github.com/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-cyan-500 text-white rounded-lg hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 font-medium transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden"
+              className="btn btn-primary btn-lg group"
             >
-              <span className="relative z-10 flex items-center">
-                <Github size={20} className="mr-2" />
-                Explore More Projects
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <Github size={18} className="mr-2" />
+              Explore More Projects
             </a>
             
             <div className="text-sm text-muted-foreground">
