@@ -82,7 +82,6 @@ const Hero = () => {
               <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$ whoami</span>
             </div>
             <div className="text-left text-solarized-base0 mono text-sm">
-              <br/>
               <span className="text-solarized-blue">{displayText}</span>
               <span className={`text-solarized-green ${isTyping ? 'animate-pulse' : 'opacity-0'}`}>|</span>
             </div>
