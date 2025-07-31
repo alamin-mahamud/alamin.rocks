@@ -557,8 +557,119 @@ const FALLBACK_DATA = {
         "Cross-functional team leadership for cost optimization initiatives"
       ],
       category: "financial"
+    },
+    {
+      id: "saas-arr",
+      title: "SaaS ARR Generation",
+      value: "$20M+",
+      description: "Annual Recurring Revenue contribution to SaaS platforms",
+      icon: "TrendingUp",
+      color: "text-accent",
+      percentage: 100,
+      details: [
+        "Designed and maintained highly available SaaS platforms",
+        "Implemented scalable cloud architectures",
+        "Enhanced platform reliability and performance",
+        "Drove customer retention through system optimization"
+      ],
+      category: "financial"
+    },
+    {
+      id: "platform-reliability",
+      title: "System Reliability",
+      value: "99.99%",
+      description: "Uptime SLA maintained across 50+ client environments",
+      icon: "Shield",
+      color: "text-accent",
+      percentage: 99.99,
+      details: [
+        "Advanced monitoring and alerting systems",
+        "Blue/green deployment strategies eliminating downtime",
+        "Proactive incident response and resolution",
+        "Comprehensive disaster recovery planning"
+      ],
+      category: "operational"
+    },
+    {
+      id: "performance-improvement",
+      title: "Performance Optimization",
+      value: "40%",
+      description: "Average performance improvement across systems",
+      icon: "Zap",
+      color: "text-warning",
+      percentage: 40,
+      details: [
+        "Accelerated time-to-market by 40% with MCP platform",
+        "Reduced page load times by 90% through caching",
+        "Eliminated 30% of production brownouts",
+        "Optimized runtime configuration and state management"
+      ],
+      category: "performance"
+    },
+    {
+      id: "user-impact",
+      title: "User Base Served",
+      value: "100K+",
+      description: "Active users across deployed platforms and systems",
+      icon: "Users",
+      color: "text-accent",
+      percentage: 100,
+      details: [
+        "LeadSync.ai platform serving 50K+ users",
+        "AlterYouth scholarship platform with 10K+ users",
+        "HomeLab framework adopted by 200+ users",
+        "Enterprise platforms serving 50+ B2B clients"
+      ],
+      category: "impact"
+    },
+    {
+      id: "security-compliance",
+      title: "Security & Compliance",
+      value: "60%",
+      description: "Vulnerability exposure reduction achieving SOC2 compliance",
+      icon: "Award",
+      color: "text-accent",
+      percentage: 60,
+      details: [
+        "Achieved SOC2 Type II compliance certification",
+        "Implemented comprehensive security frameworks",
+        "Mitigated data breaches and security vulnerabilities",
+        "Enhanced client data protection measures"
+      ],
+      category: "security"
+    },
+    {
+      id: "automation-efficiency",
+      title: "Automation Efficiency",
+      value: "80%",
+      description: "Infrastructure provisioning time reduction through automation",
+      icon: "Target",
+      color: "text-accent",
+      percentage: 80,
+      details: [
+        "Terraform modules streamlined provisioning by 80%",
+        "CI/CD pipelines accelerated development cycles by 35%",
+        "Automated support operations reducing manual toil by 75%",
+        "GitOps workflows enabling continuous deployment"
+      ],
+      category: "operational"
+    },
+    {
+      id: "team-satisfaction",
+      title: "Team Satisfaction",
+      value: "90%",
+      description: "High-profile customer and internal team satisfaction scores",
+      icon: "CheckCircle",
+      color: "text-accent",
+      percentage: 90,
+      details: [
+        "Boosted high-profile customer satisfaction to 90%",
+        "Elevated internal team satisfaction by 20%",
+        "Led cross-functional teams improving scalability by 40%",
+        "Mentored junior engineers and knowledge sharing"
+      ],
+      category: "leadership"
     }
-    // Add more fallback achievements here...
   ],
 
   techSkills: [
