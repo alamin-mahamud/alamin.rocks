@@ -8,31 +8,31 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState("")
   const [isTyping, setIsTyping] = useState(true)
   const [metricsVisible, setMetricsVisible] = useState(false)
-  
-  
+
+
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
   }
-  
+
   useEffect(() => {
     setTimeout(() => setMetricsVisible(true), 1000)
   }, [])
-  
+
   // Typing animation effect
   useEffect(() => {
     const roles = [
       "Senior DevOps Engineer",
-      "AI Products Engineer", 
+      "AI Products Engineer",
       "Site Reliability Engineer",
       "Cloud Architect",
       "Platform Engineer"
     ]
-    
+
     const role = roles[currentRole]
     let index = 0
     setDisplayText("")
     setIsTyping(true)
-    
+
     const typeInterval = setInterval(() => {
       if (index < role.length) {
         setDisplayText(role.substring(0, index + 1))
@@ -40,14 +40,14 @@ const Hero = () => {
       } else {
         setIsTyping(false)
         clearInterval(typeInterval)
-        
+
         // Wait before switching to next role
         setTimeout(() => {
           setCurrentRole((prev) => (prev + 1) % roles.length)
         }, 2000)
       }
     }, 100)
-    
+
     return () => clearInterval(typeInterval)
   }, [currentRole])
 
@@ -57,15 +57,15 @@ const Hero = () => {
       <div className="absolute inset-0 opacity-10">
         <div className="grid grid-cols-12 grid-rows-12 h-full w-full">
           {Array.from({ length: 144 }).map((_, i) => (
-            <div 
-              key={i} 
-              className="border border-solarized-base1 animate-pulse" 
+            <div
+              key={i}
+              className="border border-solarized-base1 animate-pulse"
               style={{ animationDelay: `${i * 0.1}s` }}
             />
           ))}
         </div>
       </div>
-      
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="animate-fade-up">
           {/* Enhanced Terminal-style greeting */}
@@ -77,16 +77,14 @@ const Hero = () => {
                 <div className="w-3 h-3 rounded-full bg-solarized-green"></div>
               </div>
               <Terminal size={16} className="text-solarized-green" />
-              <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$</span>
+              <span className="text-solarized-green ml-2 text-sm mono">alamin@portfolio:~$ whoami</span>
             </div>
             <div className="text-left text-solarized-base0 mono text-sm">
-              <span className="text-solarized-green">whoami</span>
-              <br />
               <span className="text-solarized-blue">{displayText}</span>
               <span className={`text-solarized-green ${isTyping ? 'animate-pulse' : 'opacity-0'}`}>|</span>
             </div>
           </div>
-          
+
           <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6 mono">
             Hi, I&apos;m{" "}
             <span className="text-solarized-blue relative">
@@ -98,7 +96,7 @@ const Hero = () => {
           <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed mono">
             Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.
           </p>
-          
+
           {/* Animated metrics */}
           <div className={`grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-green/30 hover:border-solarized-green/60 transition-colors">
@@ -108,7 +106,7 @@ const Hero = () => {
               </div>
               <p className="text-sm text-muted-foreground mono">Cloud Cost Savings</p>
             </div>
-            
+
             <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-cyan/30 hover:border-solarized-cyan/60 transition-colors">
               <div className="flex items-center justify-center mb-2">
                 <Zap className="text-solarized-cyan mr-2" size={24} />
@@ -116,7 +114,7 @@ const Hero = () => {
               </div>
               <p className="text-sm text-muted-foreground mono">SaaS ARR Impact</p>
             </div>
-            
+
             <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 border border-solarized-magenta/30 hover:border-solarized-magenta/60 transition-colors">
               <div className="flex items-center justify-center mb-2">
                 <Code className="text-solarized-magenta mr-2" size={24} />
@@ -175,7 +173,7 @@ const Hero = () => {
         </div>
 
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <button 
+          <button
             onClick={scrollToProjects}
             className="p-3 rounded-full bg-solarized-green/20 backdrop-blur-sm border border-solarized-green/30 hover:border-solarized-green hover:bg-solarized-green/30 transition-all duration-300"
           >
