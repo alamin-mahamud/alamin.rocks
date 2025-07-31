@@ -1,12 +1,26 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
-import { portfolioApi, About as AboutType } from "@/lib/api"
+
+interface AboutData {
+  title: string
+  description: string[]
+  skills: string[]
+  quick_facts: Record<string, string>
+  recommendations?: {
+    text: string
+    author: string
+    title: string
+  }[]
+  achievements?: {
+    icon: any
+    title: string
+    description: string
+  }[]
+}
 
 const About = () => {
-  const [aboutData, setAboutData] = useState<AboutType | null>(null)
-  const [loading, setLoading] = useState(true)
 
   // Static fallback data from resume and LinkedIn
   const staticAboutData = {
@@ -69,42 +83,13 @@ const About = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchAboutData = async () => {
-      try {
-        const data = await portfolioApi.getAbout()
-        setAboutData(data)
-      } catch (error) {
-        console.error("Failed to fetch about data:", error)
-        // Use static data as fallback
-        setAboutData(staticAboutData as any)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchAboutData()
-  }, [])
-
   const formatDescription = (text: string) => {
     // Convert markdown-style bold to HTML
     return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground font-semibold">$1</strong>')
       .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent/80 transition-colors inline-flex items-center gap-1">$1<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg></a>')
   }
 
-  const data = aboutData || staticAboutData
-
-  if (loading && !aboutData) {
-    return (
-      <section id="about" className="py-20 bg-muted">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-pulse">Loading about section...</div>
-          </div>
-        </div>
-      </section>
-    )
-  }
+  const data = staticAboutData
 
   return (
     <section id="about" className="py-20 bg-muted">
