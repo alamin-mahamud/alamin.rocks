@@ -278,7 +278,7 @@ const Projects = () => {
                       AI
                     </div>
                   )}
-                }
+                </div>
 
                 <div className="p-6">
                   {/* Header */}

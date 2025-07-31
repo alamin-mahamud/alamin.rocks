@@ -179,7 +179,7 @@ const AIAssistant = () => {
           </div>
         </button>
         <div className="absolute bottom-16 right-0 bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-sm">
-          Ask me about Alamin's experience!
+          Ask me about Alamin&apos;s experience!
         </div>
       </div>
     )
@@ -200,7 +200,7 @@ const AIAssistant = () => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white text-sm">AI Assistant</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">Ask about Alamin's expertise</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Ask about Alamin&apos;s expertise</p>
           </div>
         </div>
         

@@ -1,6 +1,4 @@
 /* Futuristic AI Theme - Inspired by modern AI interfaces and Vercel's clean aesthetic */
-
-@layer base {
   .theme-futuristic-ai {
     /* Vercel Light Theme with AI enhancements */
     --background: 0 0% 100%; /* Pure white */
@@ -78,10 +76,8 @@
     --gradient-end: 142 76% 36%; /* Green */
     --glow-color: 217 91% 60% / 0.25; /* Stronger blue glow */
   }
-}
 
 /* Special theme utilities for Futuristic AI theme */
-@layer utilities {
   .theme-futuristic-ai .ai-gradient {
     background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
   }
@@ -178,4 +174,3 @@
       background-position: 0% 50%;
     }
   }
-}

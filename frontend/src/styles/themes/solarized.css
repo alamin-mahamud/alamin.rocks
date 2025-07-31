@@ -1,6 +1,4 @@
 /* Solarized Theme - Classic color scheme by Ethan Schoonover */
-
-@layer base {
   .theme-solarized {
     /* Solarized Light Theme */
     --background: 44 87% 94%; /* base3 #fdf6e3 */
@@ -43,10 +41,8 @@
     --info: 205 56% 76%; /* blue #268bd2 */
     --success: 68 100% 30%; /* green #859900 */
   }
-}
 
 /* Special utilities for Solarized theme */
-@layer utilities {
   /* Glow effects for dark theme */
   .dark.theme-solarized .glow-accent {
     box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
@@ -59,4 +55,3 @@
   .dark.theme-solarized .glow-green {
     box-shadow: 0 0 20px hsl(68 100% 30% / 0.3);
   }
-}
