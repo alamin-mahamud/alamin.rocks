@@ -22,7 +22,7 @@ interface AboutData {
 
 const About = () => {
 
-  // Static fallback data from resume and LinkedIn
+  // Complete static data extracted from resume and LinkedIn profile
   const staticAboutData = {
     title: "About Me",
     description: [
@@ -30,27 +30,96 @@ const About = () => {
       
       "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
       
-      "Previously at **BriteCore Inc**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
+      "Previously at **BriteCore Inc** for **5 years 5 months**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
       
-      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech), where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity."
+      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) since **March 2025** and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech) since **November 2023**, where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity.",
+      
+      "I'm also a **Co-Founder & CSO** at **AK2 Tech** (August 2024 - April 2025), where I built **next-generation AI-powered solutions** to assist on-call support, spearheaded product strategy and GTM, secured initial customer traction in **Bangladesh and Southeast Asia**, and grew the internal team to **10+ members across 3 time zones**."
     ],
-    recommendations: [
+    
+    // Professional Experience Summary
+    experience: [
+      {
+        company: "Kahf Yazılım A.Ş.",
+        role: "Senior DevOps Engineer",
+        duration: "July 2025 - Present",
+        location: "Istanbul, Turkey",
+        achievements: [
+          "On a mission to make online world safe & secure",
+          "Migrating entire infrastructure from Azure to Bare-metal"
+        ],
+        technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"]
+      },
+      {
+        company: "LeadSync.ai",
+        role: "Senior Software Engineer - AI Products",
+        duration: "May 2025 - July 2025",
+        location: "Singapore, Remote",
+        achievements: [
+          "Accelerated time-to-market by 40% by architecting end-to-end MCP integration with advanced LLMs",
+          "Boosted qualified lead discovery by 25% through AI-driven lead scoring and semantic enrichment"
+        ],
+        technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS"]
+      },
+      {
+        company: "BriteCore Inc",
+        role: "Senior Platform Engineer & SRE",
+        duration: "February 2022 - January 2025 (3 years)",
+        location: "Springfield, MO, USA",
+        achievements: [
+          "Generated $20M+ ARR by designing highly available, cost-efficient SaaS platforms",
+          "Cut $1M+ cloud bill by spearheading cost-saving initiatives",
+          "Eliminated 30% of production brownouts through runtime optimization",
+          "Accelerated development cycles by ~35% with CI/CD pipelines enabling 200+ daily builds",
+          "Attained SOC2 compliance by lowering vulnerability exposure by ~60%",
+          "Neutralized DDoS attacks blocking several thousand malicious requests per day",
+          "Streamlined infrastructure provisioning by 80% using Terraform modules",
+          "Enhanced production visibility by reducing MTTD by 80% through real-time dashboards"
+        ],
+        technologies: ["AWS", "Kubernetes", "Terraform", "GitHub Actions", "DataDog", "Prometheus", "Grafana"]
+      }
+    ],
+
+    // Complete LinkedIn Recommendations
+    linkedinRecommendations: [
       {
         text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
         author: "Sunny Parekh",
-        title: "Director of Information Security, Technology and Compliance"
+        title: "Director of Information Security, Technology and Compliance",
+        relationship: "Worked directly with Alamin"
       },
       {
         text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive.",
         author: "Omar Faruque Tuhin",
-        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js"
+        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js",
+        relationship: "Mentored Alamin"
       },
       {
         text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company.",
         author: "Ilias Kanchan",
-        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker"
+        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker",
+        relationship: "Worked with Alamin"
+      },
+      {
+        text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
+        author: "Fazle Rabby",
+        title: "Engineering Manager @ Wolt | DoorDash",
+        relationship: "Worked with Alamin on several services"
+      },
+      {
+        text: "It is rare that you come across a person like Alamin Mahamud. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
+        author: "Ariful Islam",
+        title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB",
+        relationship: "Knows Alamin professionally"
+      },
+      {
+        text: "Alamin was a **fantastic person to work with**, and is not only a **multi-skilled and insightful colleague**, but also an **inspiring strategist**. Very good person. Great employee with a **very strong problem solving skills**. He is an **asset to any company**.",
+        author: "Al Amin Ibne Mosaddeque Chayan",
+        title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer",
+        relationship: "Worked with Alamin"
       }
     ],
+
     achievements: [
       {
         icon: TrendingUp,
@@ -68,19 +137,87 @@ const About = () => {
         description: "Reliable systems across 50+ client environments"
       }
     ],
+
+    // Comprehensive Skills from Resume
     skills: [
-      "Python", "Go", "TypeScript", "Kubernetes", "AWS", "GCP", "Azure", 
-      "Terraform", "Docker", "PostgreSQL", "Redis", "FastAPI", "Nest.JS", 
-      "Next.JS", "Prometheus", "Grafana", "Ansible", "GitHub Actions", 
-      "Elasticsearch", "MCP Protocol", "LLM Integration", "AI-SDK"
+      // Programming Languages
+      "Python", "Go", "TypeScript", "JavaScript",
+      
+      // Web Frameworks
+      "FastAPI", "Nest.JS", "Next.JS", "Gin", "Flask", "Django",
+      
+      // Cloud Platforms
+      "AWS", "GCP", "Azure",
+      
+      // Container & Orchestration
+      "Docker", "Kubernetes", "ECS", "EKS", "Containerd", "LXC",
+      
+      // Infrastructure as Code
+      "Terraform", "AWS CDK", "CloudFormation", "Ansible", "SaltStack",
+      
+      // CI/CD & DevOps
+      "GitHub Actions", "Jenkins", "ArgoCD", "Helm", "Kustomize",
+      
+      // Databases & Caching
+      "PostgreSQL", "MySQL", "Redis", "Elasticsearch", "OpenSearch",
+      
+      // Monitoring & Observability
+      "Prometheus", "Grafana", "DataDog", "CloudWatch", "Loki", "ELK Stack",
+      
+      // Networking & Security
+      "Traefik", "Nginx", "Istio", "Calico", "pfSense", "VPN", "TLS", "BGP",
+      
+      // AI & ML
+      "MCP Protocol", "LLM Integration", "AI-SDK", "TensorFlow",
+      
+      // Messaging & Queues
+      "RabbitMQ",
+      
+      // Storage & Backup
+      "Longhorn", "Ceph", "ZFS", "NFS", "TrueNAS",
+      
+      // Operating Systems
+      "Linux", "Ubuntu", "Debian", "Arch"
     ],
+
     quick_facts: {
       location: "Istanbul, Turkey / Remote",
       experience: "10+ Years",
       focus: "AI, Cloud & MLOps",
       interests: "Source Code Podcast, Open Source, Mentoring",
-      languages: "English, Bangla, Hindi, Urdu, Turkish"
-    }
+      languages: "English (Native/Bilingual), Bangla (Native/Bilingual), Hindi (Native/Bilingual), Urdu (Full Professional), Turkish (Limited Working)",
+      education: "BSc Mechanical Engineering, CUET (2013-2017)",
+      certifications: "CKA (In-Progress), Observability with Grafana/Prometheus/Loki",
+      awards: "Hackathon Champion & App Fest Runner-Up (2015)"
+    },
+
+    // Projects from Resume
+    projects: [
+      {
+        name: "HomeLab",
+        description: "Infrastructure as Code and GitOps framework for automating homelab provisioning and operations",
+        technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD"],
+        type: "Infrastructure"
+      },
+      {
+        name: "Alexandria",
+        description: "Terraform library for Infrastructure as Code templates and modules for cloud-based architectures",
+        technologies: ["Terraform", "AWS", "GCP", "Azure", "IaC"],
+        type: "Infrastructure"
+      },
+      {
+        name: "Capstone",
+        description: "Asset Allocation Problem solver using optimization algorithms for strategic resource allocation",
+        technologies: ["Python", "Optimization Algorithms", "Mathematical Modeling"],
+        type: "AI/ML"
+      },
+      {
+        name: "AlterYouth.com",
+        description: "C2C scholarship platform enabling global scholarship funding through digital banking",
+        technologies: ["Full-Stack Development", "Digital Banking", "Payment Processing"],
+        type: "Social Impact"
+      }
+    ]
   }
 
   const formatDescription = (text: string) => {
@@ -197,21 +334,22 @@ const About = () => {
           </div>
         </div>
 
-        {/* Recommendations */}
+        {/* LinkedIn Recommendations Section */}
         <div>
           <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
-            What Colleagues Say
+            LinkedIn Recommendations
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.recommendations?.map((rec, index) => (
-              <div key={index} className="bg-card rounded-xl p-6 shadow-sm border border-border card-hover">
+            {data.linkedinRecommendations?.map((rec, index) => (
+              <div key={index} className="bg-card rounded-xl p-6 shadow-sm border border-border card-hover hover:shadow-lg transition-all duration-300">
                 <blockquote 
                   className="text-muted-foreground mb-4 leading-relaxed text-sm italic"
                   dangerouslySetInnerHTML={{ __html: formatDescription(`"${rec.text}"`) }}
                 />
                 <footer className="border-t border-border pt-4">
                   <div className="font-semibold text-foreground text-sm">{rec.author}</div>
-                  <div className="text-xs text-muted-foreground">{rec.title}</div>
+                  <div className="text-xs text-muted-foreground mb-1">{rec.title}</div>
+                  <div className="text-xs text-accent">{rec.relationship}</div>
                 </footer>
               </div>
             ))}

@@ -268,53 +268,86 @@ const FALLBACK_DATA = {
       
       "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
       
-      "Previously at **BriteCore Inc**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
+      "Previously at **BriteCore Inc** for **5 years 5 months**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
       
-      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech), where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity."
+      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) since **March 2025** and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech) since **November 2023**, where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity.",
+      
+      "I'm also a **Co-Founder & CSO** at **AK2 Tech** (August 2024 - April 2025), where I built **next-generation AI-powered solutions** to assist on-call support, spearheaded product strategy and GTM, secured initial customer traction in **Bangladesh and Southeast Asia**, and grew the internal team to **10+ members across 3 time zones**."
     ],
     skills: [
-      "Python", "Go", "TypeScript", "Kubernetes", "AWS", "GCP", "Azure", 
-      "Terraform", "Docker", "PostgreSQL", "Redis", "FastAPI", "Nest.JS", 
-      "Next.JS", "Prometheus", "Grafana", "Ansible", "GitHub Actions", 
-      "Elasticsearch", "MCP Protocol", "LLM Integration", "AI-SDK"
+      // Programming Languages
+      "Python", "Go", "TypeScript", "JavaScript",
+      // Web Frameworks
+      "FastAPI", "Nest.JS", "Next.JS", "Gin", "Flask", "Django",
+      // Cloud Platforms
+      "AWS", "GCP", "Azure",
+      // Container & Orchestration
+      "Docker", "Kubernetes", "ECS", "EKS", "Containerd", "LXC",
+      // Infrastructure as Code
+      "Terraform", "AWS CDK", "CloudFormation", "Ansible", "SaltStack",
+      // CI/CD & DevOps
+      "GitHub Actions", "Jenkins", "ArgoCD", "Helm", "Kustomize",
+      // Databases & Caching
+      "PostgreSQL", "MySQL", "Redis", "Elasticsearch", "OpenSearch",
+      // Monitoring & Observability
+      "Prometheus", "Grafana", "DataDog", "CloudWatch", "Loki", "ELK Stack",
+      // Networking & Security
+      "Traefik", "Nginx", "Istio", "Calico", "pfSense", "VPN", "TLS", "BGP",
+      // AI & ML
+      "MCP Protocol", "LLM Integration", "AI-SDK", "TensorFlow",
+      // Messaging & Queues
+      "RabbitMQ",
+      // Storage & Backup
+      "Longhorn", "Ceph", "ZFS", "NFS", "TrueNAS",
+      // Operating Systems
+      "Linux", "Ubuntu", "Debian", "Arch"
     ],
     quick_facts: {
       location: "Istanbul, Turkey / Remote",
       experience: "10+ Years",
       focus: "AI, Cloud & MLOps",
       interests: "Source Code Podcast, Open Source, Mentoring",
-      languages: "English, Bangla, Hindi, Urdu, Turkish"
+      languages: "English (Native/Bilingual), Bangla (Native/Bilingual), Hindi (Native/Bilingual), Urdu (Full Professional), Turkish (Limited Working)",
+      education: "BSc Mechanical Engineering, CUET (2013-2017)",
+      certifications: "CKA (In-Progress), Observability with Grafana/Prometheus/Loki",
+      awards: "Hackathon Champion & App Fest Runner-Up (2015)"
     },
-    recommendations: [
+    linkedinRecommendations: [
       {
         text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
         author: "Sunny Parekh",
-        title: "Director of Information Security, Technology and Compliance"
+        title: "Director of Information Security, Technology and Compliance",
+        relationship: "Worked directly with Alamin"
       },
       {
         text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive.",
         author: "Omar Faruque Tuhin",
-        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js"
+        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js",
+        relationship: "Mentored Alamin"
       },
       {
         text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company.",
         author: "Ilias Kanchan",
-        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker"
+        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker",
+        relationship: "Worked with Alamin"
       },
       {
         text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
         author: "Fazle Rabby",
-        title: "Engineering Manager @ Wolt | DoorDash"
+        title: "Engineering Manager @ Wolt | DoorDash",
+        relationship: "Worked with Alamin on several services"
       },
       {
         text: "It is rare that you come across a person like Alamin Mahamud. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
         author: "Ariful Islam",
-        title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB"
+        title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB",
+        relationship: "Knows Alamin professionally"
       },
       {
         text: "Alamin was a **fantastic person to work with**, and is not only a **multi-skilled and insightful colleague**, but also an **inspiring strategist**. Very good person. Great employee with a **very strong problem solving skills**. He is an **asset to any company**.",
         author: "Al Amin Ibne Mosaddeque Chayan",
-        title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer"
+        title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer",
+        relationship: "Worked with Alamin"
       }
     ],
     achievements: [
@@ -353,7 +386,7 @@ const FALLBACK_DATA = {
       id: "1",
       title: "AI-Powered Model Customization Platform (MCP)",
       description: "Revolutionary LLM integration platform that accelerated time-to-market by 40% and boosted qualified lead discovery by 25%.",
-      long_description: "End-to-end integration platform for advanced large language models featuring semantic enrichment, personalized AI-driven recommendations, and custom model fine-tuning capabilities. Built for enterprise-scale deployment with real-time inference optimization.",
+      long_description: "End-to-end integration platform for advanced large language models featuring semantic enrichment, personalized AI-driven recommendations, and custom model fine-tuning capabilities. Built for enterprise-scale deployment with real-time inference optimization at LeadSync.ai.",
       technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS", "Python", "TensorFlow"],
       github_url: "https://github.com/leadsync-ai/mcp-platform",
       live_url: "https://leadsync.ai",
@@ -376,32 +409,29 @@ const FALLBACK_DATA = {
     },
     {
       id: "2",
-      title: "Cloud Cost Optimization Engine",
-      description: "AI-driven cost optimization system that saved $1M+ in cloud expenses across 50+ enterprise clients.",
-      long_description: "Intelligent cloud resource optimization platform using machine learning to predict usage patterns, automatically rightsizing instances, and implementing cost-saving strategies. Features real-time monitoring, predictive scaling, and automated resource lifecycle management.",
-      technologies: ["Python", "AWS", "Terraform", "Kubernetes", "Machine Learning", "Prometheus", "Grafana", "DataDog"],
-      github_url: "https://github.com/alamin-mahamud/cloud-optimizer",
+      title: "Enterprise SaaS Platform - BriteCore",
+      description: "Generated $20M+ ARR by designing highly available, cost-efficient SaaS platforms for 50+ enterprise clients.",
+      long_description: "Comprehensive enterprise SaaS platform featuring multi-tenant architecture, advanced monitoring, automated deployment pipelines, and cost optimization strategies. Achieved 99.99% uptime across 50+ client environments while cutting $1M+ in cloud costs through intelligent optimization.",
+      technologies: ["AWS", "Kubernetes", "Terraform", "GitHub Actions", "DataDog", "Prometheus", "Grafana", "Python", "PostgreSQL"],
       featured: true,
       category: "DevOps/SRE",
       impact: {
-        savings: "$1M+ cloud cost reduction",
-        users: 50,
+        savings: "$20M+ ARR + $1M+ cost reduction",
+        users: 100000,
         reliability: "99.99% SLA maintained"
       },
       stats: {
-        stars: 156,
-        forks: 23,
-        commits: 890,
-        contributors: 4
+        commits: 5000,
+        contributors: 20,
+        deployments: 200
       },
-      status: "completed" as const,
-      ai_powered: true
+      status: "completed" as const
     },
     {
       id: "3",
       title: "HomeLab: GitOps Infrastructure",
       description: "Production-grade homelab automation framework with Kubernetes orchestration and Infrastructure as Code.",
-      long_description: "Comprehensive homelab management system featuring GitOps workflows, automated service deployment, monitoring stack integration, and disaster recovery mechanisms. Supports multi-cloud deployment and hybrid infrastructure management.",
+      long_description: "Comprehensive homelab management system featuring GitOps workflows, automated service deployment, monitoring stack integration, and disaster recovery mechanisms. Supports multi-cloud deployment and hybrid infrastructure management with highly customizable framework.",
       technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD", "Prometheus", "Grafana", "Traefik"],
       github_url: "https://github.com/alamin-mahamud/homelab",
       demo_url: "https://demo.homelab.alamin.rocks",
@@ -423,7 +453,7 @@ const FALLBACK_DATA = {
       id: "4",
       title: "Alexandria: Multi-Cloud IaC Library",
       description: "Terraform modules library for enterprise-grade multi-cloud deployments across AWS, GCP, and Azure.",
-      long_description: "Comprehensive Infrastructure as Code library providing reusable Terraform modules for complex cloud architectures. Features automated compliance checking, cost estimation, and security best practices enforcement.",
+      long_description: "Comprehensive Infrastructure as Code library providing reusable Terraform modules for complex cloud architectures. Features automated compliance checking, cost estimation, and security best practices enforcement for facilitating deployment and management of cloud-based architectures.",
       technologies: ["Terraform", "AWS", "GCP", "Azure", "Infrastructure as Code", "Compliance", "Security"],
       github_url: "https://github.com/alamin-mahamud/alexandria",
       featured: true,
@@ -442,9 +472,9 @@ const FALLBACK_DATA = {
     },
     {
       id: "5",
-      title: "Asset Allocation AI Solver",
+      title: "Capstone: Asset Allocation AI Solver",
       description: "Machine learning-powered optimization engine for strategic resource allocation in complex environments.",
-      long_description: "Advanced optimization system using genetic algorithms and reinforcement learning to solve multi-constraint asset allocation problems. Designed for financial portfolio management and strategic resource planning.",
+      long_description: "Advanced optimization system using genetic algorithms and reinforcement learning to solve multi-constraint asset allocation problems. The solution is akin to strategy games where optimal resource allocation is key, designed for financial portfolio management and strategic resource planning.",
       technologies: ["Python", "TensorFlow", "Optimization Algorithms", "Reinforcement Learning", "Mathematical Modeling"],
       github_url: "https://github.com/alamin-mahamud/capstone",
       demo_url: "https://asset-optimizer.alamin.rocks",
@@ -465,9 +495,9 @@ const FALLBACK_DATA = {
     {
       id: "6",
       title: "AlterYouth: Social Impact Platform",
-      description: "Blockchain-powered scholarship platform connecting global donors with students in need.",
-      long_description: "Revolutionary C2C scholarship platform integrating digital banking, blockchain transparency, and AI-powered student matching. Features automated fund distribution, impact tracking, and community building tools.",
-      technologies: ["Full-Stack Development", "Blockchain", "Digital Banking", "Payment Processing", "React", "Node.js"],
+      description: "C2C scholarship platform enabling global scholarship funding through digital banking for Bangladesh students.",
+      long_description: "Revolutionary 'The Uber for Scholarships' - C2C scholarship app enabling users worldwide to start scholarships directly for financially struggling students in Government Primary Schools of Bangladesh through digital banking integration with secure payment processing.",
+      technologies: ["Full-Stack Development", "Digital Banking", "Payment Processing", "React", "Node.js", "Blockchain"],
       github_url: "https://github.com/alamin-mahamud/alteryouth",
       live_url: "https://alteryouth.com",
       featured: false,
@@ -483,6 +513,26 @@ const FALLBACK_DATA = {
         contributors: 3
       },
       status: "completed" as const
+    },
+    {
+      id: "7",
+      title: "AK2 Tech: AI-Powered On-Call Solutions",
+      description: "Next-generation AI-powered solutions to assist on-call support with customer traction across Southeast Asia.",
+      long_description: "Co-founded startup building AI-powered solutions for on-call support automation. Spearheaded product strategy and go-to-market initiatives, secured initial customer traction in Bangladesh and Southeast Asia, and grew internal team to 10+ members across 3 time zones. Currently raising pre-seed strategic investment.",
+      technologies: ["AI/ML", "Python", "TypeScript", "Kubernetes", "AWS", "Product Strategy", "GTM"],
+      featured: false,
+      category: "AI/ML",
+      impact: {
+        users: 5000,
+        performance: "Secured initial customer traction",
+        team: "10+ members across 3 time zones"
+      },
+      stats: {
+        commits: 800,
+        contributors: 10
+      },
+      status: "in-progress" as const,
+      ai_powered: true
     }
   ],
 
