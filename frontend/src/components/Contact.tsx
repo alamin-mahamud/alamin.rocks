@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { portfolioApi, ContactInfo } from "@/lib/api"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,20 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null)
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const data = await portfolioApi.getContactInfo()
+        setContactInfo(data)
+      } catch (error) {
+        console.error("Failed to fetch contact info:", error)
+      }
+    }
+
+    fetchContactInfo()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,16 +34,7 @@ const Contact = () => {
     setSubmitStatus(null)
 
     try {
-      // For now, simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // TODO: Integrate with backend API
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // })
-      
+      await portfolioApi.submitContactForm(formData)
       setSubmitStatus('success')
       setFormData({ name: "", email: "", subject: "", message: "" })
     } catch (error) {
@@ -161,7 +167,7 @@ const Contact = () => {
                 <Mail size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">email:</h3>
               </div>
-              <p className="text-accent mono">hello@alamin.rocks</p>
+              <p className="text-accent mono">{contactInfo?.email || 'hello@alamin.rocks'}</p>
             </div>
 
             <div className="bg-card rounded-lg p-6 shadow-sm border border-border card-hover">
@@ -169,7 +175,7 @@ const Contact = () => {
                 <Phone size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">phone:</h3>
               </div>
-              <p className="text-accent mono">+880 168 7060 434</p>
+              <p className="text-accent mono">{contactInfo?.phone || '+880 168 7060 434'}</p>
             </div>
 
             <div className="bg-card rounded-lg p-6 shadow-sm border border-border card-hover">
@@ -177,7 +183,7 @@ const Contact = () => {
                 <MapPin size={24} className="text-accent mr-3" />
                 <h3 className="text-lg font-semibold text-foreground mono">location:</h3>
               </div>
-              <p className="text-accent mono">Istanbul, Turkey</p>
+              <p className="text-accent mono">{contactInfo?.location || 'Istanbul, Turkey'}</p>
             </div>
           </div>
         </div>

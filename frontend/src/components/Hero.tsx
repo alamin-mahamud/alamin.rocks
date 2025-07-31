@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react"
 import { ArrowDown, Github, Linkedin, Mail, Terminal, Code, Cloud, Zap } from "lucide-react"
+import { portfolioApi, Hero as HeroType } from "@/lib/api"
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0)
   const [displayText, setDisplayText] = useState("")
   const [isTyping, setIsTyping] = useState(true)
   const [metricsVisible, setMetricsVisible] = useState(false)
+  const [heroData, setHeroData] = useState<HeroType | null>(null)
+  const [loading, setLoading] = useState(true)
 
 
   const scrollToProjects = () => {
@@ -15,18 +18,26 @@ const Hero = () => {
   }
 
   useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const data = await portfolioApi.getHero()
+        setHeroData(data)
+      } catch (error) {
+        console.error("Failed to fetch hero data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchHeroData()
     setTimeout(() => setMetricsVisible(true), 1000)
   }, [])
 
   // Typing animation effect
   useEffect(() => {
-    const roles = [
-      "Senior DevOps Engineer",
-      "AI Products Engineer",
-      "Site Reliability Engineer",
-      "Cloud Architect",
-      "Platform Engineer"
-    ]
+    if (!heroData) return
+    
+    const roles = heroData.roles
 
     const role = roles[currentRole]
     let index = 0
@@ -49,7 +60,7 @@ const Hero = () => {
     }, 100)
 
     return () => clearInterval(typeInterval)
-  }, [currentRole])
+  }, [currentRole, heroData])
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-16 bg-background relative overflow-hidden">
@@ -77,26 +88,26 @@ const Hero = () => {
           <h1 className="text-5xl sm:text-7xl font-bold text-foreground mb-6 tracking-tight">
             Hi, I&apos;m{" "}
             <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
-              Alamin
+              {heroData?.name.split(' ')[0] || 'Alamin'}
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.
+            {heroData?.description || 'Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.'}
           </p>
 
           {/* Metrics */}
           <div className={`grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">$1M+</div>
+              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.cost_savings || '$1M+'}</div>
               <div className="text-sm text-muted-foreground">Cloud Cost Savings</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">$20M+</div>
+              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.saas_arr || '$20M+'}</div>
               <div className="text-sm text-muted-foreground">SaaS ARR Impact</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">10+</div>
+              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.experience || '10+'}</div>
               <div className="text-sm text-muted-foreground">Years Experience</div>
             </div>
           </div>

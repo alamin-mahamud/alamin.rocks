@@ -2,34 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Github, ExternalLink, Play, Code, Zap, Brain, TrendingUp, Award, Star, Users, GitFork } from "lucide-react"
-
-interface Project {
-  id: string
-  title: string
-  description: string
-  longDescription: string
-  technologies: string[]
-  github_url?: string
-  live_url?: string
-  demo_url?: string
-  image_url?: string
-  featured: boolean
-  category: string
-  impact: {
-    users?: number
-    savings?: string
-    performance?: string
-    reliability?: string
-  }
-  stats: {
-    stars?: number
-    forks?: number
-    commits?: number
-    contributors?: number
-  }
-  status: 'completed' | 'in-progress' | 'maintained'
-  aiPowered?: boolean
-}
+import { portfolioApi, Project } from "@/lib/api"
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([])
@@ -40,145 +13,8 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        // For now, use mock data since backend isn't running
-        const mockProjects: Project[] = [
-          {
-            id: "1",
-            title: "AI-Powered Model Customization Platform (MCP)",
-            description: "Revolutionary LLM integration platform that accelerated time-to-market by 40% and boosted qualified lead discovery by 25%.",
-            longDescription: "End-to-end integration platform for advanced large language models featuring semantic enrichment, personalized AI-driven recommendations, and custom model fine-tuning capabilities. Built for enterprise-scale deployment with real-time inference optimization.",
-            technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS", "Python", "TensorFlow"],
-            github_url: "https://github.com/leadsync-ai/mcp-platform",
-            live_url: "https://leadsync.ai",
-            demo_url: "https://demo.leadsync.ai",
-            featured: true,
-            category: "AI/ML",
-            impact: {
-              users: 50000,
-              performance: "40% faster time-to-market",
-              savings: "$2M+ in development costs"
-            },
-            stats: {
-              stars: 342,
-              forks: 67,
-              commits: 1240,
-              contributors: 8
-            },
-            status: "maintained",
-            aiPowered: true
-          },
-          {
-            id: "2",
-            title: "Cloud Cost Optimization Engine",
-            description: "AI-driven cost optimization system that saved $1M+ in cloud expenses across 50+ enterprise clients.",
-            longDescription: "Intelligent cloud resource optimization platform using machine learning to predict usage patterns, automatically rightsizing instances, and implementing cost-saving strategies. Features real-time monitoring, predictive scaling, and automated resource lifecycle management.",
-            technologies: ["Python", "AWS", "Terraform", "Kubernetes", "Machine Learning", "Prometheus", "Grafana", "DataDog"],
-            github_url: "https://github.com/alamin-mahamud/cloud-optimizer",
-            featured: true,
-            category: "DevOps/SRE",
-            impact: {
-              savings: "$1M+ cloud cost reduction",
-              users: 50,
-              reliability: "99.99% SLA maintained"
-            },
-            stats: {
-              stars: 156,
-              forks: 23,
-              commits: 890,
-              contributors: 4
-            },
-            status: "completed",
-            aiPowered: true
-          },
-          {
-            id: "3",
-            title: "HomeLab: GitOps Infrastructure",
-            description: "Production-grade homelab automation framework with Kubernetes orchestration and Infrastructure as Code.",
-            longDescription: "Comprehensive homelab management system featuring GitOps workflows, automated service deployment, monitoring stack integration, and disaster recovery mechanisms. Supports multi-cloud deployment and hybrid infrastructure management.",
-            technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD", "Prometheus", "Grafana", "Traefik"],
-            github_url: "https://github.com/alamin-mahamud/homelab",
-            demo_url: "https://demo.homelab.alamin.rocks",
-            featured: true,
-            category: "Infrastructure",
-            impact: {
-              performance: "80% faster deployment",
-              reliability: "Zero-downtime updates"
-            },
-            stats: {
-              stars: 89,
-              forks: 15,
-              commits: 467,
-              contributors: 2
-            },
-            status: "maintained"
-          },
-          {
-            id: "4",
-            title: "Alexandria: Multi-Cloud IaC Library",
-            description: "Terraform modules library for enterprise-grade multi-cloud deployments across AWS, GCP, and Azure.",
-            longDescription: "Comprehensive Infrastructure as Code library providing reusable Terraform modules for complex cloud architectures. Features automated compliance checking, cost estimation, and security best practices enforcement.",
-            technologies: ["Terraform", "AWS", "GCP", "Azure", "Infrastructure as Code", "Compliance", "Security"],
-            github_url: "https://github.com/alamin-mahamud/alexandria",
-            featured: true,
-            category: "Infrastructure",
-            impact: {
-              users: 200,
-              performance: "60% faster infrastructure provisioning"
-            },
-            stats: {
-              stars: 203,
-              forks: 34,
-              commits: 324,
-              contributors: 6
-            },
-            status: "maintained"
-          },
-          {
-            id: "5",
-            title: "Asset Allocation AI Solver",
-            description: "Machine learning-powered optimization engine for strategic resource allocation in complex environments.",
-            longDescription: "Advanced optimization system using genetic algorithms and reinforcement learning to solve multi-constraint asset allocation problems. Designed for financial portfolio management and strategic resource planning.",
-            technologies: ["Python", "TensorFlow", "Optimization Algorithms", "Reinforcement Learning", "Mathematical Modeling"],
-            github_url: "https://github.com/alamin-mahamud/capstone",
-            demo_url: "https://asset-optimizer.alamin.rocks",
-            featured: false,
-            category: "AI/ML",
-            impact: {
-              performance: "35% better allocation efficiency"
-            },
-            stats: {
-              stars: 45,
-              forks: 8,
-              commits: 156,
-              contributors: 1
-            },
-            status: "completed",
-            aiPowered: true
-          },
-          {
-            id: "6",
-            title: "AlterYouth: Social Impact Platform",
-            description: "Blockchain-powered scholarship platform connecting global donors with students in need.",
-            longDescription: "Revolutionary C2C scholarship platform integrating digital banking, blockchain transparency, and AI-powered student matching. Features automated fund distribution, impact tracking, and community building tools.",
-            technologies: ["Full-Stack Development", "Blockchain", "Digital Banking", "Payment Processing", "React", "Node.js"],
-            github_url: "https://github.com/alamin-mahamud/alteryouth",
-            live_url: "https://alteryouth.com",
-            featured: false,
-            category: "Social Impact",
-            impact: {
-              users: 10000,
-              savings: "$500K+ in scholarships distributed"
-            },
-            stats: {
-              stars: 67,
-              forks: 12,
-              commits: 289,
-              contributors: 3
-            },
-            status: "completed"
-          }
-        ]
-        setProjects(mockProjects)
+        const data = await portfolioApi.getProjects()
+        setProjects(data)
       } catch (error) {
         console.error("Failed to fetch projects:", error)
       } finally {
@@ -187,7 +23,8 @@ const Projects = () => {
     }
 
     fetchProjects()
-  }, [])
+  }, [selectedCategory])
+
 
   if (loading) {
     return (
@@ -260,7 +97,7 @@ const Projects = () => {
                       Featured
                     </div>
                   )}
-                  {project.aiPowered && (
+                  {project.ai_powered && (
                     <div className="bg-muted text-muted-foreground px-2 py-1 rounded text-xs font-medium">
                       AI
                     </div>
@@ -318,7 +155,7 @@ const Projects = () => {
 
                   {/* Description */}
                   <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                    {isHovered && project.longDescription ? project.longDescription : project.description}
+                    {isHovered && project.long_description ? project.long_description : project.description}
                   </p>
 
                   {/* Impact metrics */}

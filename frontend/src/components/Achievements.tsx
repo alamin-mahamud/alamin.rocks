@@ -16,17 +16,27 @@ import {
   Sparkles,
   LucideIcon
 } from "lucide-react"
+import { portfolioApi, Achievement } from "@/lib/api"
 
-interface Achievement {
-  id: string
-  title: string
-  value: string
-  description: string
+// Icon mapping helper
+const iconMap: Record<string, LucideIcon> = {
+  DollarSign,
+  TrendingUp,
+  Users,
+  Award,
+  Zap,
+  Shield,
+  Target,
+  BarChart3,
+  PieChart,
+  Activity,
+  CheckCircle,
+  Sparkles
+}
+
+// Local achievement interface with LucideIcon
+interface LocalAchievement extends Omit<Achievement, 'icon'> {
   icon: LucideIcon
-  color: string
-  percentage: number
-  details: string[]
-  category: string
 }
 
 interface CounterProps {
@@ -100,8 +110,31 @@ const Achievements = () => {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [hoveredAchievement, setHoveredAchievement] = useState<string | null>(null)
   const [metricsVisible, setMetricsVisible] = useState(false)
+  const [achievements, setAchievements] = useState<LocalAchievement[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const achievements: Achievement[] = [
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const data = await portfolioApi.getAchievements()
+        // Map icon strings to actual icon components
+        const mappedData: LocalAchievement[] = data.map(achievement => ({
+          ...achievement,
+          icon: iconMap[achievement.icon] || DollarSign
+        }))
+        setAchievements(mappedData)
+      } catch (error) {
+        console.error("Failed to fetch achievements:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAchievements()
+  }, [])
+
+  // Keep fallback data for reference
+  const fallbackAchievements: LocalAchievement[] = [
     {
       id: "cloud-savings",
       title: "Cloud Cost Optimization",
