@@ -1,28 +1,36 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { themes, defaultTheme, type ThemeConfig } from '@/styles/themes'
 
-type Theme = 'light' | 'dark'
+type ColorMode = 'light' | 'dark'
 
 interface ThemeContextType {
-  theme: Theme
-  setTheme: (theme: Theme) => void
+  theme: ColorMode
+  setTheme: (theme: ColorMode) => void
   toggleTheme: () => void
+  themeStyle: string
+  setThemeStyle: (style: string) => void
+  availableThemes: Record<string, ThemeConfig>
+  currentThemeConfig: ThemeConfig
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
+  const [theme, setTheme] = useState<ColorMode>('light')
+  const [themeStyle, setThemeStyle] = useState<string>(defaultTheme)
   const [mounted, setMounted] = useState(false)
 
   // Load theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme
+    const savedTheme = localStorage.getItem('theme') as ColorMode
+    const savedThemeStyle = localStorage.getItem('themeStyle') || defaultTheme
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     const initialTheme = savedTheme || systemTheme
     
     setTheme(initialTheme)
+    setThemeStyle(savedThemeStyle)
     setMounted(true)
   }, [])
 
@@ -34,19 +42,30 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Remove existing theme classes
     root.classList.remove('light', 'dark')
+    Object.values(themes).forEach(theme => {
+      root.classList.remove(theme.className)
+    })
     
-    // Add new theme class
+    // Add new theme classes
     root.classList.add(theme)
+    const currentTheme = themes[themeStyle]
+    if (currentTheme) {
+      root.classList.add(currentTheme.className)
+    }
     
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]')
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#002b36' : '#fdf6e3')
+    if (metaThemeColor && currentTheme) {
+      const color = theme === 'dark' 
+        ? currentTheme.preview.dark.background 
+        : currentTheme.preview.light.background
+      metaThemeColor.setAttribute('content', color)
     }
 
     // Save to localStorage
     localStorage.setItem('theme', theme)
-  }, [theme, mounted])
+    localStorage.setItem('themeStyle', themeStyle)
+  }, [theme, themeStyle, mounted])
 
   // Listen for system theme changes
   useEffect(() => {
@@ -67,13 +86,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(current => current === 'light' ? 'dark' : 'light')
   }
 
+  const currentThemeConfig = themes[themeStyle] || themes[defaultTheme]
+
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return null
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ 
+      theme, 
+      setTheme, 
+      toggleTheme,
+      themeStyle,
+      setThemeStyle,
+      availableThemes: themes,
+      currentThemeConfig
+    }}>
       {children}
     </ThemeContext.Provider>
   )

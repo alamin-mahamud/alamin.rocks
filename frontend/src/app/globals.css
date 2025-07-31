@@ -2,69 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme files */
+@import url('../styles/themes/futuristic-ai.css');
+@import url('../styles/themes/solarized.css');
+
+/* Default theme (Futuristic AI) */
 @layer base {
   :root {
-    /* Solarized Light Theme */
-    --background: 44 87% 94%; /* base3 #fdf6e3 */
-    --foreground: 194 14% 40%; /* base00 #657b83 */
-    --primary: 205 69% 98%; /* base2 #eee8d5 */
-    --primary-foreground: 194 14% 40%; /* base00 #657b83 */
-    --secondary: 44 87% 94%; /* base3 #fdf6e3 */
-    --secondary-foreground: 194 14% 40%; /* base00 #657b83 */
-    --muted: 205 69% 98%; /* base2 #eee8d5 */
-    --muted-foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --accent: 68 100% 30%; /* green #859900 */
-    --accent-foreground: 44 87% 94%; /* base3 #fdf6e3 */
-    --border: 180 7% 80%; /* base1 lighter */
-    --card: 44 87% 94%; /* base3 #fdf6e3 */
-    --destructive: 1 71% 52%; /* red #dc322f */
-    --warning: 45 100% 35%; /* yellow #b58900 */
-    --info: 205 56% 76%; /* blue #268bd2 */
-    --success: 68 100% 30%; /* green #859900 */
-    --radius: 0.25rem;
+    /* Futuristic AI Light Theme as default */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    --border: 240 5.9% 90%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --destructive: 0 84.2% 60.2%;
+    --warning: 38 92% 50%;
+    --info: 199 89% 48%;
+    --success: 142 71% 45%;
+    --gradient-start: 217 91% 60%;
+    --gradient-end: 142 71% 45%;
+    --glow-color: 217 91% 60% / 0.2;
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Solarized Dark Theme */
-    --background: 192 100% 11%; /* base03 #002b36 */
-    --foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --primary: 192 81% 14%; /* base02 #073642 */
-    --primary-foreground: 186 8% 84%; /* base0 #839496 */
-    --secondary: 192 100% 11%; /* base03 #002b36 */
-    --secondary-foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --muted: 192 81% 14%; /* base02 #073642 */
-    --muted-foreground: 180 9% 46%; /* base01 #586e75 */
-    --accent: 68 100% 30%; /* green #859900 */
-    --accent-foreground: 192 100% 11%; /* base03 #002b36 */
-    --border: 180 9% 46%; /* base01 #586e75 */
-    --card: 192 81% 14%; /* base02 #073642 */
-    --destructive: 1 71% 52%; /* red #dc322f */
-    --warning: 45 100% 35%; /* yellow #b58900 */
-    --info: 205 56% 76%; /* blue #268bd2 */
-    --success: 68 100% 30%; /* green #859900 */
+    /* Futuristic AI Dark Theme as default */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --border: 217.2 32.6% 17.5%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --warning: 38 92% 50%;
+    --info: 199 89% 48%;
+    --success: 142 71% 45%;
+    --gradient-start: 217 91% 60%;
+    --gradient-end: 199 89% 48%;
+    --glow-color: 217 91% 60% / 0.3;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   body {
     @apply bg-background text-foreground;
-    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1, "liga" 1;
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
-    font-weight: 600;
-  }
-  .mono {
+  
+  /* Monospace font for code elements */
+  code, pre, .mono {
     font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
   }
 }
@@ -85,19 +93,6 @@
   
   .theme-transition-slow {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Glow effects for dark theme */
-  .dark .glow-accent {
-    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
-  }
-  
-  .dark .glow-blue {
-    box-shadow: 0 0 20px hsl(205 56% 76% / 0.3);
-  }
-  
-  .dark .glow-green {
-    box-shadow: 0 0 20px hsl(68 100% 30% / 0.3);
   }
 
   /* Accessibility utilities */

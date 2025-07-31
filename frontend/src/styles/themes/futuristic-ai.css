@@ -1,0 +1,181 @@
+/* Futuristic AI Theme - Inspired by modern AI interfaces and Vercel's clean aesthetic */
+
+@layer base {
+  .theme-futuristic-ai {
+    /* Light mode - Clean, minimal with subtle gradients */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 240 10% 3.9%; /* Near black */
+    
+    /* Primary - Subtle gray tones */
+    --primary: 240 5.9% 10%; /* Dark gray */
+    --primary-foreground: 0 0% 98%; /* Off white */
+    
+    /* Secondary - Light grays */
+    --secondary: 240 4.8% 95.9%; /* Very light gray */
+    --secondary-foreground: 240 5.9% 10%; /* Dark gray */
+    
+    /* Muted colors */
+    --muted: 240 4.8% 95.9%; /* Light gray */
+    --muted-foreground: 240 3.8% 46.1%; /* Medium gray */
+    
+    /* Accent - Electric blue with AI vibes */
+    --accent: 217 91% 60%; /* Bright blue */
+    --accent-foreground: 0 0% 100%; /* White */
+    
+    /* UI elements */
+    --border: 240 5.9% 90%; /* Light border */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 240 10% 3.9%; /* Near black */
+    
+    /* Status colors */
+    --destructive: 0 84.2% 60.2%; /* Red */
+    --warning: 38 92% 50%; /* Orange */
+    --info: 199 89% 48%; /* Cyan */
+    --success: 142 71% 45%; /* Green */
+    
+    /* Special effects */
+    --gradient-start: 217 91% 60%; /* Blue */
+    --gradient-end: 142 71% 45%; /* Green */
+    --glow-color: 217 91% 60% / 0.2; /* Blue glow */
+    
+    --radius: 0.5rem;
+  }
+
+  .dark.theme-futuristic-ai {
+    /* Dark mode - Deep blacks with neon accents */
+    --background: 222.2 84% 4.9%; /* Deep dark blue */
+    --foreground: 210 40% 98%; /* Off white */
+    
+    /* Primary - Darker tones */
+    --primary: 210 40% 98%; /* Off white */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Very dark */
+    
+    /* Secondary - Dark grays */
+    --secondary: 217.2 32.6% 17.5%; /* Dark gray blue */
+    --secondary-foreground: 210 40% 98%; /* Off white */
+    
+    /* Muted colors */
+    --muted: 217.2 32.6% 17.5%; /* Dark gray blue */
+    --muted-foreground: 215 20.2% 65.1%; /* Light gray blue */
+    
+    /* Accent - Neon blue */
+    --accent: 217 91% 60%; /* Bright blue */
+    --accent-foreground: 222.2 47.4% 11.2%; /* Very dark */
+    
+    /* UI elements */
+    --border: 217.2 32.6% 17.5%; /* Dark border */
+    --card: 222.2 84% 4.9%; /* Same as background */
+    --card-foreground: 210 40% 98%; /* Off white */
+    
+    /* Status colors with neon feel */
+    --destructive: 0 62.8% 30.6%; /* Dark red */
+    --warning: 38 92% 50%; /* Orange */
+    --info: 199 89% 48%; /* Cyan */
+    --success: 142 71% 45%; /* Green */
+    
+    /* Special effects */
+    --gradient-start: 217 91% 60%; /* Blue */
+    --gradient-end: 199 89% 48%; /* Cyan */
+    --glow-color: 217 91% 60% / 0.3; /* Stronger blue glow */
+  }
+}
+
+/* Special theme utilities for Futuristic AI theme */
+@layer utilities {
+  .theme-futuristic-ai .ai-gradient {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+  }
+  
+  .theme-futuristic-ai .ai-gradient-text {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .theme-futuristic-ai .ai-glow {
+    box-shadow: 0 0 40px hsl(var(--glow-color));
+  }
+  
+  .theme-futuristic-ai .ai-border-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .theme-futuristic-ai .ai-border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .theme-futuristic-ai .ai-border-glow:hover::before {
+    opacity: 1;
+  }
+  
+  /* Subtle animations */
+  .theme-futuristic-ai .ai-pulse {
+    animation: ai-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes ai-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  /* Glass morphism effect */
+  .theme-futuristic-ai .glass {
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  
+  .dark.theme-futuristic-ai .glass {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border) / 0.3);
+  }
+  
+  /* Neon text effect for dark mode */
+  .dark.theme-futuristic-ai .neon-text {
+    text-shadow: 
+      0 0 10px hsl(var(--accent)),
+      0 0 20px hsl(var(--accent)),
+      0 0 40px hsl(var(--accent));
+  }
+  
+  /* Holographic effect */
+  .theme-futuristic-ai .holographic {
+    background: linear-gradient(
+      135deg,
+      hsl(217 91% 60% / 0.1),
+      hsl(199 89% 48% / 0.1),
+      hsl(142 71% 45% / 0.1),
+      hsl(217 91% 60% / 0.1)
+    );
+    background-size: 200% 200%;
+    animation: holographic-shift 4s ease infinite;
+  }
+  
+  @keyframes holographic-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
