@@ -117,8 +117,8 @@ const TechStack = () => {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center px-4 py-2 rounded-lg border transition-all duration-300 mono text-sm ${
                   selectedCategory === category.id
-                    ? "bg-solarized-green text-solarized-base3 border-solarized-green shadow-lg shadow-solarized-green/30"
-                    : "bg-card text-muted-foreground border-border hover:border-solarized-green/50 hover:text-foreground"
+                    ? "bg-accent text-accent-foreground border-accent shadow-lg shadow-accent/30"
+                    : "bg-card text-muted-foreground border-border hover:border-accent/50 hover:text-foreground"
                 }`}
               >
                 <Icon size={16} className="mr-2" />
@@ -139,7 +139,7 @@ const TechStack = () => {
             return (
               <div
                 key={skill.name}
-                className={`group relative bg-card rounded-lg border border-border p-6 hover:border-solarized-green/50 transition-all duration-500 transform hover:scale-105 hover:shadow-xl ${
+                className={`group relative bg-card rounded-lg border border-border p-6 card-hover ${
                   isAnimated ? "animate-fade-up" : "opacity-0"
                 }`}
                 style={{ animationDelay: `${index * 100}ms` }}
@@ -152,7 +152,7 @@ const TechStack = () => {
                     <Icon size={24} className={`${skill.color} mr-3`} />
                     <h3 className="font-semibold text-foreground mono">{skill.name}</h3>
                   </div>
-                  <span className="text-xs bg-solarized-base02 text-solarized-base0 px-2 py-1 rounded mono">
+                  <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded mono">
                     {skill.yearsExp}y
                   </span>
                 </div>
@@ -161,11 +161,11 @@ const TechStack = () => {
                 <div className="mb-4">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-muted-foreground mono">Proficiency</span>
-                    <span className="text-solarized-green mono font-medium">{skill.level}%</span>
+                    <span className="text-accent mono font-medium">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                     <div
-                      className={`h-full bg-gradient-to-r from-solarized-green to-solarized-cyan transition-all duration-1000 ease-out ${
+                      className={`h-full bg-gradient-to-r from-accent to-accent/70 transition-all duration-1000 ease-out ${
                         isAnimated ? "opacity-100" : "opacity-0"
                       }`}
                       style={{ 
@@ -180,14 +180,14 @@ const TechStack = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground mono">Projects:</span>
-                    <span className="text-solarized-blue mono font-medium">{metrics.totalProjects}</span>
+                    <span className="text-accent mono font-medium">{metrics.totalProjects}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground mono">Level:</span>
                     <span className={`mono font-medium ${
-                      metrics.proficiencyGrade === "Expert" ? "text-solarized-green" :
-                      metrics.proficiencyGrade === "Advanced" ? "text-solarized-cyan" :
-                      "text-solarized-yellow"
+                      metrics.proficiencyGrade === "Expert" ? "text-accent" :
+                      metrics.proficiencyGrade === "Advanced" ? "text-accent/80" :
+                      "text-warning"
                     }`}>
                       {metrics.proficiencyGrade}
                     </span>
@@ -195,36 +195,36 @@ const TechStack = () => {
                 </div>
 
                 {/* Hover overlay with additional metrics */}
-                <div className={`absolute inset-0 bg-solarized-base03/95 backdrop-blur-sm rounded-lg p-6 transition-all duration-300 ${
+                <div className={`absolute inset-0 bg-card/95 backdrop-blur-sm rounded-lg p-6 transition-all duration-300 border border-accent/30 ${
                   isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}>
                   <div className="flex items-center mb-4">
                     <Icon size={24} className={`${skill.color} mr-3`} />
-                    <h3 className="font-semibold text-solarized-base0 mono">{skill.name}</h3>
+                    <h3 className="font-semibold text-foreground mono">{skill.name}</h3>
                   </div>
                   
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-solarized-base1 mono">Total Projects:</span>
-                      <span className="text-solarized-green mono font-bold">{metrics.totalProjects}</span>
+                      <span className="text-muted-foreground mono">Total Projects:</span>
+                      <span className="text-accent mono font-bold">{metrics.totalProjects}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-solarized-base1 mono">Projects/Year:</span>
-                      <span className="text-solarized-cyan mono font-bold">{metrics.avgProjectsPerYear}</span>
+                      <span className="text-muted-foreground mono">Projects/Year:</span>
+                      <span className="text-accent mono font-bold">{metrics.avgProjectsPerYear}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-solarized-base1 mono">Experience:</span>
-                      <span className="text-solarized-blue mono font-bold">{skill.yearsExp} years</span>
+                      <span className="text-muted-foreground mono">Experience:</span>
+                      <span className="text-accent mono font-bold">{skill.yearsExp} years</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-solarized-base1 mono">Proficiency:</span>
-                      <span className="text-solarized-magenta mono font-bold">{skill.level}%</span>
+                      <span className="text-muted-foreground mono">Proficiency:</span>
+                      <span className="text-accent mono font-bold">{skill.level}%</span>
                     </div>
                   </div>
 
                   {/* Real-time activity indicator */}
                   <div className="absolute top-4 right-4">
-                    <div className="w-3 h-3 bg-solarized-green rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-accent rounded-full animate-pulse"></div>
                   </div>
                 </div>
               </div>
@@ -234,40 +234,40 @@ const TechStack = () => {
 
         {/* Summary stats */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-solarized-green/30">
+          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-accent/30 card-hover">
             <div className="flex items-center mb-2">
-              <Code className="text-solarized-green mr-2" size={24} />
-              <span className="text-2xl font-bold text-solarized-green mono">
+              <Code className="text-accent mr-2" size={24} />
+              <span className="text-2xl font-bold text-accent mono">
                 {techSkills.length}
               </span>
             </div>
             <p className="text-muted-foreground mono text-sm">Technologies Mastered</p>
           </div>
           
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-solarized-cyan/30">
+          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-accent/30 card-hover">
             <div className="flex items-center mb-2">
-              <HardDrive className="text-solarized-cyan mr-2" size={24} />
-              <span className="text-2xl font-bold text-solarized-cyan mono">
+              <HardDrive className="text-accent mr-2" size={24} />
+              <span className="text-2xl font-bold text-accent mono">
                 {techSkills.reduce((sum, skill) => sum + skill.projects, 0)}
               </span>
             </div>
             <p className="text-muted-foreground mono text-sm">Total Projects</p>
           </div>
           
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-solarized-blue/30">
+          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-accent/30 card-hover">
             <div className="flex items-center mb-2">
-              <Network className="text-solarized-blue mr-2" size={24} />
-              <span className="text-2xl font-bold text-solarized-blue mono">
+              <Network className="text-accent mr-2" size={24} />
+              <span className="text-2xl font-bold text-accent mono">
                 {Math.round(techSkills.reduce((sum, skill) => sum + skill.level, 0) / techSkills.length)}%
               </span>
             </div>
             <p className="text-muted-foreground mono text-sm">Average Proficiency</p>
           </div>
           
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-solarized-magenta/30">
+          <div className="bg-card/80 backdrop-blur-sm rounded-lg p-6 border border-accent/30 card-hover">
             <div className="flex items-center mb-2">
-              <Shield className="text-solarized-magenta mr-2" size={24} />
-              <span className="text-2xl font-bold text-solarized-magenta mono">
+              <Shield className="text-accent mr-2" size={24} />
+              <span className="text-2xl font-bold text-accent mono">
                 {techSkills.filter(skill => skill.level >= 90).length}
               </span>
             </div>

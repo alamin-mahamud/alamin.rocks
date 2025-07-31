@@ -196,11 +196,11 @@ const Terminal = () => {
 
   const getOutputColor = (type: Command['type']) => {
     switch (type) {
-      case 'success': return 'text-solarized-green'
-      case 'info': return 'text-solarized-cyan'
-      case 'warning': return 'text-solarized-yellow'
-      case 'error': return 'text-solarized-red'
-      default: return 'text-solarized-base0'
+      case 'success': return 'text-accent'
+      case 'info': return 'text-accent'
+      case 'warning': return 'text-warning'
+      case 'error': return 'text-destructive'
+      default: return 'text-foreground'
     }
   }
 
@@ -217,7 +217,7 @@ const Terminal = () => {
         </div>
 
         {/* Terminal window */}
-        <div className="bg-solarized-base03 rounded-lg shadow-2xl border border-solarized-base02 overflow-hidden max-w-5xl mx-auto">
+        <div className="bg-card rounded-lg shadow-2xl border border-border overflow-hidden max-w-5xl mx-auto">
           {/* Terminal header */}
           <div className="flex items-center justify-between px-4 py-3 bg-solarized-base02 border-b border-solarized-base01">
             <div className="flex items-center space-x-2">
@@ -324,7 +324,7 @@ const Terminal = () => {
 
         {/* Command reference */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-card rounded-lg p-6 border border-border">
+          <div className="bg-card rounded-lg p-6 border border-border card-hover">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
               <ChevronRight className="text-solarized-green mr-2" size={20} />
               Kubernetes
@@ -332,20 +332,20 @@ const Terminal = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Clusters:</span>
-                <span className="text-solarized-cyan mono">15+</span>
+                <span className="text-accent mono">15+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Pods:</span>
-                <span className="text-solarized-green mono">500+</span>
+                <span className="text-accent mono">500+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Uptime:</span>
-                <span className="text-solarized-blue mono">99.99%</span>
+                <span className="text-accent mono">99.99%</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
+          <div className="bg-card rounded-lg p-6 border border-border card-hover">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
               <ChevronRight className="text-solarized-orange mr-2" size={20} />
               AWS/Cloud
@@ -353,20 +353,20 @@ const Terminal = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Accounts:</span>
-                <span className="text-solarized-cyan mono">50+</span>
+                <span className="text-accent mono">50+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Cost Saved:</span>
-                <span className="text-solarized-green mono">$1M+</span>
+                <span className="text-accent mono">$1M+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Resources:</span>
-                <span className="text-solarized-blue mono">10K+</span>
+                <span className="text-accent mono">10K+</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border">
+          <div className="bg-card rounded-lg p-6 border border-border card-hover">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
               <ChevronRight className="text-solarized-violet mr-2" size={20} />
               Monitoring
@@ -374,15 +374,15 @@ const Terminal = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Metrics:</span>
-                <span className="text-solarized-cyan mono">50K+</span>
+                <span className="text-accent mono">50K+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">Alerts:</span>
-                <span className="text-solarized-green mono">200+</span>
+                <span className="text-accent mono">200+</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground mono">MTTR:</span>
-                <span className="text-solarized-blue mono">&lt;5min</span>
+                <span className="text-accent mono">&lt;5min</span>
               </div>
             </div>
           </div>
