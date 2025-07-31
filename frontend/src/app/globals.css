@@ -23,16 +23,42 @@
     --success: 68 100% 30%; /* green #859900 */
     --radius: 0.25rem;
   }
+
+  .dark {
+    /* Solarized Dark Theme */
+    --background: 192 100% 11%; /* base03 #002b36 */
+    --foreground: 180 7% 60%; /* base1 #93a1a1 */
+    --primary: 192 81% 14%; /* base02 #073642 */
+    --primary-foreground: 186 8% 84%; /* base0 #839496 */
+    --secondary: 192 100% 11%; /* base03 #002b36 */
+    --secondary-foreground: 180 7% 60%; /* base1 #93a1a1 */
+    --muted: 192 81% 14%; /* base02 #073642 */
+    --muted-foreground: 180 9% 46%; /* base01 #586e75 */
+    --accent: 68 100% 30%; /* green #859900 */
+    --accent-foreground: 192 100% 11%; /* base03 #002b36 */
+    --border: 180 9% 46%; /* base01 #586e75 */
+    --card: 192 81% 14%; /* base02 #073642 */
+    --destructive: 1 71% 52%; /* red #dc322f */
+    --warning: 45 100% 35%; /* yellow #b58900 */
+    --info: 205 56% 76%; /* blue #268bd2 */
+    --success: 68 100% 30%; /* green #859900 */
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
   body {
     @apply bg-background text-foreground;
     font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
     font-feature-settings: "rlig" 1, "calt" 1, "liga" 1;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
@@ -46,5 +72,31 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Theme transition utilities */
+  .theme-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .theme-transition-fast {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .theme-transition-slow {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Glow effects for dark theme */
+  .dark .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+  }
+  
+  .dark .glow-blue {
+    box-shadow: 0 0 20px hsl(205 56% 76% / 0.3);
+  }
+  
+  .dark .glow-green {
+    box-shadow: 0 0 20px hsl(68 100% 30% / 0.3);
   }
 }
