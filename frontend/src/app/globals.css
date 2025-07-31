@@ -6,55 +6,55 @@
 @import url('../styles/themes/futuristic-ai.css');
 @import url('../styles/themes/solarized.css');
 
-/* Default theme (Futuristic AI) */
+/* Vercel-inspired theme with futuristic AI elements */
 @layer base {
   :root {
-    /* Futuristic AI Light Theme as default */
+    /* Vercel Light Theme */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
     --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
-    --border: 240 5.9% 90%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 0 0% 3.9%;
     --destructive: 0 84.2% 60.2%;
     --warning: 38 92% 50%;
     --info: 199 89% 48%;
-    --success: 142 71% 45%;
+    --success: 142 76% 36%;
     --gradient-start: 217 91% 60%;
-    --gradient-end: 142 71% 45%;
-    --glow-color: 217 91% 60% / 0.2;
+    --gradient-end: 199 89% 48%;
+    --glow-color: 217 91% 60% / 0.15;
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Futuristic AI Dark Theme as default */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    /* Vercel Dark Theme */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
     --accent: 217 91% 60%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --border: 217.2 32.6% 17.5%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --accent-foreground: 0 0% 9%;
+    --border: 0 0% 14.9%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --warning: 38 92% 50%;
     --info: 199 89% 48%;
-    --success: 142 71% 45%;
+    --success: 142 76% 36%;
     --gradient-start: 217 91% 60%;
-    --gradient-end: 199 89% 48%;
-    --glow-color: 217 91% 60% / 0.3;
+    --gradient-end: 142 76% 36%;
+    --glow-color: 217 91% 60% / 0.25;
   }
 }
 

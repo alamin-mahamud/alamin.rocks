@@ -209,10 +209,10 @@ const Projects = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-solarized-green'
-      case 'in-progress': return 'text-solarized-yellow'
-      case 'maintained': return 'text-solarized-cyan'
-      default: return 'text-solarized-base1'
+      case 'completed': return 'text-green-500'
+      case 'in-progress': return 'text-yellow-500'
+      case 'maintained': return 'text-cyan-500'
+      default: return 'text-gray-500'
     }
   }
 
@@ -234,10 +234,10 @@ const Projects = () => {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg border transition-all duration-300 mono text-sm ${
+              className={`px-4 py-2 rounded-lg border transition-all duration-300 text-sm ${
                 selectedCategory === category
-                  ? "bg-solarized-green text-solarized-base3 border-solarized-green shadow-lg shadow-solarized-green/30"
-                  : "bg-card text-muted-foreground border-border hover:border-solarized-green/50 hover:text-foreground"
+                  ? "bg-accent text-accent-foreground border-accent shadow-lg"
+                  : "bg-card text-muted-foreground border-border hover:border-accent/50 hover:text-foreground"
               }`}
             >
               {category === 'all' ? 'All Projects' : category}
@@ -253,41 +253,45 @@ const Projects = () => {
             return (
               <div
                 key={project.id}
-                className={`group relative bg-card rounded-lg border border-border overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-solarized-green/10 transform hover:scale-[1.02] ${
-                  project.featured ? 'ring-2 ring-solarized-green/20' : ''
+                className={`group relative bg-card rounded-lg border border-border overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5 transform hover:scale-[1.02] ${
+                  project.featured ? 'ring-2 ring-accent/20' : ''
                 }`}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Featured badge */}
-                {project.featured && (
-                  <div className="absolute top-4 left-4 z-10 bg-solarized-green text-solarized-base3 px-2 py-1 rounded-full text-xs mono font-bold flex items-center">
-                    <Star size={12} className="mr-1" />
-                    FEATURED
-                  </div>
-                )}
-                
-                {/* AI-powered badge */}
-                {project.aiPowered && (
-                  <div className="absolute top-4 right-4 z-10 bg-solarized-magenta text-solarized-base3 px-2 py-1 rounded-full text-xs mono font-bold flex items-center">
-                    <Brain size={12} className="mr-1" />
-                    AI
-                  </div>
-                )}
+                {/* Badges container */}
+                <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
+                  {/* Featured badge */}
+                  {project.featured && (
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-sm">
+                      <Star size={12} className="mr-1" />
+                      FEATURED
+                    </div>
+                  )}
+                  {!project.featured && <div />}
+                  
+                  {/* AI-powered badge */}
+                  {project.aiPowered && (
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center shadow-sm">
+                      <Brain size={12} className="mr-1" />
+                      AI
+                    </div>
+                  )}
+                }
 
                 <div className="p-6">
                   {/* Header */}
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-foreground mono mb-2 group-hover:text-solarized-green transition-colors">
+                      <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
                         {project.title}
                       </h3>
                       <div className="flex items-center gap-4 text-sm">
                         <span className={`mono font-medium ${getStatusColor(project.status)}`}>
                           #{project.status.replace('-', '_')}
                         </span>
-                        <span className="text-solarized-base1 mono">
+                        <span className="text-muted-foreground">
                           {project.category}
                         </span>
                       </div>
@@ -299,7 +303,7 @@ const Projects = () => {
                           href={project.demo_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-solarized-base1 hover:text-solarized-green hover:scale-110 transition-all duration-300 rounded-lg hover:bg-solarized-green/10"
+                          className="p-2 text-muted-foreground hover:text-accent hover:scale-110 transition-all duration-300 rounded-lg hover:bg-accent/10"
                           title="Live Demo"
                         >
                           <Play size={20} />
@@ -310,7 +314,7 @@ const Projects = () => {
                           href={project.github_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-solarized-base1 hover:text-solarized-blue hover:scale-110 transition-all duration-300 rounded-lg hover:bg-solarized-blue/10"
+                          className="p-2 text-muted-foreground hover:text-blue-500 hover:scale-110 transition-all duration-300 rounded-lg hover:bg-blue-500/10"
                           title="Source Code"
                         >
                           <Github size={20} />
@@ -321,7 +325,7 @@ const Projects = () => {
                           href={project.live_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-solarized-base1 hover:text-solarized-cyan hover:scale-110 transition-all duration-300 rounded-lg hover:bg-solarized-cyan/10"
+                          className="p-2 text-muted-foreground hover:text-cyan-500 hover:scale-110 transition-all duration-300 rounded-lg hover:bg-cyan-500/10"
                           title="Live Site"
                         >
                           <ExternalLink size={20} />
@@ -331,34 +335,34 @@ const Projects = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-muted-foreground mb-4 leading-relaxed mono text-sm">
+                  <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
                     {isHovered && project.longDescription ? project.longDescription : project.description}
                   </p>
 
                   {/* Impact metrics */}
                   {Object.keys(project.impact).length > 0 && (
-                    <div className="mb-4 p-3 bg-solarized-base03/20 rounded-lg border border-solarized-green/20">
-                      <h4 className="text-xs font-medium text-solarized-green mono mb-2 flex items-center">
+                    <div className="mb-4 p-3 bg-accent/5 rounded-lg border border-accent/20">
+                      <h4 className="text-xs font-medium text-accent mb-2 flex items-center">
                         <TrendingUp size={12} className="mr-1" />
                         IMPACT METRICS
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         {project.impact.users && (
                           <div className="flex items-center">
-                            <Users size={10} className="text-solarized-cyan mr-2" />
-                            <span className="text-solarized-base1 mono">{project.impact.users.toLocaleString()} users</span>
+                            <Users size={10} className="text-cyan-500 mr-2" />
+                            <span className="text-muted-foreground">{project.impact.users.toLocaleString()} users</span>
                           </div>
                         )}
                         {project.impact.savings && (
                           <div className="flex items-center">
-                            <Award size={10} className="text-solarized-green mr-2" />
-                            <span className="text-solarized-base1 mono">{project.impact.savings}</span>
+                            <Award size={10} className="text-green-500 mr-2" />
+                            <span className="text-muted-foreground">{project.impact.savings}</span>
                           </div>
                         )}
                         {project.impact.performance && (
                           <div className="flex items-center col-span-full">
-                            <Zap size={10} className="text-solarized-yellow mr-2" />
-                            <span className="text-solarized-base1 mono">{project.impact.performance}</span>
+                            <Zap size={10} className="text-yellow-500 mr-2" />
+                            <span className="text-muted-foreground">{project.impact.performance}</span>
                           </div>
                         )}
                       </div>
@@ -366,23 +370,23 @@ const Projects = () => {
                   )}
 
                   {/* GitHub stats */}
-                  <div className="flex items-center gap-4 mb-4 text-xs text-solarized-base1">
+                  <div className="flex items-center gap-4 mb-4 text-xs text-muted-foreground">
                     {project.stats.stars && (
                       <div className="flex items-center">
                         <Star size={12} className="mr-1" />
-                        <span className="mono">{project.stats.stars}</span>
+                        <span>{project.stats.stars}</span>
                       </div>
                     )}
                     {project.stats.forks && (
                       <div className="flex items-center">
                         <GitFork size={12} className="mr-1" />
-                        <span className="mono">{project.stats.forks}</span>
+                        <span>{project.stats.forks}</span>
                       </div>
                     )}
                     {project.stats.commits && (
                       <div className="flex items-center">
                         <Code size={12} className="mr-1" />
-                        <span className="mono">{project.stats.commits} commits</span>
+                        <span>{project.stats.commits} commits</span>
                       </div>
                     )}
                   </div>
@@ -392,13 +396,13 @@ const Projects = () => {
                     {project.technologies.slice(0, isHovered ? project.technologies.length : 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 bg-muted text-foreground text-xs rounded border border-border mono hover:bg-solarized-base2 hover:border-solarized-green/30 transition-all duration-300"
+                        className="px-2 py-1 bg-muted text-foreground text-xs rounded border border-border hover:bg-accent/10 hover:border-accent/30 transition-all duration-300"
                       >
                         {tech}
                       </span>
                     ))}
                     {!isHovered && project.technologies.length > 4 && (
-                      <span className="px-2 py-1 text-solarized-base1 text-xs mono">
+                      <span className="px-2 py-1 text-muted-foreground text-xs">
                         +{project.technologies.length - 4} more
                       </span>
                     )}
@@ -406,7 +410,7 @@ const Projects = () => {
                 </div>
 
                 {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r from-solarized-green/5 to-solarized-cyan/5 rounded-lg transition-opacity duration-300 ${
+                <div className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-cyan-500/5 rounded-lg transition-opacity duration-300 ${
                   isHovered ? 'opacity-100' : 'opacity-0'
                 } pointer-events-none`} />
               </div>
@@ -421,7 +425,7 @@ const Projects = () => {
               href="https://github.com/alamin-mahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-solarized-green to-solarized-cyan text-solarized-base3 rounded-lg hover:from-solarized-cyan hover:to-solarized-blue transition-all duration-300 mono font-medium transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden"
+              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-cyan-500 text-white rounded-lg hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 font-medium transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden"
             >
               <span className="relative z-10 flex items-center">
                 <Github size={20} className="mr-2" />
@@ -430,7 +434,7 @@ const Projects = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </a>
             
-            <div className="text-sm text-solarized-base1 mono">
+            <div className="text-sm text-muted-foreground">
               {projects.reduce((sum, p) => sum + (p.stats.stars || 0), 0)}+ stars across all repositories
             </div>
           </div>

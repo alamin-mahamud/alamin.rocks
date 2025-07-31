@@ -158,7 +158,7 @@ const AIAssistant = () => {
       // Welcome message
       const welcomeMessage: Message = {
         id: 'welcome',
-        content: "👋 Hi! I&apos;m Alamin&apos;s AI assistant. I can answer questions about his experience, projects, achievements, and technical expertise. What would you like to know?",
+        content: "👋 Hi! I'm Alamin's AI assistant. I can answer questions about his experience, projects, achievements, and technical expertise. What would you like to know?",
         sender: 'ai',
         timestamp: new Date()
       }
@@ -171,50 +171,49 @@ const AIAssistant = () => {
       <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative bg-gradient-to-r from-solarized-green to-solarized-cyan text-solarized-base3 p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-solarized-green to-solarized-cyan rounded-full animate-pulse opacity-50"></div>
+          className="group relative bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse opacity-50"></div>
           <MessageCircle size={24} className="relative z-10" />
-          <div className="absolute -top-2 -right-2 w-6 h-6 bg-solarized-red text-solarized-base3 rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
             <Brain size={12} />
           </div>
         </button>
-        <div className="absolute bottom-16 right-0 bg-solarized-base03 text-solarized-base0 px-3 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap mono text-sm">
-          Ask me about Alamin&apos;s experience!
+        <div className="absolute bottom-16 right-0 bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-sm">
+          Ask me about Alamin's experience!
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`fixed bottom-6 right-6 z-50 bg-card border border-border rounded-lg shadow-2xl transition-all duration-300 ${
+    <div className={`fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl transition-all duration-300 ${
       isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
     }`}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border bg-solarized-base03/50 rounded-t-lg">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 rounded-t-xl">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-8 h-8 bg-gradient-to-r from-solarized-green to-solarized-cyan rounded-full flex items-center justify-center">
-              <Bot size={16} className="text-solarized-base3" />
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+              <Bot size={16} className="text-white" />
             </div>
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-solarized-green rounded-full border-2 border-card"></div>
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-900"></div>
           </div>
           <div>
-            <h3 className="font-semibold text-foreground mono text-sm">AI Assistant</h3>
-            <p className="text-xs text-muted-foreground mono">Ask about Alamin&apos;s expertise</p>
+            <h3 className="font-semibold text-gray-900 dark:text-white text-sm">AI Assistant</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Ask about Alamin's expertise</p>
           </div>
         </div>
         
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setIsMinimized(!isMinimized)}
-            className="p-1 text-muted-foreground hover:text-foreground transition-colors"
+            className="p-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-1 text-muted-foreground hover:text-solarized-red transition-colors"
+            className="p-1 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
           >
             <X size={16} />
           </button>
@@ -224,7 +223,7 @@ const AIAssistant = () => {
       {!isMinimized && (
         <>
           {/* Messages */}
-          <div className="flex-1 p-4 overflow-y-auto h-96 bg-background">
+          <div className="flex-1 p-4 overflow-y-auto h-96 bg-gray-50 dark:bg-gray-950">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div
@@ -235,16 +234,16 @@ const AIAssistant = () => {
                 >
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                     message.sender === 'user' 
-                      ? 'bg-solarized-blue text-solarized-base3' 
-                      : 'bg-gradient-to-r from-solarized-green to-solarized-cyan text-solarized-base3'
+                      ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900' 
+                      : 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white'
                   }`}>
                     {message.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
                   </div>
                   
-                  <div className={`max-w-xs p-3 rounded-lg mono text-sm leading-relaxed ${
+                  <div className={`max-w-xs p-3 rounded-lg text-sm leading-relaxed ${
                     message.sender === 'user'
-                      ? 'bg-solarized-blue text-solarized-base3 ml-auto'
-                      : 'bg-card border border-border text-foreground'
+                      ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 ml-auto'
+                      : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white'
                   }`}>
                     {message.content}
                     <div className="text-xs opacity-70 mt-1">
@@ -256,14 +255,14 @@ const AIAssistant = () => {
               
               {isTyping && (
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-solarized-green to-solarized-cyan flex items-center justify-center">
-                    <Bot size={14} className="text-solarized-base3" />
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <Bot size={14} className="text-white" />
                   </div>
-                  <div className="bg-card border border-border p-3 rounded-lg">
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-solarized-green rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-solarized-green rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-solarized-green rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -274,20 +273,19 @@ const AIAssistant = () => {
 
           {/* Quick Questions */}
           {messages.length <= 1 && (
-            <div className="p-4 border-t border-border">
-              <p className="text-xs text-muted-foreground mb-3 mono">Quick questions:</p>
+            <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Quick questions:</p>
               <div className="grid grid-cols-2 gap-2">
                 {quickQuestions.slice(0, 4).map((q) => (
                   <button
                     key={q.id}
                     onClick={() => handleSendMessage(q.question)}
-                    className="text-left p-2 text-xs bg-muted hover:bg-solarized-green/10 rounded border border-border hover:border-solarized-green/30 transition-all mono"
-                  >
+                    className="text-left p-2 text-xs bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all">
                     <div className="flex items-center mb-1">
-                      <Sparkles size={10} className="text-solarized-green mr-1" />
-                      <span className="text-solarized-green font-medium">{q.category}</span>
+                      <Sparkles size={10} className="text-blue-500 mr-1" />
+                      <span className="text-blue-500 font-medium">{q.category}</span>
                     </div>
-                    <div className="text-muted-foreground truncate">{q.question}</div>
+                    <div className="text-gray-600 dark:text-gray-300 truncate">{q.question}</div>
                   </button>
                 ))}
               </div>
@@ -295,7 +293,7 @@ const AIAssistant = () => {
           )}
 
           {/* Input */}
-          <div className="p-4 border-t border-border">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
             <div className="flex items-center space-x-2">
               <input
                 ref={inputRef}
@@ -304,12 +302,12 @@ const AIAssistant = () => {
                 onChange={(e) => setCurrentMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Ask about Alamin's experience..."
-                className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-sm mono placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-solarized-green/50 focus:border-solarized-green"
+                className="flex-1 px-3 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:text-white"
               />
               <button
                 onClick={() => handleSendMessage()}
                 disabled={!currentMessage.trim() || isTyping}
-                className="p-2 bg-gradient-to-r from-solarized-green to-solarized-cyan text-solarized-base3 rounded-lg hover:from-solarized-cyan hover:to-solarized-blue disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 <Send size={16} />
               </button>

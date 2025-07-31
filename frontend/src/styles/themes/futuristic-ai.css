@@ -2,81 +2,81 @@
 
 @layer base {
   .theme-futuristic-ai {
-    /* Light mode - Clean, minimal with subtle gradients */
+    /* Vercel Light Theme with AI enhancements */
     --background: 0 0% 100%; /* Pure white */
-    --foreground: 240 10% 3.9%; /* Near black */
+    --foreground: 0 0% 3.9%; /* Near black */
     
-    /* Primary - Subtle gray tones */
-    --primary: 240 5.9% 10%; /* Dark gray */
+    /* Primary - Pure blacks */
+    --primary: 0 0% 9%; /* Black */
     --primary-foreground: 0 0% 98%; /* Off white */
     
-    /* Secondary - Light grays */
-    --secondary: 240 4.8% 95.9%; /* Very light gray */
-    --secondary-foreground: 240 5.9% 10%; /* Dark gray */
+    /* Secondary - Clean grays */
+    --secondary: 0 0% 96.1%; /* Very light gray */
+    --secondary-foreground: 0 0% 9%; /* Black */
     
     /* Muted colors */
-    --muted: 240 4.8% 95.9%; /* Light gray */
-    --muted-foreground: 240 3.8% 46.1%; /* Medium gray */
+    --muted: 0 0% 96.1%; /* Light gray */
+    --muted-foreground: 0 0% 45.1%; /* Medium gray */
     
-    /* Accent - Electric blue with AI vibes */
+    /* Accent - Blue with AI vibes */
     --accent: 217 91% 60%; /* Bright blue */
-    --accent-foreground: 0 0% 100%; /* White */
+    --accent-foreground: 0 0% 98%; /* White */
     
     /* UI elements */
-    --border: 240 5.9% 90%; /* Light border */
+    --border: 0 0% 89.8%; /* Light border */
     --card: 0 0% 100%; /* White */
-    --card-foreground: 240 10% 3.9%; /* Near black */
+    --card-foreground: 0 0% 3.9%; /* Near black */
     
     /* Status colors */
     --destructive: 0 84.2% 60.2%; /* Red */
     --warning: 38 92% 50%; /* Orange */
     --info: 199 89% 48%; /* Cyan */
-    --success: 142 71% 45%; /* Green */
+    --success: 142 76% 36%; /* Green */
     
     /* Special effects */
     --gradient-start: 217 91% 60%; /* Blue */
-    --gradient-end: 142 71% 45%; /* Green */
-    --glow-color: 217 91% 60% / 0.2; /* Blue glow */
+    --gradient-end: 199 89% 48%; /* Cyan */
+    --glow-color: 217 91% 60% / 0.15; /* Subtle blue glow */
     
     --radius: 0.5rem;
   }
 
   .dark.theme-futuristic-ai {
-    /* Dark mode - Deep blacks with neon accents */
-    --background: 222.2 84% 4.9%; /* Deep dark blue */
-    --foreground: 210 40% 98%; /* Off white */
+    /* Vercel Dark Theme with AI enhancements */
+    --background: 0 0% 3.9%; /* Very dark gray */
+    --foreground: 0 0% 98%; /* Off white */
     
-    /* Primary - Darker tones */
-    --primary: 210 40% 98%; /* Off white */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Very dark */
+    /* Primary - Light tones */
+    --primary: 0 0% 98%; /* Off white */
+    --primary-foreground: 0 0% 9%; /* Black */
     
     /* Secondary - Dark grays */
-    --secondary: 217.2 32.6% 17.5%; /* Dark gray blue */
-    --secondary-foreground: 210 40% 98%; /* Off white */
+    --secondary: 0 0% 14.9%; /* Dark gray */
+    --secondary-foreground: 0 0% 98%; /* Off white */
     
     /* Muted colors */
-    --muted: 217.2 32.6% 17.5%; /* Dark gray blue */
-    --muted-foreground: 215 20.2% 65.1%; /* Light gray blue */
+    --muted: 0 0% 14.9%; /* Dark gray */
+    --muted-foreground: 0 0% 63.9%; /* Light gray */
     
-    /* Accent - Neon blue */
+    /* Accent - Bright blue */
     --accent: 217 91% 60%; /* Bright blue */
-    --accent-foreground: 222.2 47.4% 11.2%; /* Very dark */
+    --accent-foreground: 0 0% 9%; /* Black */
     
     /* UI elements */
-    --border: 217.2 32.6% 17.5%; /* Dark border */
-    --card: 222.2 84% 4.9%; /* Same as background */
-    --card-foreground: 210 40% 98%; /* Off white */
+    --border: 0 0% 14.9%; /* Dark border */
+    --card: 0 0% 3.9%; /* Same as background */
+    --card-foreground: 0 0% 98%; /* Off white */
     
-    /* Status colors with neon feel */
+    /* Status colors */
     --destructive: 0 62.8% 30.6%; /* Dark red */
     --warning: 38 92% 50%; /* Orange */
     --info: 199 89% 48%; /* Cyan */
-    --success: 142 71% 45%; /* Green */
+    --success: 142 76% 36%; /* Green */
     
     /* Special effects */
     --gradient-start: 217 91% 60%; /* Blue */
-    --gradient-end: 199 89% 48%; /* Cyan */
-    --glow-color: 217 91% 60% / 0.3; /* Stronger blue glow */
+    --gradient-end: 142 76% 36%; /* Green */
+    --glow-color: 217 91% 60% / 0.25; /* Stronger blue glow */
   }
 }
 

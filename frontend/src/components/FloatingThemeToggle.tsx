@@ -59,17 +59,6 @@ const FloatingThemeToggle = () => {
           <Palette className="w-3 h-3" />
         </div>
 
-        {/* Theme label */}
-        <div className={`absolute -left-24 top-1/2 -translate-y-1/2 bg-card border border-border px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-300 ${
-          isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
-        }`}>
-          {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
-          
-          {/* Arrow pointer */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full">
-            <div className="w-0 h-0 border-l-4 border-l-border border-y-4 border-y-transparent" />
-          </div>
-        </div>
       </button>
     </div>
   )
