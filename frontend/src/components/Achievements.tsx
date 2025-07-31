@@ -108,7 +108,7 @@ const Achievements = () => {
       value: "$1.2M+",
       description: "Total cloud infrastructure cost savings achieved",
       icon: DollarSign,
-      color: "text-solarized-green",
+      color: "text-accent",
       percentage: 100,
       details: [
         "Optimized AWS CloudWatch log ingestion saving $36.5K/year",
@@ -124,7 +124,7 @@ const Achievements = () => {
       value: "$20M+",
       description: "Annual Recurring Revenue contribution to SaaS platforms",
       icon: TrendingUp,
-      color: "text-solarized-cyan",
+      color: "text-accent",
       percentage: 100,
       details: [
         "Designed and maintained highly available SaaS platforms",
@@ -140,7 +140,7 @@ const Achievements = () => {
       value: "99.99%",
       description: "Uptime SLA maintained across 50+ client environments",
       icon: Shield,
-      color: "text-solarized-blue",
+      color: "text-accent",
       percentage: 99.99,
       details: [
         "Advanced monitoring and alerting systems",
@@ -156,7 +156,7 @@ const Achievements = () => {
       value: "40%",
       description: "Average performance improvement across systems",
       icon: Zap,
-      color: "text-solarized-yellow",
+      color: "text-warning",
       percentage: 40,
       details: [
         "Accelerated time-to-market by 40% with MCP platform",
@@ -172,7 +172,7 @@ const Achievements = () => {
       value: "100K+",
       description: "Active users across deployed platforms and systems",
       icon: Users,
-      color: "text-solarized-magenta",
+      color: "text-accent",
       percentage: 100,
       details: [
         "LeadSync.ai platform serving 50K+ users",
@@ -188,7 +188,7 @@ const Achievements = () => {
       value: "60%",
       description: "Vulnerability exposure reduction achieving SOC2 compliance",
       icon: Award,
-      color: "text-solarized-orange",
+      color: "text-accent",
       percentage: 60,
       details: [
         "Achieved SOC2 Type II compliance certification",
@@ -204,7 +204,7 @@ const Achievements = () => {
       value: "80%",
       description: "Infrastructure provisioning time reduction through automation",
       icon: Target,
-      color: "text-solarized-red",
+      color: "text-accent",
       percentage: 80,
       details: [
         "Terraform modules streamlined provisioning by 80%",
@@ -220,7 +220,7 @@ const Achievements = () => {
       value: "90%",
       description: "High-profile customer and internal team satisfaction scores",
       icon: CheckCircle,
-      color: "text-solarized-violet",
+      color: "text-accent",
       percentage: 90,
       details: [
         "Boosted high-profile customer satisfaction to 90%",
@@ -266,7 +266,7 @@ const Achievements = () => {
           {Array.from({ length: 64 }).map((_, i) => (
             <div 
               key={i} 
-              className="border border-solarized-green animate-pulse" 
+              className="border border-accent animate-pulse" 
               style={{ animationDelay: `${i * 0.05}s` }}
             />
           ))}
@@ -288,30 +288,30 @@ const Achievements = () => {
         <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 transition-all duration-1000 ${
           metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <div className="bg-gradient-to-br from-solarized-green/20 to-solarized-cyan/20 backdrop-blur-sm rounded-xl p-8 border border-solarized-green/30 text-center">
+          <div className="bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-xl p-8 border border-accent/30 text-center card-hover">
             <div className="flex items-center justify-center mb-4">
-              <DollarSign className="text-solarized-green mr-3" size={32} />
-              <span className="text-4xl font-bold text-solarized-green mono">
+              <DollarSign className="text-accent mr-3" size={32} />
+              <span className="text-4xl font-bold text-accent mono">
                 <AnimatedCounter end={21.2} suffix="M+" prefix="$" decimals={1} />
               </span>
             </div>
             <p className="text-muted-foreground mono">Total Financial Impact</p>
           </div>
           
-          <div className="bg-gradient-to-br from-solarized-blue/20 to-solarized-violet/20 backdrop-blur-sm rounded-xl p-8 border border-solarized-blue/30 text-center">
+          <div className="bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-xl p-8 border border-accent/30 text-center card-hover">
             <div className="flex items-center justify-center mb-4">
-              <Users className="text-solarized-blue mr-3" size={32} />
-              <span className="text-4xl font-bold text-solarized-blue mono">
+              <Users className="text-accent mr-3" size={32} />
+              <span className="text-4xl font-bold text-accent mono">
                 <AnimatedCounter end={100} suffix="K+" />
               </span>
             </div>
             <p className="text-muted-foreground mono">Users Served</p>
           </div>
           
-          <div className="bg-gradient-to-br from-solarized-orange/20 to-solarized-red/20 backdrop-blur-sm rounded-xl p-8 border border-solarized-orange/30 text-center">
+          <div className="bg-gradient-to-br from-accent/20 to-accent/10 backdrop-blur-sm rounded-xl p-8 border border-accent/30 text-center card-hover">
             <div className="flex items-center justify-center mb-4">
-              <Award className="text-solarized-orange mr-3" size={32} />
-              <span className="text-4xl font-bold text-solarized-orange mono">
+              <Award className="text-accent mr-3" size={32} />
+              <span className="text-4xl font-bold text-accent mono">
                 <AnimatedCounter end={8} />
               </span>
             </div>
@@ -329,8 +329,8 @@ const Achievements = () => {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center px-4 py-2 rounded-lg border transition-all duration-300 mono text-sm ${
                   selectedCategory === category.id
-                    ? "bg-solarized-green text-solarized-base3 border-solarized-green shadow-lg shadow-solarized-green/30"
-                    : "bg-card text-muted-foreground border-border hover:border-solarized-green/50 hover:text-foreground"
+                    ? "bg-accent text-accent-foreground border-accent shadow-lg shadow-accent/30"
+                    : "bg-card text-muted-foreground border-border hover:border-accent/50 hover:text-foreground"
                 }`}
               >
                 <Icon size={16} className="mr-2" />
@@ -349,8 +349,8 @@ const Achievements = () => {
             return (
               <div
                 key={achievement.id}
-                className={`group relative bg-card rounded-xl border border-border p-8 transition-all duration-500 hover:shadow-2xl hover:border-solarized-green/50 transform hover:scale-[1.02] ${
-                  achievement.category === "financial" ? "ring-2 ring-solarized-green/20" : ""
+                className={`group relative bg-card rounded-xl border border-border p-8 card-hover ${
+                  achievement.category === "financial" ? "ring-2 ring-accent/20" : ""
                 }`}
                 onMouseEnter={() => setHoveredAchievement(achievement.id)}
                 onMouseLeave={() => setHoveredAchievement(null)}
@@ -363,7 +363,7 @@ const Achievements = () => {
                       <Icon size={32} className={achievement.color} />
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-xl font-semibold text-foreground mono group-hover:text-solarized-green transition-colors">
+                      <h3 className="text-xl font-semibold text-foreground mono group-hover:text-accent transition-colors">
                         {achievement.title}
                       </h3>
                       <p className="text-sm text-muted-foreground mono">
@@ -394,7 +394,7 @@ const Achievements = () => {
                   </div>
                   <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                     <div
-                      className={`h-full bg-gradient-to-r from-solarized-green to-solarized-cyan transition-all duration-2000 ease-out`}
+                      className={`h-full bg-gradient-to-r from-accent to-accent/70 transition-all duration-2000 ease-out`}
                       style={{ 
                         width: metricsVisible ? `${achievement.percentage}%` : "0%",
                         transitionDelay: `${index * 200 + 500}ms`
@@ -407,20 +407,20 @@ const Achievements = () => {
                 <div className={`space-y-2 transition-all duration-300 ${
                   isHovered ? "opacity-100 max-h-96" : "opacity-70 max-h-20 overflow-hidden"
                 }`}>
-                  <h4 className="text-sm font-medium text-solarized-green mono mb-3 flex items-center">
+                  <h4 className="text-sm font-medium text-accent mono mb-3 flex items-center">
                     <BarChart3 size={14} className="mr-2" />
                     KEY ACHIEVEMENTS
                   </h4>
                   {achievement.details.map((detail, idx) => (
                     <div key={idx} className="flex items-start text-sm">
-                      <CheckCircle size={14} className="text-solarized-green mr-2 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-accent mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground mono">{detail}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r from-solarized-green/5 to-solarized-cyan/5 rounded-xl transition-opacity duration-300 ${
+                <div className={`absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-xl transition-opacity duration-300 ${
                   isHovered ? 'opacity-100' : 'opacity-0'
                 } pointer-events-none`} />
               </div>
@@ -430,8 +430,8 @@ const Achievements = () => {
 
         {/* Footer stats */}
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-solarized-green/10 to-solarized-cyan/10 backdrop-blur-sm rounded-full border border-solarized-green/30">
-            <TrendingUp className="text-solarized-green mr-3" size={24} />
+          <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent/10 to-accent/5 backdrop-blur-sm rounded-full border border-accent/30">
+            <TrendingUp className="text-accent mr-3" size={24} />
             <span className="text-lg font-medium text-foreground mono">
               Consistent track record of delivering measurable business impact through technical excellence
             </span>
