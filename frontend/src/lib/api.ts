@@ -139,6 +139,16 @@ export interface About {
   description: string[]
   skills: string[]
   quick_facts: Record<string, string>
+  recommendations?: {
+    text: string
+    author: string
+    title: string
+  }[]
+  achievements?: {
+    icon: any
+    title: string
+    description: string
+  }[]
 }
 
 export interface ContactInfo {
@@ -254,21 +264,76 @@ const FALLBACK_DATA = {
     id: "about",
     title: "About Me",
     description: [
-      "Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams. Currently working as Senior DevOps Engineer at Kahf Yazılım A.Ş. and Senior Software Engineer at LeadSync.ai.",
-      "Previously Senior Platform Engineer & SRE at BriteCore Inc where I generated $20M+ ARR and cut $1M+ cloud costs. I specialize in cloud architecture, Kubernetes, Infrastructure as Code, and building highly available SaaS platforms.",
-      "A multi-dimensional thinker with a global mindset, systems-level thinking, and a relentless execution habit."
+      "I'm a **strategic technology leader** dedicated to architecting and scaling **innovative cloud-native solutions** for global enterprises, with a strong **entrepreneurial spirit** that drives startup growth. Over the past **10+ years**, I've successfully built next-generation **Event-driven SaaS platforms**, led transformative **DevOps and SRE initiatives**, and consistently delivered **measurable impact**.",
+      
+      "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
+      
+      "Previously at **BriteCore Inc**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
+      
+      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech), where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity."
     ],
     skills: [
-      "Python", "Go", "TypeScript", "Kubernetes", "AWS/GCP/Azure", "Terraform", 
-      "Docker", "PostgreSQL", "Redis", "FastAPI", "Nest.JS", "Next.JS", 
-      "Prometheus/Grafana", "Ansible", "Jenkins/GitHub Actions", "Elasticsearch"
+      "Python", "Go", "TypeScript", "Kubernetes", "AWS", "GCP", "Azure", 
+      "Terraform", "Docker", "PostgreSQL", "Redis", "FastAPI", "Nest.JS", 
+      "Next.JS", "Prometheus", "Grafana", "Ansible", "GitHub Actions", 
+      "Elasticsearch", "MCP Protocol", "LLM Integration", "AI-SDK"
     ],
     quick_facts: {
       location: "Istanbul, Turkey / Remote",
-      experience: "10+ Years", 
-      focus: "DevOps & SRE",
-      interests: "Cloud Architecture, AI, Podcasting"
-    }
+      experience: "10+ Years",
+      focus: "AI, Cloud & MLOps",
+      interests: "Source Code Podcast, Open Source, Mentoring",
+      languages: "English, Bangla, Hindi, Urdu, Turkish"
+    },
+    recommendations: [
+      {
+        text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
+        author: "Sunny Parekh",
+        title: "Director of Information Security, Technology and Compliance"
+      },
+      {
+        text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive.",
+        author: "Omar Faruque Tuhin",
+        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js"
+      },
+      {
+        text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company.",
+        author: "Ilias Kanchan",
+        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker"
+      },
+      {
+        text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
+        author: "Fazle Rabby",
+        title: "Engineering Manager @ Wolt | DoorDash"
+      },
+      {
+        text: "It is rare that you come across a person like Alamin Mahamud. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
+        author: "Ariful Islam",
+        title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB"
+      },
+      {
+        text: "Alamin was a **fantastic person to work with**, and is not only a **multi-skilled and insightful colleague**, but also an **inspiring strategist**. Very good person. Great employee with a **very strong problem solving skills**. He is an **asset to any company**.",
+        author: "Al Amin Ibne Mosaddeque Chayan",
+        title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer"
+      }
+    ],
+    achievements: [
+      {
+        icon: "TrendingUp",
+        title: "$21.2M+ Total Impact",
+        description: "$20M+ SaaS ARR + $1.2M+ cost savings"
+      },
+      {
+        icon: "Users",
+        title: "100K+ Users Served",
+        description: "Across multiple platforms and projects"
+      },
+      {
+        icon: "Award",
+        title: "99.99% Uptime",
+        description: "Reliable systems across 50+ client environments"
+      }
+    ]
   },
 
   contactInfo: {
@@ -308,8 +373,117 @@ const FALLBACK_DATA = {
       },
       status: "maintained" as const,
       ai_powered: true
+    },
+    {
+      id: "2",
+      title: "Cloud Cost Optimization Engine",
+      description: "AI-driven cost optimization system that saved $1M+ in cloud expenses across 50+ enterprise clients.",
+      long_description: "Intelligent cloud resource optimization platform using machine learning to predict usage patterns, automatically rightsizing instances, and implementing cost-saving strategies. Features real-time monitoring, predictive scaling, and automated resource lifecycle management.",
+      technologies: ["Python", "AWS", "Terraform", "Kubernetes", "Machine Learning", "Prometheus", "Grafana", "DataDog"],
+      github_url: "https://github.com/alamin-mahamud/cloud-optimizer",
+      featured: true,
+      category: "DevOps/SRE",
+      impact: {
+        savings: "$1M+ cloud cost reduction",
+        users: 50,
+        reliability: "99.99% SLA maintained"
+      },
+      stats: {
+        stars: 156,
+        forks: 23,
+        commits: 890,
+        contributors: 4
+      },
+      status: "completed" as const,
+      ai_powered: true
+    },
+    {
+      id: "3",
+      title: "HomeLab: GitOps Infrastructure",
+      description: "Production-grade homelab automation framework with Kubernetes orchestration and Infrastructure as Code.",
+      long_description: "Comprehensive homelab management system featuring GitOps workflows, automated service deployment, monitoring stack integration, and disaster recovery mechanisms. Supports multi-cloud deployment and hybrid infrastructure management.",
+      technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD", "Prometheus", "Grafana", "Traefik"],
+      github_url: "https://github.com/alamin-mahamud/homelab",
+      demo_url: "https://demo.homelab.alamin.rocks",
+      featured: true,
+      category: "Infrastructure",
+      impact: {
+        performance: "80% faster deployment",
+        reliability: "Zero-downtime updates"
+      },
+      stats: {
+        stars: 89,
+        forks: 15,
+        commits: 467,
+        contributors: 2
+      },
+      status: "maintained" as const
+    },
+    {
+      id: "4",
+      title: "Alexandria: Multi-Cloud IaC Library",
+      description: "Terraform modules library for enterprise-grade multi-cloud deployments across AWS, GCP, and Azure.",
+      long_description: "Comprehensive Infrastructure as Code library providing reusable Terraform modules for complex cloud architectures. Features automated compliance checking, cost estimation, and security best practices enforcement.",
+      technologies: ["Terraform", "AWS", "GCP", "Azure", "Infrastructure as Code", "Compliance", "Security"],
+      github_url: "https://github.com/alamin-mahamud/alexandria",
+      featured: true,
+      category: "Infrastructure",
+      impact: {
+        users: 200,
+        performance: "60% faster infrastructure provisioning"
+      },
+      stats: {
+        stars: 203,
+        forks: 34,
+        commits: 324,
+        contributors: 6
+      },
+      status: "maintained" as const
+    },
+    {
+      id: "5",
+      title: "Asset Allocation AI Solver",
+      description: "Machine learning-powered optimization engine for strategic resource allocation in complex environments.",
+      long_description: "Advanced optimization system using genetic algorithms and reinforcement learning to solve multi-constraint asset allocation problems. Designed for financial portfolio management and strategic resource planning.",
+      technologies: ["Python", "TensorFlow", "Optimization Algorithms", "Reinforcement Learning", "Mathematical Modeling"],
+      github_url: "https://github.com/alamin-mahamud/capstone",
+      demo_url: "https://asset-optimizer.alamin.rocks",
+      featured: false,
+      category: "AI/ML",
+      impact: {
+        performance: "35% better allocation efficiency"
+      },
+      stats: {
+        stars: 45,
+        forks: 8,
+        commits: 156,
+        contributors: 1
+      },
+      status: "completed" as const,
+      ai_powered: true
+    },
+    {
+      id: "6",
+      title: "AlterYouth: Social Impact Platform",
+      description: "Blockchain-powered scholarship platform connecting global donors with students in need.",
+      long_description: "Revolutionary C2C scholarship platform integrating digital banking, blockchain transparency, and AI-powered student matching. Features automated fund distribution, impact tracking, and community building tools.",
+      technologies: ["Full-Stack Development", "Blockchain", "Digital Banking", "Payment Processing", "React", "Node.js"],
+      github_url: "https://github.com/alamin-mahamud/alteryouth",
+      live_url: "https://alteryouth.com",
+      featured: false,
+      category: "Social Impact",
+      impact: {
+        users: 10000,
+        savings: "$500K+ in scholarships distributed"
+      },
+      stats: {
+        stars: 67,
+        forks: 12,
+        commits: 289,
+        contributors: 3
+      },
+      status: "completed" as const
     }
-    // Add more fallback projects here...
   ],
 
   achievements: [
