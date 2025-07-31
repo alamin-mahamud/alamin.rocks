@@ -18,26 +18,74 @@ const Experience = () => {
     {
       company: "Kahf Yazılım A.Ş.",
       role: "Senior DevOps Engineer",
-      duration: "May 2025 - July 2027",
+      duration: "July 2025 - Present",
       location: "Istanbul, Turkey",
       current: true,
       achievements: [
         "On a mission to make online world safe & secure",
-        "Migrating the entire infrastructure from Azure to Bare-metal"
+        "Migrating entire infrastructure from Azure to Bare-metal",
+        "Implementing cloud-native solutions with Kubernetes orchestration",
+        "Establishing robust monitoring and observability stack"
       ],
-      technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"]
+      technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"],
+      website: "https://kahf.co"
     },
     {
       company: "LeadSync.ai",
       role: "Senior Software Engineer - AI Products",
-      duration: "May 2025 - July 2027",
+      duration: "May 2025 - July 2025",
       location: "Singapore, Remote",
+      achievements: [
+        "Accelerated time-to-market by 40% by architecting end-to-end MCP integration with advanced LLMs",
+        "Boosted qualified lead discovery by 25% through AI-driven lead scoring and semantic enrichment",
+        "Built enterprise-scale AI platform with real-time inference optimization",
+        "Implemented personalized AI-driven recommendations system"
+      ],
+      technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS"],
+      website: "https://leadsync.ai"
+    },
+    {
+      company: "AK2 Tech",
+      role: "Co-Founder & CSO",
+      duration: "August 2024 - April 2025",
+      location: "Dhaka, Bangladesh",
+      achievements: [
+        "Built next-generation AI-powered solutions to assist on-call support",
+        "Spearheaded product strategy and GTM securing initial customer traction in Bangladesh and Southeast Asia",
+        "Grew internal team of engineers, product, and GTM to 10+ members across 3 time zones",
+        "Currently raising pre-seed strategic investment for AI-powered on-call automation platform"
+      ],
+      technologies: ["AI/ML", "Python", "TypeScript", "Kubernetes", "AWS", "Product Strategy", "Go-to-Market"]
+    },
+    {
+      company: "Dark Knight Technologies",
+      role: "Founder & Platform Architect",
+      duration: "November 2023 - Present",
+      location: "Remote",
       current: true,
       achievements: [
-        "Accelerated time-to-market by 40% by architecting and deploying an end-to-end integration of the Model Customization Platform (MCP) with advanced large language models (LLMs)",
-        "Boosted qualified lead discovery by 25% through AI-driven lead scoring, semantic enrichment, and personalized outreach recommendations"
+        "Empowering businesses by building highly scalable, fault-tolerant applications",
+        "Implementing robust cybersecurity measures and efficient platforms",
+        "Architecting cloud-native solutions for global enterprises",
+        "Providing strategic technology consulting for startups and enterprises"
       ],
-      technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS"]
+      technologies: ["Full-Stack Development", "Cloud Architecture", "Cybersecurity", "Platform Engineering"],
+      website: "https://darkknight.tech"
+    },
+    {
+      company: "Source Code Podcast",
+      role: "Founder & Host",
+      duration: "March 2025 - Present",
+      location: "Remote",
+      current: true,
+      achievements: [
+        "Building a platform for technology discussions and knowledge sharing",
+        "Growing audience of developers and technology professionals",
+        "Featuring industry experts and thought leaders",
+        "Contributing to developer community growth and education"
+      ],
+      technologies: ["Content Creation", "Community Building", "Podcasting", "Developer Relations"],
+      website: "https://sourcecode.alamin.rocks"
     },
     {
       company: "BriteCore Inc",

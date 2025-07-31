@@ -33,6 +33,64 @@ const TechStack = () => {
   const [techSkills, setTechSkills] = useState<LocalTechSkill[]>([])
   const [loading, setLoading] = useState(true)
 
+  // Comprehensive static tech skills data from resume
+  const staticTechSkills: LocalTechSkill[] = [
+    // Programming Languages
+    { id: "python", name: "Python", category: "programming", level: 95, yearsExp: 8, years_exp: 8, icon: Code, color: "text-yellow-400", projects: 45 },
+    { id: "go", name: "Go", category: "programming", level: 85, yearsExp: 4, years_exp: 4, icon: Code, color: "text-blue-400", projects: 12 },
+    { id: "typescript", name: "TypeScript", category: "programming", level: 90, yearsExp: 6, years_exp: 6, icon: Code, color: "text-blue-600", projects: 35 },
+    { id: "javascript", name: "JavaScript", category: "programming", level: 88, yearsExp: 7, years_exp: 7, icon: Code, color: "text-yellow-300", projects: 40 },
+    
+    // Web Frameworks
+    { id: "fastapi", name: "FastAPI", category: "programming", level: 92, yearsExp: 4, years_exp: 4, icon: Code, color: "text-green-500", projects: 15 },
+    { id: "nestjs", name: "Nest.JS", category: "programming", level: 88, yearsExp: 3, years_exp: 3, icon: Code, color: "text-red-500", projects: 8 },
+    { id: "nextjs", name: "Next.JS", category: "programming", level: 85, yearsExp: 3, years_exp: 3, icon: Code, color: "text-gray-700", projects: 12 },
+    { id: "gin", name: "Gin", category: "programming", level: 80, yearsExp: 2, years_exp: 2, icon: Code, color: "text-blue-500", projects: 6 },
+    { id: "flask", name: "Flask", category: "programming", level: 85, yearsExp: 5, years_exp: 5, icon: Code, color: "text-gray-600", projects: 18 },
+    { id: "django", name: "Django", category: "programming", level: 82, yearsExp: 4, years_exp: 4, icon: Code, color: "text-green-600", projects: 14 },
+    
+    // Cloud Platforms
+    { id: "aws", name: "AWS", category: "cloud", level: 95, yearsExp: 7, years_exp: 7, icon: Cloud, color: "text-orange-500", projects: 50 },
+    { id: "gcp", name: "GCP", category: "cloud", level: 80, yearsExp: 3, years_exp: 3, icon: Cloud, color: "text-blue-500", projects: 15 },
+    { id: "azure", name: "Azure", category: "cloud", level: 88, yearsExp: 5, years_exp: 5, icon: Cloud, color: "text-blue-600", projects: 25 },
+    
+    // Container & Orchestration
+    { id: "docker", name: "Docker", category: "system", level: 95, yearsExp: 8, years_exp: 8, icon: Server, color: "text-blue-500", projects: 60 },
+    { id: "kubernetes", name: "Kubernetes", category: "system", level: 92, yearsExp: 6, years_exp: 6, icon: Server, color: "text-blue-600", projects: 35 },
+    { id: "ecs", name: "ECS", category: "cloud", level: 85, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-400", projects: 20 },
+    { id: "eks", name: "EKS", category: "cloud", level: 88, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-500", projects: 18 },
+    
+    // Infrastructure as Code  
+    { id: "terraform", name: "Terraform", category: "system", level: 95, yearsExp: 6, years_exp: 6, icon: Server, color: "text-purple-500", projects: 40 },
+    { id: "ansible", name: "Ansible", category: "system", level: 90, yearsExp: 5, years_exp: 5, icon: Server, color: "text-red-600", projects: 25 },
+    { id: "cloudformation", name: "CloudFormation", category: "cloud", level: 80, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-400", projects: 15 },
+    
+    // Databases & Caching
+    { id: "postgresql", name: "PostgreSQL", category: "database", level: 92, yearsExp: 8, years_exp: 8, icon: Database, color: "text-blue-700", projects: 45 },
+    { id: "mysql", name: "MySQL", category: "database", level: 85, yearsExp: 6, years_exp: 6, icon: Database, color: "text-blue-600", projects: 30 },
+    { id: "redis", name: "Redis", category: "database", level: 88, yearsExp: 5, years_exp: 5, icon: Database, color: "text-red-500", projects: 28 },
+    { id: "elasticsearch", name: "Elasticsearch", category: "database", level: 85, yearsExp: 4, years_exp: 4, icon: Database, color: "text-yellow-600", projects: 15 },
+    
+    // Monitoring & Observability
+    { id: "prometheus", name: "Prometheus", category: "monitoring", level: 90, yearsExp: 5, years_exp: 5, icon: Activity, color: "text-orange-600", projects: 25 },
+    { id: "grafana", name: "Grafana", category: "monitoring", level: 92, yearsExp: 5, years_exp: 5, icon: Activity, color: "text-orange-500", projects: 30 },
+    { id: "datadog", name: "DataDog", category: "monitoring", level: 88, yearsExp: 4, years_exp: 4, icon: Activity, color: "text-purple-600", projects: 20 },
+    { id: "cloudwatch", name: "CloudWatch", category: "monitoring", level: 85, yearsExp: 6, years_exp: 6, icon: Activity, color: "text-orange-400", projects: 35 },
+    { id: "loki", name: "Loki", category: "monitoring", level: 80, yearsExp: 3, years_exp: 3, icon: Activity, color: "text-orange-400", projects: 12 },
+    
+    // CI/CD & DevOps
+    { id: "github-actions", name: "GitHub Actions", category: "system", level: 95, yearsExp: 5, years_exp: 5, icon: Server, color: "text-gray-700", projects: 50 },
+    { id: "jenkins", name: "Jenkins", category: "system", level: 82, yearsExp: 4, years_exp: 4, icon: Server, color: "text-blue-600", projects: 18 },
+    { id: "argocd", name: "ArgoCD", category: "system", level: 85, yearsExp: 3, years_exp: 3, icon: Server, color: "text-blue-500", projects: 15 },
+    { id: "helm", name: "Helm", category: "system", level: 88, yearsExp: 4, years_exp: 4, icon: Server, color: "text-blue-600", projects: 25 },
+    
+    // AI & ML
+    { id: "mcp-protocol", name: "MCP Protocol", category: "programming", level: 90, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-500", projects: 5 },
+    { id: "llm-integration", name: "LLM Integration", category: "programming", level: 85, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-600", projects: 8 },
+    { id: "ai-sdk", name: "AI-SDK", category: "programming", level: 82, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-400", projects: 6 },
+    { id: "tensorflow", name: "TensorFlow", category: "programming", level: 75, yearsExp: 2, years_exp: 2, icon: Code, color: "text-orange-500", projects: 4 }
+  ]
+
   useEffect(() => {
     const fetchTechSkills = async () => {
       try {
@@ -45,6 +103,8 @@ const TechStack = () => {
         setTechSkills(mappedData)
       } catch (error) {
         console.error("Failed to fetch tech skills:", error)
+        // Use static data as fallback
+        setTechSkills(staticTechSkills)
       } finally {
         setLoading(false)
       }

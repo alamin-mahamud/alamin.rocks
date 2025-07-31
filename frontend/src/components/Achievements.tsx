@@ -125,6 +125,8 @@ const Achievements = () => {
         setAchievements(mappedData)
       } catch (error) {
         console.error("Failed to fetch achievements:", error)
+        // Use fallback data when API fails
+        setAchievements(fallbackAchievements)
       } finally {
         setLoading(false)
       }

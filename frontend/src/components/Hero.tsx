@@ -17,6 +17,30 @@ const Hero = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // Comprehensive static hero data from resume
+  const staticHeroData: HeroType = {
+    id: "hero",
+    roles: [
+      "Senior DevOps Engineer",
+      "AI Products Engineer", 
+      "Site Reliability Engineer",
+      "Cloud Architect",
+      "Platform Engineer",
+      "Co-Founder & CSO",
+      "Founder & Host"
+    ],
+    name: "Alamin Mahamud",
+    description: "Strategic technology leader with 10+ years of expertise in building scalable cloud platforms, leading DevOps + SRE teams, and architecting AI-powered solutions that drive $20M+ ARR and serve 100K+ users globally.",
+    metrics: {
+      cost_savings: "$1.2M+",
+      saas_arr: "$20M+", 
+      experience: "10+",
+      users_served: "100K+",
+      uptime_sla: "99.99%",
+      total_impact: "$21.2M+"
+    }
+  }
+
   useEffect(() => {
     const fetchHeroData = async () => {
       try {
@@ -24,6 +48,8 @@ const Hero = () => {
         setHeroData(data)
       } catch (error) {
         console.error("Failed to fetch hero data:", error)
+        // Use static data as fallback
+        setHeroData(staticHeroData)
       } finally {
         setLoading(false)
       }
@@ -97,18 +123,22 @@ const Hero = () => {
           </p>
 
           {/* Metrics */}
-          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className={`grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.cost_savings || '$1M+'}</div>
-              <div className="text-sm text-muted-foreground">Cloud Cost Savings</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.total_impact || '$21.2M+'}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Total Impact</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.saas_arr || '$20M+'}</div>
-              <div className="text-sm text-muted-foreground">SaaS ARR Impact</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.users_served || '100K+'}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Users Served</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">{heroData?.metrics?.experience || '10+'}</div>
-              <div className="text-sm text-muted-foreground">Years Experience</div>
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.uptime_sla || '99.99%'}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Uptime SLA</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.experience || '10+'}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Years Exp</div>
             </div>
           </div>
 
