@@ -1,128 +1,160 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Zap, Code2, Award, TrendingUp } from "lucide-react"
+import { 
+  Code, 
+  Database, 
+  Cloud, 
+  Server, 
+  Activity,
+  Cpu,
+  LucideIcon
+} from "lucide-react"
 import { portfolioApi, TechSkill } from "@/lib/api"
-import TechnologySlider from "./ui/TechnologySlider"
+import Pagination from "./ui/Pagination"
 
-interface Technology {
-  id: string
-  name: string
-  category: string
-  level: number
-  years: number
-  icon: string
-  color: string
+const techIconMap: Record<string, LucideIcon> = {
+  Code,
+  Database,
+  Cloud,
+  Server,
+  Activity,
+  Cpu
 }
 
-const TechStack = () => {
-  const [technologies, setTechnologies] = useState<Technology[]>([])
-  const [loading, setLoading] = useState(true)
+interface LocalTechSkill extends Omit<TechSkill, 'icon'> {
+  icon: LucideIcon
+  yearsExp: number
+}
 
-  // Comprehensive technology data with proper icons and colors
-  const staticTechnologies: Technology[] = [
+const SKILLS_PER_PAGE = 12
+
+const TechStack = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [animatedSkills, setAnimatedSkills] = useState<string[]>([])
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const [techSkills, setTechSkills] = useState<LocalTechSkill[]>([])
+  const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // Comprehensive static tech skills data from resume
+  const staticTechSkills: LocalTechSkill[] = [
     // Programming Languages
-    { id: "python", name: "Python", category: "programming", level: 95, years: 8, icon: "🐍", color: "#3776ab" },
-    { id: "go", name: "Go", category: "programming", level: 85, years: 4, icon: "🔷", color: "#00add8" },
-    { id: "typescript", name: "TypeScript", category: "programming", level: 90, years: 6, icon: "📘", color: "#3178c6" },
-    { id: "javascript", name: "JavaScript", category: "programming", level: 88, years: 7, icon: "🟨", color: "#f7df1e" },
+    { id: "python", name: "Python", category: "programming", level: 95, yearsExp: 8, years_exp: 8, icon: Code, color: "text-yellow-400", projects: 45 },
+    { id: "go", name: "Go", category: "programming", level: 85, yearsExp: 4, years_exp: 4, icon: Code, color: "text-blue-400", projects: 12 },
+    { id: "typescript", name: "TypeScript", category: "programming", level: 90, yearsExp: 6, years_exp: 6, icon: Code, color: "text-blue-600", projects: 35 },
+    { id: "javascript", name: "JavaScript", category: "programming", level: 88, yearsExp: 7, years_exp: 7, icon: Code, color: "text-yellow-300", projects: 40 },
     
     // Web Frameworks
-    { id: "fastapi", name: "FastAPI", category: "frameworks", level: 92, years: 4, icon: "⚡", color: "#009688" },
-    { id: "nextjs", name: "Next.js", category: "frameworks", level: 85, years: 3, icon: "▲", color: "#000000" },
-    { id: "nestjs", name: "NestJS", category: "frameworks", level: 88, years: 3, icon: "🔴", color: "#e0234e" },
-    { id: "react", name: "React", category: "frameworks", level: 90, years: 5, icon: "⚛️", color: "#61dafb" },
+    { id: "fastapi", name: "FastAPI", category: "programming", level: 92, yearsExp: 4, years_exp: 4, icon: Code, color: "text-green-500", projects: 15 },
+    { id: "nestjs", name: "Nest.JS", category: "programming", level: 88, yearsExp: 3, years_exp: 3, icon: Code, color: "text-red-500", projects: 8 },
+    { id: "nextjs", name: "Next.JS", category: "programming", level: 85, yearsExp: 3, years_exp: 3, icon: Code, color: "text-gray-700", projects: 12 },
+    { id: "gin", name: "Gin", category: "programming", level: 80, yearsExp: 2, years_exp: 2, icon: Code, color: "text-blue-500", projects: 6 },
+    { id: "flask", name: "Flask", category: "programming", level: 85, yearsExp: 5, years_exp: 5, icon: Code, color: "text-gray-600", projects: 18 },
+    { id: "django", name: "Django", category: "programming", level: 82, yearsExp: 4, years_exp: 4, icon: Code, color: "text-green-600", projects: 14 },
     
     // Cloud Platforms
-    { id: "aws", name: "AWS", category: "cloud", level: 95, years: 7, icon: "☁️", color: "#ff9900" },
-    { id: "gcp", name: "Google Cloud", category: "cloud", level: 80, years: 3, icon: "🌩️", color: "#4285f4" },
-    { id: "azure", name: "Azure", category: "cloud", level: 88, years: 5, icon: "🔷", color: "#0078d4" },
+    { id: "aws", name: "AWS", category: "cloud", level: 95, yearsExp: 7, years_exp: 7, icon: Cloud, color: "text-orange-500", projects: 50 },
+    { id: "gcp", name: "GCP", category: "cloud", level: 80, yearsExp: 3, years_exp: 3, icon: Cloud, color: "text-blue-500", projects: 15 },
+    { id: "azure", name: "Azure", category: "cloud", level: 88, yearsExp: 5, years_exp: 5, icon: Cloud, color: "text-blue-600", projects: 25 },
     
     // Container & Orchestration
-    { id: "docker", name: "Docker", category: "devops", level: 95, years: 8, icon: "🐳", color: "#2496ed" },
-    { id: "kubernetes", name: "Kubernetes", category: "devops", level: 92, years: 6, icon: "☸️", color: "#326ce5" },
-    { id: "helm", name: "Helm", category: "devops", level: 88, years: 4, icon: "⚓", color: "#0f1689" },
+    { id: "docker", name: "Docker", category: "system", level: 95, yearsExp: 8, years_exp: 8, icon: Server, color: "text-blue-500", projects: 60 },
+    { id: "kubernetes", name: "Kubernetes", category: "system", level: 92, yearsExp: 6, years_exp: 6, icon: Server, color: "text-blue-600", projects: 35 },
+    { id: "ecs", name: "ECS", category: "cloud", level: 85, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-400", projects: 20 },
+    { id: "eks", name: "EKS", category: "cloud", level: 88, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-500", projects: 18 },
     
-    // Infrastructure as Code
-    { id: "terraform", name: "Terraform", category: "infrastructure", level: 95, years: 6, icon: "🏗️", color: "#7b42bc" },
-    { id: "ansible", name: "Ansible", category: "infrastructure", level: 90, years: 5, icon: "🔧", color: "#ee0000" },
+    // Infrastructure as Code  
+    { id: "terraform", name: "Terraform", category: "system", level: 95, yearsExp: 6, years_exp: 6, icon: Server, color: "text-purple-500", projects: 40 },
+    { id: "ansible", name: "Ansible", category: "system", level: 90, yearsExp: 5, years_exp: 5, icon: Server, color: "text-red-600", projects: 25 },
+    { id: "cloudformation", name: "CloudFormation", category: "cloud", level: 80, yearsExp: 4, years_exp: 4, icon: Cloud, color: "text-orange-400", projects: 15 },
     
-    // Databases
-    { id: "postgresql", name: "PostgreSQL", category: "database", level: 92, years: 8, icon: "🐘", color: "#336791" },
-    { id: "redis", name: "Redis", category: "database", level: 88, years: 5, icon: "🔴", color: "#dc382d" },
-    { id: "elasticsearch", name: "Elasticsearch", category: "database", level: 85, years: 4, icon: "🔍", color: "#005571" },
+    // Databases & Caching
+    { id: "postgresql", name: "PostgreSQL", category: "database", level: 92, yearsExp: 8, years_exp: 8, icon: Database, color: "text-blue-700", projects: 45 },
+    { id: "mysql", name: "MySQL", category: "database", level: 85, yearsExp: 6, years_exp: 6, icon: Database, color: "text-blue-600", projects: 30 },
+    { id: "redis", name: "Redis", category: "database", level: 88, yearsExp: 5, years_exp: 5, icon: Database, color: "text-red-500", projects: 28 },
+    { id: "elasticsearch", name: "Elasticsearch", category: "database", level: 85, yearsExp: 4, years_exp: 4, icon: Database, color: "text-yellow-600", projects: 15 },
     
     // Monitoring & Observability
-    { id: "prometheus", name: "Prometheus", category: "monitoring", level: 90, years: 5, icon: "📊", color: "#e6522c" },
-    { id: "grafana", name: "Grafana", category: "monitoring", level: 92, years: 5, icon: "📈", color: "#f46800" },
-    { id: "datadog", name: "DataDog", category: "monitoring", level: 88, years: 4, icon: "🐶", color: "#632ca6" },
+    { id: "prometheus", name: "Prometheus", category: "monitoring", level: 90, yearsExp: 5, years_exp: 5, icon: Activity, color: "text-orange-600", projects: 25 },
+    { id: "grafana", name: "Grafana", category: "monitoring", level: 92, yearsExp: 5, years_exp: 5, icon: Activity, color: "text-orange-500", projects: 30 },
+    { id: "datadog", name: "DataDog", category: "monitoring", level: 88, yearsExp: 4, years_exp: 4, icon: Activity, color: "text-purple-600", projects: 20 },
+    { id: "cloudwatch", name: "CloudWatch", category: "monitoring", level: 85, yearsExp: 6, years_exp: 6, icon: Activity, color: "text-orange-400", projects: 35 },
+    { id: "loki", name: "Loki", category: "monitoring", level: 80, yearsExp: 3, years_exp: 3, icon: Activity, color: "text-orange-400", projects: 12 },
     
-    // CI/CD
-    { id: "github-actions", name: "GitHub Actions", category: "cicd", level: 95, years: 5, icon: "🚀", color: "#2088ff" },
-    { id: "jenkins", name: "Jenkins", category: "cicd", level: 82, years: 4, icon: "🔨", color: "#d33833" },
-    { id: "argocd", name: "ArgoCD", category: "cicd", level: 85, years: 3, icon: "🎯", color: "#ef7b4d" },
+    // CI/CD & DevOps
+    { id: "github-actions", name: "GitHub Actions", category: "system", level: 95, yearsExp: 5, years_exp: 5, icon: Server, color: "text-gray-700", projects: 50 },
+    { id: "jenkins", name: "Jenkins", category: "system", level: 82, yearsExp: 4, years_exp: 4, icon: Server, color: "text-blue-600", projects: 18 },
+    { id: "argocd", name: "ArgoCD", category: "system", level: 85, yearsExp: 3, years_exp: 3, icon: Server, color: "text-blue-500", projects: 15 },
+    { id: "helm", name: "Helm", category: "system", level: 88, yearsExp: 4, years_exp: 4, icon: Server, color: "text-blue-600", projects: 25 },
     
     // AI & ML
-    { id: "openai", name: "OpenAI", category: "ai", level: 85, years: 2, icon: "🤖", color: "#10a37f" },
-    { id: "tensorflow", name: "TensorFlow", category: "ai", level: 75, years: 2, icon: "🧠", color: "#ff6f00" },
-    { id: "langchain", name: "LangChain", category: "ai", level: 80, years: 1, icon: "🔗", color: "#1c3c3c" },
+    { id: "mcp-protocol", name: "MCP Protocol", category: "programming", level: 90, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-500", projects: 5 },
+    { id: "llm-integration", name: "LLM Integration", category: "programming", level: 85, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-600", projects: 8 },
+    { id: "ai-sdk", name: "AI-SDK", category: "programming", level: 82, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-400", projects: 6 },
+    { id: "tensorflow", name: "TensorFlow", category: "programming", level: 75, yearsExp: 2, years_exp: 2, icon: Code, color: "text-orange-500", projects: 4 }
   ]
 
   useEffect(() => {
-    const fetchTechnologies = async () => {
+    const fetchTechSkills = async () => {
       try {
         const data = await portfolioApi.getTechSkills()
-        // Transform API data to match our Technology interface
-        const transformedData: Technology[] = data.map(skill => ({
-          id: skill.id,
-          name: skill.name,
-          category: skill.category,
-          level: skill.level,
-          years: skill.years_exp,
-          icon: getIconForTech(skill.name),
-          color: getColorForTech(skill.name)
+        const mappedData: LocalTechSkill[] = data.map(skill => ({
+          ...skill,
+          icon: techIconMap[skill.icon] || Code,
+          yearsExp: skill.years_exp
         }))
-        setTechnologies(transformedData)
+        setTechSkills(mappedData)
       } catch (error) {
         console.error("Failed to fetch tech skills:", error)
         // Use static data as fallback
-        setTechnologies(staticTechnologies)
+        setTechSkills(staticTechSkills)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchTechnologies()
+    fetchTechSkills()
   }, [])
 
-  const getIconForTech = (name: string): string => {
-    const iconMap: Record<string, string> = {
-      'Python': '🐍', 'Go': '🔷', 'TypeScript': '📘', 'JavaScript': '🟨',
-      'FastAPI': '⚡', 'Next.JS': '▲', 'NestJS': '🔴', 'React': '⚛️',
-      'AWS': '☁️', 'GCP': '🌩️', 'Azure': '🔷', 'Google Cloud': '🌩️',
-      'Docker': '🐳', 'Kubernetes': '☸️', 'Helm': '⚓',
-      'Terraform': '🏗️', 'Ansible': '🔧',
-      'PostgreSQL': '🐘', 'Redis': '🔴', 'Elasticsearch': '🔍',
-      'Prometheus': '📊', 'Grafana': '📈', 'DataDog': '🐶',
-      'GitHub Actions': '🚀', 'Jenkins': '🔨', 'ArgoCD': '🎯',
-      'OpenAI': '🤖', 'TensorFlow': '🧠', 'LangChain': '🔗'
-    }
-    return iconMap[name] || '⚙️'
-  }
+  const categories: { id: string; name: string; icon: LucideIcon }[] = [
+    { id: "all", name: "All Technologies", icon: Cpu },
+    { id: "programming", name: "Programming", icon: Code },
+    { id: "cloud", name: "Cloud Platforms", icon: Cloud },
+    { id: "database", name: "Databases", icon: Database },
+    { id: "monitoring", name: "Monitoring", icon: Activity },
+    { id: "system", name: "System Tools", icon: Server }
+  ]
 
-  const getColorForTech = (name: string): string => {
-    const colorMap: Record<string, string> = {
-      'Python': '#3776ab', 'Go': '#00add8', 'TypeScript': '#3178c6', 'JavaScript': '#f7df1e',
-      'FastAPI': '#009688', 'Next.JS': '#000000', 'NestJS': '#e0234e', 'React': '#61dafb',
-      'AWS': '#ff9900', 'GCP': '#4285f4', 'Azure': '#0078d4', 'Google Cloud': '#4285f4',
-      'Docker': '#2496ed', 'Kubernetes': '#326ce5', 'Helm': '#0f1689',
-      'Terraform': '#7b42bc', 'Ansible': '#ee0000',
-      'PostgreSQL': '#336791', 'Redis': '#dc382d', 'Elasticsearch': '#005571',
-      'Prometheus': '#e6522c', 'Grafana': '#f46800', 'DataDog': '#632ca6',
-      'GitHub Actions': '#2088ff', 'Jenkins': '#d33833', 'ArgoCD': '#ef7b4d',
-      'OpenAI': '#10a37f', 'TensorFlow': '#ff6f00', 'LangChain': '#1c3c3c'
+  const filteredSkills = selectedCategory === "all" 
+    ? techSkills 
+    : techSkills.filter(skill => skill.category === selectedCategory)
+  
+  // Reset to page 1 when category changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
+  
+  // Pagination
+  const totalPages = Math.ceil(filteredSkills.length / SKILLS_PER_PAGE)
+  const startIndex = (currentPage - 1) * SKILLS_PER_PAGE
+  const paginatedSkills = filteredSkills.slice(startIndex, startIndex + SKILLS_PER_PAGE)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (techSkills.length > 0) {
+        setAnimatedSkills(techSkills.map(skill => skill.name))
+      }
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [techSkills])
+
+  const getMetrics = (skill: LocalTechSkill) => {
+    return {
+      totalProjects: skill.projects,
+      avgProjectsPerYear: Math.round(skill.projects / skill.yearsExp),
+      proficiencyGrade: skill.level >= 90 ? "Expert" : skill.level >= 80 ? "Advanced" : "Intermediate"
     }
-    return colorMap[name] || '#6b7280'
   }
 
   if (loading) {
@@ -130,94 +162,148 @@ const TechStack = () => {
       <section id="techstack" className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="animate-pulse">Loading technologies...</div>
+            <div className="animate-pulse">Loading tech stack...</div>
           </div>
         </div>
       </section>
     )
   }
 
-  // Calculate stats
-  const totalYears = technologies.reduce((sum, tech) => sum + tech.years, 0)
-  const avgProficiency = Math.round(technologies.reduce((sum, tech) => sum + tech.level, 0) / technologies.length)
-  const expertTechnologies = technologies.filter(tech => tech.level >= 90).length
-
   return (
     <section id="techstack" className="py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-            Technologies & Expertise
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 mono">
+            $ cat /proc/skills
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Cutting-edge technologies mastered through years of hands-on experience
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mono">
+            # Comprehensive technology stack with real-time proficiency metrics
           </p>
         </div>
 
-        {/* Technology Slider */}
-        <div className="mb-16">
-          <TechnologySlider technologies={technologies} />
+        {/* Category filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-200 mono text-sm
+                ${selectedCategory === category.id 
+                  ? 'bg-accent text-accent-foreground border-accent shadow-md' 
+                  : 'bg-card text-muted-foreground border-border hover:text-foreground hover:border-accent/50'
+                }
+              `}
+            >
+              <category.icon size={16} />
+              {category.name}
+            </button>
+          ))}
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5">
-            <div className="flex items-center justify-center mb-3">
-              <Code2 className="text-accent" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-foreground mb-1">
-              {technologies.length}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Technologies
-            </div>
-          </div>
-
-          <div className="text-center bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5">
-            <div className="flex items-center justify-center mb-3">
-              <TrendingUp className="text-green-500" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-foreground mb-1">
-              {totalYears}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Years Combined
-            </div>
-          </div>
-
-          <div className="text-center bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5">
-            <div className="flex items-center justify-center mb-3">
-              <Award className="text-yellow-500" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-foreground mb-1">
-              {expertTechnologies}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Expert Level
-            </div>
-          </div>
-
-          <div className="text-center bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5">
-            <div className="flex items-center justify-center mb-3">
-              <Zap className="text-blue-500" size={24} />
-            </div>
-            <div className="text-2xl font-bold text-foreground mb-1">
-              {avgProficiency}%
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Avg Proficiency
-            </div>
-          </div>
+        {/* Results count */}
+        <div className="text-center mb-6 text-sm text-muted-foreground">
+          Showing {startIndex + 1}-{Math.min(startIndex + SKILLS_PER_PAGE, filteredSkills.length)} of {filteredSkills.length} skills
         </div>
 
-        {/* Call to action */}
-        <div className="text-center mt-16">
-          <div className="inline-flex items-center px-6 py-3 bg-accent/10 text-foreground rounded-full border border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/5">
-            <Zap className="text-accent mr-2" size={20} />
-            <span className="font-medium">
-              Always learning and exploring new technologies
-            </span>
+        {/* Skills grid */}
+        <div className="skills-grid">
+          {paginatedSkills.map((skill, index) => {
+            const metrics = getMetrics(skill)
+            const isAnimated = animatedSkills.includes(skill.name)
+            const isHovered = hoveredSkill === skill.name
+            
+            return (
+              <div
+                key={skill.id}
+                className={`
+                  group relative bg-card rounded-lg border border-border p-6 card-hover
+                  transform transition-all duration-500 ${isAnimated ? 'animate-fade-up' : 'opacity-0'}
+                `}
+                style={{ animationDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setHoveredSkill(skill.name)}
+                onMouseLeave={() => setHoveredSkill(null)}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg bg-muted ${skill.color}`}>
+                      <skill.icon size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mono">{skill.name}</h3>
+                      <p className="text-xs text-muted-foreground mono">{skill.category}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-accent mono">{skill.level}%</div>
+                    <div className="text-xs text-muted-foreground mono">{skill.yearsExp}y exp</div>
+                  </div>
+                </div>
+
+                {/* Progress bar */}
+                <div className="mb-4">
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div 
+                      className="bg-accent h-2 rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: isAnimated ? `${skill.level}%` : '0%' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Metrics */}
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div>
+                    <div className="text-sm font-medium text-foreground mono">{metrics.totalProjects}</div>
+                    <div className="text-xs text-muted-foreground mono">Projects</div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-foreground mono">{metrics.avgProjectsPerYear}</div>
+                    <div className="text-xs text-muted-foreground mono">Avg/Year</div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-accent mono">{metrics.proficiencyGrade}</div>
+                    <div className="text-xs text-muted-foreground mono">Level</div>
+                  </div>
+                </div>
+
+                {/* Hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-lg transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none" />
+              </div>
+            )
+          })}
+        </div>
+        
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+
+        {/* Summary stats */}
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-accent mono">{techSkills.length}</div>
+            <div className="text-sm text-muted-foreground mono">Technologies</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-accent mono">
+              {techSkills.reduce((acc, skill) => acc + skill.yearsExp, 0)}
+            </div>
+            <div className="text-sm text-muted-foreground mono">Total Years</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-accent mono">
+              {techSkills.reduce((acc, skill) => acc + skill.projects, 0)}
+            </div>
+            <div className="text-sm text-muted-foreground mono">Projects Built</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-accent mono">
+              {Math.round(techSkills.reduce((acc, skill) => acc + skill.level, 0) / techSkills.length || 0)}%
+            </div>
+            <div className="text-sm text-muted-foreground mono">Avg Proficiency</div>
           </div>
         </div>
       </div>

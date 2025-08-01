@@ -6,7 +6,6 @@ import Achievements from "@/components/Achievements"
 import Terminal from "@/components/Terminal"
 import Experience from "@/components/Experience"
 import Projects from "@/components/Projects"
-import Recommendations from "@/components/Recommendations"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import AIAssistant from "@/components/AIAssistant"
@@ -30,7 +29,6 @@ export default function Home() {
         <Terminal />
         <Experience />
         <Projects />
-        <Recommendations />
         <Contact />
       </main>
       
