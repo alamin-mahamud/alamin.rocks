@@ -1,6 +1,6 @@
 // API utility functions with fallback to static data
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8120'
 
 // Generic API client with retry and fallback logic
 class ApiClient {
@@ -36,21 +36,21 @@ class ApiClient {
   async get<T>(endpoint: string, fallbackData?: T): Promise<T> {
     try {
       const response = await this.fetchWithTimeout(`${this.baseUrl}${endpoint}`)
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
-      
+
       const data = await response.json()
       return data
     } catch (error) {
       console.warn(`API call failed for ${endpoint}:`, error)
-      
+
       if (fallbackData) {
         console.log(`Using fallback data for ${endpoint}`)
         return fallbackData
       }
-      
+
       throw error
     }
   }
@@ -167,14 +167,14 @@ export const portfolioApi = {
     if (params?.featured !== undefined) searchParams.append('featured', params.featured.toString())
     if (params?.category) searchParams.append('category', params.category)
     if (params?.limit) searchParams.append('limit', params.limit.toString())
-    
-    const endpoint = `/projects${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
-    
+
+    const endpoint = `/api/v1/projects${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+
     return apiClient.get<Project[]>(endpoint, FALLBACK_DATA.projects)
   },
 
   async getProject(id: string): Promise<Project> {
-    const project = await apiClient.get<Project>(`/projects/${id}`, 
+    const project = await apiClient.get<Project>(`/api/v1/projects/${id}`,
       FALLBACK_DATA.projects.find(p => p.id === id)
     )
     return project
@@ -185,9 +185,9 @@ export const portfolioApi = {
     const searchParams = new URLSearchParams()
     if (params?.category) searchParams.append('category', params.category)
     if (params?.limit) searchParams.append('limit', params.limit.toString())
-    
-    const endpoint = `/achievements${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
-    
+
+    const endpoint = `/api/v1/achievements${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+
     return apiClient.get<Achievement[]>(endpoint, FALLBACK_DATA.achievements)
   },
 
@@ -197,9 +197,9 @@ export const portfolioApi = {
     if (params?.category) searchParams.append('category', params.category)
     if (params?.min_level) searchParams.append('min_level', params.min_level.toString())
     if (params?.limit) searchParams.append('limit', params.limit.toString())
-    
-    const endpoint = `/techstack${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
-    
+
+    const endpoint = `/api/v1/techstack${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+
     return apiClient.get<TechSkill[]>(endpoint, FALLBACK_DATA.techSkills)
   },
 
@@ -208,25 +208,25 @@ export const portfolioApi = {
     const searchParams = new URLSearchParams()
     if (params?.limit) searchParams.append('limit', params.limit.toString())
     if (params?.recent) searchParams.append('recent', params.recent.toString())
-    
-    const endpoint = `/recommendations${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
-    
+
+    const endpoint = `/api/v1/recommendations${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+
     return apiClient.get<LinkedInRecommendation[]>(endpoint, FALLBACK_DATA.recommendations)
   },
 
   // Hero
   async getHero(): Promise<Hero> {
-    return apiClient.get<Hero>('/hero', FALLBACK_DATA.hero)
+    return apiClient.get<Hero>('/api/v1/hero', FALLBACK_DATA.hero)
   },
 
   // About
   async getAbout(): Promise<About> {
-    return apiClient.get<About>('/about', FALLBACK_DATA.about)
+    return apiClient.get<About>('/api/v1/about', FALLBACK_DATA.about)
   },
 
   // Contact Info
   async getContactInfo(): Promise<ContactInfo> {
-    return apiClient.get<ContactInfo>('/contact-info', FALLBACK_DATA.contactInfo)
+    return apiClient.get<ContactInfo>('/api/v1/contact-info', FALLBACK_DATA.contactInfo)
   },
 
   // Contact form submission
@@ -236,7 +236,7 @@ export const portfolioApi = {
     subject?: string
     message: string
   }): Promise<{ message: string }> {
-    return apiClient.post<{ message: string }>('/contact', data)
+    return apiClient.post<{ message: string }>('/api/v1/contact', data)
   }
 }
 
@@ -246,7 +246,7 @@ const FALLBACK_DATA = {
     id: "hero",
     roles: [
       "Senior DevOps Engineer",
-      "AI Products Engineer", 
+      "AI Products Engineer",
       "Site Reliability Engineer",
       "Cloud Architect",
       "Platform Engineer",
@@ -257,7 +257,7 @@ const FALLBACK_DATA = {
     description: "Strategic technology leader with 10+ years of expertise in building scalable cloud platforms, leading DevOps + SRE teams, and architecting AI-powered solutions that drive $20M+ ARR and serve 100K+ users globally.",
     metrics: {
       cost_savings: "$1.2M+",
-      saas_arr: "$20M+", 
+      saas_arr: "$20M+",
       experience: "10+",
       users_served: "100K+",
       uptime_sla: "99.99%",
@@ -270,13 +270,13 @@ const FALLBACK_DATA = {
     title: "About Me",
     description: [
       "I'm a **strategic technology leader** dedicated to architecting and scaling **innovative cloud-native solutions** for global enterprises, with a strong **entrepreneurial spirit** that drives startup growth. Over the past **10+ years**, I've successfully built next-generation **Event-driven SaaS platforms**, led transformative **DevOps and SRE initiatives**, and consistently delivered **measurable impact**.",
-      
+
       "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
-      
+
       "Previously at **BriteCore Inc** for **5 years 5 months**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
-      
+
       "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) since **March 2025** and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech) since **November 2023**, where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity.",
-      
+
       "I'm also a **Co-Founder & CSO** at **AK2 Tech** (August 2024 - April 2025), where I built **next-generation AI-powered solutions** to assist on-call support, spearheaded product strategy and GTM, secured initial customer traction in **Bangladesh and Southeast Asia**, and grew the internal team to **10+ members across 3 time zones**."
     ],
     skills: [
@@ -678,7 +678,7 @@ const FALLBACK_DATA = {
     { id: "go", name: "Go", category: "programming", level: 85, years_exp: 4, icon: "Code", color: "text-blue-400", projects: 12 },
     { id: "typescript", name: "TypeScript", category: "programming", level: 90, years_exp: 6, icon: "Code", color: "text-blue-600", projects: 35 },
     { id: "javascript", name: "JavaScript", category: "programming", level: 88, years_exp: 7, icon: "Code", color: "text-yellow-300", projects: 40 },
-    
+
     // Web Frameworks
     { id: "fastapi", name: "FastAPI", category: "programming", level: 92, years_exp: 4, icon: "Code", color: "text-green-500", projects: 15 },
     { id: "nestjs", name: "Nest.JS", category: "programming", level: 88, years_exp: 3, icon: "Code", color: "text-red-500", projects: 8 },
@@ -686,42 +686,42 @@ const FALLBACK_DATA = {
     { id: "gin", name: "Gin", category: "programming", level: 80, years_exp: 2, icon: "Code", color: "text-blue-500", projects: 6 },
     { id: "flask", name: "Flask", category: "programming", level: 85, years_exp: 5, icon: "Code", color: "text-gray-600", projects: 18 },
     { id: "django", name: "Django", category: "programming", level: 82, years_exp: 4, icon: "Code", color: "text-green-600", projects: 14 },
-    
+
     // Cloud Platforms
     { id: "aws", name: "AWS", category: "cloud", level: 95, years_exp: 7, icon: "Cloud", color: "text-orange-500", projects: 50 },
     { id: "gcp", name: "GCP", category: "cloud", level: 80, years_exp: 3, icon: "Cloud", color: "text-blue-500", projects: 15 },
     { id: "azure", name: "Azure", category: "cloud", level: 88, years_exp: 5, icon: "Cloud", color: "text-blue-600", projects: 25 },
-    
+
     // Container & Orchestration
     { id: "docker", name: "Docker", category: "system", level: 95, years_exp: 8, icon: "Server", color: "text-blue-500", projects: 60 },
     { id: "kubernetes", name: "Kubernetes", category: "system", level: 92, years_exp: 6, icon: "Server", color: "text-blue-600", projects: 35 },
     { id: "ecs", name: "ECS", category: "cloud", level: 85, years_exp: 4, icon: "Cloud", color: "text-orange-400", projects: 20 },
     { id: "eks", name: "EKS", category: "cloud", level: 88, years_exp: 4, icon: "Cloud", color: "text-orange-500", projects: 18 },
-    
-    // Infrastructure as Code  
+
+    // Infrastructure as Code
     { id: "terraform", name: "Terraform", category: "system", level: 95, years_exp: 6, icon: "Server", color: "text-purple-500", projects: 40 },
     { id: "ansible", name: "Ansible", category: "system", level: 90, years_exp: 5, icon: "Server", color: "text-red-600", projects: 25 },
     { id: "cloudformation", name: "CloudFormation", category: "cloud", level: 80, years_exp: 4, icon: "Cloud", color: "text-orange-400", projects: 15 },
-    
+
     // Databases & Caching
     { id: "postgresql", name: "PostgreSQL", category: "database", level: 92, years_exp: 8, icon: "Database", color: "text-blue-700", projects: 45 },
     { id: "mysql", name: "MySQL", category: "database", level: 85, years_exp: 6, icon: "Database", color: "text-blue-600", projects: 30 },
     { id: "redis", name: "Redis", category: "database", level: 88, years_exp: 5, icon: "Database", color: "text-red-500", projects: 28 },
     { id: "elasticsearch", name: "Elasticsearch", category: "database", level: 85, years_exp: 4, icon: "Database", color: "text-yellow-600", projects: 15 },
-    
+
     // Monitoring & Observability
     { id: "prometheus", name: "Prometheus", category: "monitoring", level: 90, years_exp: 5, icon: "Activity", color: "text-orange-600", projects: 25 },
     { id: "grafana", name: "Grafana", category: "monitoring", level: 92, years_exp: 5, icon: "Activity", color: "text-orange-500", projects: 30 },
     { id: "datadog", name: "DataDog", category: "monitoring", level: 88, years_exp: 4, icon: "Activity", color: "text-purple-600", projects: 20 },
     { id: "cloudwatch", name: "CloudWatch", category: "monitoring", level: 85, years_exp: 6, icon: "Activity", color: "text-orange-400", projects: 35 },
     { id: "loki", name: "Loki", category: "monitoring", level: 80, years_exp: 3, icon: "Activity", color: "text-orange-400", projects: 12 },
-    
+
     // CI/CD & DevOps
     { id: "github-actions", name: "GitHub Actions", category: "system", level: 95, years_exp: 5, icon: "Server", color: "text-gray-700", projects: 50 },
     { id: "jenkins", name: "Jenkins", category: "system", level: 82, years_exp: 4, icon: "Server", color: "text-blue-600", projects: 18 },
     { id: "argocd", name: "ArgoCD", category: "system", level: 85, years_exp: 3, icon: "Server", color: "text-blue-500", projects: 15 },
     { id: "helm", name: "Helm", category: "system", level: 88, years_exp: 4, icon: "Server", color: "text-blue-600", projects: 25 },
-    
+
     // AI & ML
     { id: "mcp-protocol", name: "MCP Protocol", category: "programming", level: 90, years_exp: 1, icon: "Code", color: "text-purple-500", projects: 5 },
     { id: "llm-integration", name: "LLM Integration", category: "programming", level: 85, years_exp: 1, icon: "Code", color: "text-purple-600", projects: 8 },
@@ -748,7 +748,7 @@ const FALLBACK_DATA = {
 // Utility function to check if API is available
 export async function checkApiHealth(): Promise<boolean> {
   try {
-    const response = await fetch(`${API_BASE_URL.replace('/api', '')}/health`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/health`, {
       method: 'GET',
       signal: AbortSignal.timeout(3000) // 3 second timeout
     })
