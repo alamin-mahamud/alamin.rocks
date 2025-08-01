@@ -309,6 +309,65 @@
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out forwards;
   }
+  
+  /* Terminal-specific utilities */
+  .terminal-output-success {
+    @apply text-green-400 dark:text-green-300;
+  }
+  
+  .terminal-output-info {
+    @apply text-blue-400 dark:text-blue-300;
+  }
+  
+  .terminal-output-warning {
+    @apply text-yellow-400 dark:text-yellow-300;
+  }
+  
+  .terminal-output-error {
+    @apply text-red-400 dark:text-red-300;
+  }
+  
+  /* Enhanced card hover effects */
+  .card-hover-enhanced {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border hover:-translate-y-1;
+  }
+  
+  /* Pagination utilities */
+  .pagination-button {
+    @apply inline-flex items-center justify-center min-w-[40px] h-[40px] text-sm font-medium transition-all duration-200 rounded-lg;
+  }
+  
+  .pagination-button-active {
+    @apply pagination-button bg-accent text-accent-foreground shadow-sm;
+  }
+  
+  .pagination-button-inactive {
+    @apply pagination-button bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted;
+  }
+  
+  /* Responsive grid utilities */
+  .skills-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  @media (min-width: 768px) {
+    .skills-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .skills-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .skills-grid {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+  }
 
   /* Label positioning utilities */
   .label-container {

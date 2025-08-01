@@ -11,6 +11,7 @@ import {
   LucideIcon
 } from "lucide-react"
 import { portfolioApi, TechSkill } from "@/lib/api"
+import Pagination from "./ui/Pagination"
 
 const techIconMap: Record<string, LucideIcon> = {
   Code,
@@ -26,12 +27,15 @@ interface LocalTechSkill extends Omit<TechSkill, 'icon'> {
   yearsExp: number
 }
 
+const SKILLS_PER_PAGE = 12
+
 const TechStack = () => {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [animatedSkills, setAnimatedSkills] = useState<string[]>([])
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
   const [techSkills, setTechSkills] = useState<LocalTechSkill[]>([])
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
 
   // Comprehensive static tech skills data from resume
   const staticTechSkills: LocalTechSkill[] = [
@@ -125,6 +129,16 @@ const TechStack = () => {
   const filteredSkills = selectedCategory === "all" 
     ? techSkills 
     : techSkills.filter(skill => skill.category === selectedCategory)
+  
+  // Reset to page 1 when category changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
+  
+  // Pagination
+  const totalPages = Math.ceil(filteredSkills.length / SKILLS_PER_PAGE)
+  const startIndex = (currentPage - 1) * SKILLS_PER_PAGE
+  const paginatedSkills = filteredSkills.slice(startIndex, startIndex + SKILLS_PER_PAGE)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -187,9 +201,14 @@ const TechStack = () => {
           ))}
         </div>
 
+        {/* Results count */}
+        <div className="text-center mb-6 text-sm text-muted-foreground">
+          Showing {startIndex + 1}-{Math.min(startIndex + SKILLS_PER_PAGE, filteredSkills.length)} of {filteredSkills.length} skills
+        </div>
+
         {/* Skills grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSkills.map((skill, index) => {
+        <div className="skills-grid">
+          {paginatedSkills.map((skill, index) => {
             const metrics = getMetrics(skill)
             const isAnimated = animatedSkills.includes(skill.name)
             const isHovered = hoveredSkill === skill.name
@@ -254,6 +273,13 @@ const TechStack = () => {
             )
           })}
         </div>
+        
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
 
         {/* Summary stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">

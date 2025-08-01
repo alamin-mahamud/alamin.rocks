@@ -1,19 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Quote, Linkedin, Star, Users, Building, Calendar } from "lucide-react"
+import { Quote, Linkedin, Star, Users, Building, Calendar, ChevronLeft, ChevronRight } from "lucide-react"
 import { portfolioApi, LinkedInRecommendation } from "@/lib/api"
+import Pagination from "./ui/Pagination"
+
+const RECOMMENDATIONS_PER_PAGE = 6
 
 const Recommendations = () => {
   const [recommendations, setRecommendations] = useState<LinkedInRecommendation[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedRecommendation, setSelectedRecommendation] = useState<string | null>(null)
-  const [showAll, setShowAll] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const data = await portfolioApi.getRecommendations({ limit: showAll ? undefined : 6 })
+        const data = await portfolioApi.getRecommendations()
         setRecommendations(data)
       } catch (error) {
         console.error("Failed to fetch recommendations:", error)
@@ -23,7 +26,7 @@ const Recommendations = () => {
     }
 
     fetchRecommendations()
-  }, [showAll])
+  }, [])
 
   if (loading) {
     return (
@@ -37,7 +40,10 @@ const Recommendations = () => {
     )
   }
 
-  const displayedRecommendations = showAll ? recommendations : recommendations.slice(0, 6)
+  // Pagination
+  const totalPages = Math.ceil(recommendations.length / RECOMMENDATIONS_PER_PAGE)
+  const startIndex = (currentPage - 1) * RECOMMENDATIONS_PER_PAGE
+  const paginatedRecommendations = recommendations.slice(startIndex, startIndex + RECOMMENDATIONS_PER_PAGE)
 
   return (
     <section id="recommendations" className="py-20 bg-muted">
@@ -57,18 +63,24 @@ const Recommendations = () => {
           </div>
         </div>
 
+        {/* Results count */}
+        <div className="text-center mb-6 text-sm text-muted-foreground">
+          Showing {startIndex + 1}-{Math.min(startIndex + RECOMMENDATIONS_PER_PAGE, recommendations.length)} of {recommendations.length} recommendations
+        </div>
+
         {/* Recommendations Grid */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {displayedRecommendations.map((recommendation, index) => {
+          {paginatedRecommendations.map((recommendation, index) => {
             const isExpanded = selectedRecommendation === recommendation.id
             const shouldTruncate = recommendation.content.length > 300
 
             return (
               <div
                 key={recommendation.id}
-                className="group relative bg-card rounded-xl border border-border p-8 card-hover"
+                className="group relative bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
+                <div className="p-8">
                 {/* Quote Icon */}
                 <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <Quote size={48} className="text-accent" />
@@ -153,6 +165,8 @@ const Recommendations = () => {
                   </div>
                 )}
 
+                </div>
+                
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none" />
               </div>
@@ -160,17 +174,12 @@ const Recommendations = () => {
           })}
         </div>
 
-        {/* Show More/Less Button */}
-        {recommendations.length > 6 && (
-          <div className="text-center">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="btn btn-secondary btn-lg"
-            >
-              {showAll ? 'Show Less' : `Show All ${recommendations.length} Recommendations`}
-            </button>
-          </div>
-        )}
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
 
         {/* Call to Action */}
         <div className="text-center mt-16">

@@ -196,10 +196,10 @@ const Terminal = () => {
 
   const getOutputColor = (type: Command['type']) => {
     switch (type) {
-      case 'success': return 'text-accent'
-      case 'info': return 'text-accent'
-      case 'warning': return 'text-warning'
-      case 'error': return 'text-destructive'
+      case 'success': return 'terminal-output-success'
+      case 'info': return 'terminal-output-info'
+      case 'warning': return 'terminal-output-warning'
+      case 'error': return 'terminal-output-error'
       default: return 'text-foreground'
     }
   }
@@ -219,30 +219,30 @@ const Terminal = () => {
         {/* Terminal window */}
         <div className="bg-card rounded-lg shadow-2xl border border-border overflow-hidden max-w-5xl mx-auto">
           {/* Terminal header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-solarized-base02 border-b border-solarized-base01">
+          <div className="flex items-center justify-between px-4 py-3 bg-muted border-b border-border">
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 rounded-full bg-solarized-red"></div>
-              <div className="w-3 h-3 rounded-full bg-solarized-yellow"></div>
-              <div className="w-3 h-3 rounded-full bg-solarized-green"></div>
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
             
             <div className="flex items-center space-x-2">
-              <TerminalIcon size={16} className="text-solarized-base1" />
-              <span className="text-solarized-base1 text-sm mono">Terminal — Infrastructure Management</span>
+              <TerminalIcon size={16} className="text-muted-foreground" />
+              <span className="text-muted-foreground text-sm mono">Terminal — Infrastructure Management</span>
             </div>
             
             <div className="flex items-center space-x-2">
               <button
                 onClick={startDemo}
                 disabled={isPlaying}
-                className="p-2 rounded bg-solarized-green hover:bg-solarized-cyan disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="btn btn-ghost btn-sm p-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Play Demo"
               >
-                <Play size={14} className="text-solarized-base3" />
+                <Play size={14} />
               </button>
               <button
                 onClick={resetDemo}
-                className="px-3 py-1 text-xs bg-solarized-base01 text-solarized-base1 rounded hover:bg-solarized-base00 transition-colors mono"
+                className="btn btn-ghost btn-sm text-xs mono"
               >
                 Reset
               </button>
@@ -252,14 +252,14 @@ const Terminal = () => {
           {/* Terminal content */}
           <div 
             ref={terminalRef}
-            className="p-4 h-96 overflow-y-auto bg-solarized-base03 text-solarized-base0 mono text-sm leading-relaxed"
+            className="p-4 h-96 overflow-y-auto bg-background text-foreground mono text-sm leading-relaxed border-0"
           >
             {/* Welcome message */}
-            <div className="mb-4 text-solarized-base1">
+            <div className="mb-4 text-muted-foreground">
               <div>Last login: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}</div>
               <div>Welcome to Alamin&apos;s Infrastructure Terminal</div>
               <div>💡 Click Play to see live infrastructure management commands</div>
-              <div className="border-b border-solarized-base02 my-3"></div>
+              <div className="border-b border-border my-3"></div>
             </div>
 
             {/* Command history */}
@@ -267,17 +267,17 @@ const Terminal = () => {
               <div key={cmdIndex} className="mb-4">
                 {/* Command prompt and input */}
                 <div className="flex items-center group">
-                  <span className="text-solarized-green mr-2">
+                  <span className="text-accent mr-2">
                     {getPrompt(cmdIndex)}
                   </span>
-                  <span className="text-solarized-base0 flex-1">{cmd.command}</span>
+                  <span className="text-foreground flex-1">{cmd.command}</span>
                   <button
                     onClick={() => copyCommand(cmd.command, cmdIndex)}
-                    className="opacity-0 group-hover:opacity-100 p-1 ml-2 text-solarized-base1 hover:text-solarized-green transition-all"
+                    className="opacity-0 group-hover:opacity-100 p-1 ml-2 text-muted-foreground hover:text-accent transition-all"
                     title="Copy command"
                   >
                     {copiedIndex === cmdIndex ? (
-                      <Check size={14} className="text-solarized-green" />
+                      <Check size={14} className="text-green-500" />
                     ) : (
                       <Copy size={14} />
                     )}
@@ -300,7 +300,7 @@ const Terminal = () => {
                           <div key={lineIndex} className="whitespace-pre-wrap">
                             {line}
                             {lineIndex === displayedOutput.length - 1 && isTyping && (
-                              <span className="animate-pulse text-solarized-green">█</span>
+                              <span className="animate-pulse text-accent">█</span>
                             )}
                           </div>
                         ))
@@ -313,10 +313,10 @@ const Terminal = () => {
             {/* Current prompt if not typing */}
             {!isTyping && currentCommandIndex >= commands.length && (
               <div className="flex items-center">
-                <span className="text-solarized-green mr-2">
+                <span className="text-accent mr-2">
                   {getPrompt(commands.length)}
                 </span>
-                <span className="animate-pulse text-solarized-green">█</span>
+                <span className="animate-pulse text-accent">█</span>
               </div>
             )}
           </div>
@@ -324,9 +324,9 @@ const Terminal = () => {
 
         {/* Command reference */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-card rounded-lg p-6 border border-border card-hover">
+          <div className="bg-card rounded-lg p-6 border border-border transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
-              <ChevronRight className="text-solarized-green mr-2" size={20} />
+              <ChevronRight className="text-accent mr-2" size={20} />
               Kubernetes
             </h3>
             <div className="space-y-2 text-sm">
@@ -345,9 +345,9 @@ const Terminal = () => {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border card-hover">
+          <div className="bg-card rounded-lg p-6 border border-border transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
-              <ChevronRight className="text-solarized-orange mr-2" size={20} />
+              <ChevronRight className="text-orange-500 mr-2" size={20} />
               AWS/Cloud
             </h3>
             <div className="space-y-2 text-sm">
@@ -366,9 +366,9 @@ const Terminal = () => {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg p-6 border border-border card-hover">
+          <div className="bg-card rounded-lg p-6 border border-border transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border">
             <h3 className="text-lg font-semibold text-foreground mono mb-4 flex items-center">
-              <ChevronRight className="text-solarized-violet mr-2" size={20} />
+              <ChevronRight className="text-purple-500 mr-2" size={20} />
               Monitoring
             </h3>
             <div className="space-y-2 text-sm">
@@ -390,8 +390,8 @@ const Terminal = () => {
 
         {/* Call to action */}
         <div className="text-center mt-12">
-          <div className="inline-flex items-center px-6 py-3 bg-solarized-base03 text-solarized-base0 rounded-lg border border-solarized-green/30 mono">
-            <TerminalIcon className="text-solarized-green mr-2" size={20} />
+          <div className="inline-flex items-center px-6 py-3 bg-card text-foreground rounded-lg border border-accent/30 mono transition-all duration-300 hover:shadow-lg hover:shadow-accent/5">
+            <TerminalIcon className="text-accent mr-2" size={20} />
             <span>Ready to scale your infrastructure? Let&apos;s connect.</span>
           </div>
         </div>
