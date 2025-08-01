@@ -1,3 +1,5 @@
+"use client"
+
 import Navigation from "@/components/Navigation"
 import Hero from "@/components/Hero"
 import About from "@/components/About"
@@ -10,8 +12,22 @@ import LinkedInRecommendations from "@/components/LinkedInRecommendations"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import AIAssistant from "@/components/AIAssistant"
+import { useEffect } from "react"
 
 export default function Home() {
+  // Handle hash navigation when page loads
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash) {
+      // Small delay to ensure page is fully loaded
+      setTimeout(() => {
+        const element = document.getElementById(hash.slice(1))
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+    }
+  }, [])
   return (
     <>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-md">

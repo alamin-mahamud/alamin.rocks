@@ -50,9 +50,16 @@ const Navigation = () => {
     setIsOpen(false)
     
     if (href.startsWith("#")) {
-      const element = document.getElementById(id)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
+      // Check if we're on the home page
+      if (window.location.pathname === "/") {
+        // We're on home page, scroll to section
+        const element = document.getElementById(id)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      } else {
+        // We're on a different page, navigate to home page with hash
+        window.location.href = `/${href}`
       }
     }
   }
