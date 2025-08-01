@@ -1,18 +1,30 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
+from app.core.logging import setup_logging
+from app.core.middleware import LoggingMiddleware, ErrorHandlingMiddleware
 from app.api import (
     contact, portfolio, resume, projects, achievements, 
     techstack, recommendations, hero, about, contact_info
 )
+import logging.config
+
+# Set up logging
+setup_logging()
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title=settings.app_name,
     debug=settings.debug,
-    description="Alamin Mahamud's Portfolio API - Dynamic backend for portfolio website",
-    version="1.0.0"
+    version="1.0.0",
+    description="Backend API for alamin.rocks portfolio website",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc"
 )
 
+# Add middleware
+app.add_middleware(ErrorHandlingMiddleware)
+app.add_middleware(LoggingMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.frontend_url, "http://localhost:3000"],
@@ -23,21 +35,41 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
+    """Root endpoint"""
     return {
-        "message": "Welcome to Alamin Rocks API", 
+        "message": "Welcome to Alamin Rocks API",
         "version": "1.0.0",
-        "docs": "/docs",
+        "docs": "/api/docs",
         "health": "/health"
     }
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "version": "1.0.0"}
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "service": settings.app_name,
+        "version": "1.0.0"
+    }
 
-# Include all API routers
-app.include_router(contact.router, prefix="/api/contact", tags=["contact"])
-app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
-app.include_router(resume.router, prefix="/api", tags=["resume"])
+# Include routers with API versioning
+api_v1_prefix = "/api/v1"
+
+app.include_router(
+    contact.router,
+    prefix=f"{api_v1_prefix}/contact",
+    tags=["contact"]
+)
+app.include_router(
+    portfolio.router,
+    prefix=f"{api_v1_prefix}/portfolio",
+    tags=["portfolio"]
+)
+app.include_router(
+    resume.router,
+    prefix=f"{api_v1_prefix}",
+    tags=["resume"]
+)
 
 # New comprehensive API endpoints
 app.include_router(projects.router, prefix="/api/projects", tags=["projects"])
@@ -47,3 +79,16 @@ app.include_router(recommendations.router, prefix="/api/recommendations", tags=[
 app.include_router(hero.router, prefix="/api/hero", tags=["hero"])
 app.include_router(about.router, prefix="/api/about", tags=["about"])
 app.include_router(contact_info.router, prefix="/api/contact-info", tags=["contact-info"])
+
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    logger.info(f"{settings.app_name} starting up...")
+    # TODO: Initialize database connection
+    # TODO: Run migrations
+    
+# Shutdown event
+@app.on_event("shutdown")
+async def shutdown_event():
+    logger.info(f"{settings.app_name} shutting down...")
+    # TODO: Close database connections

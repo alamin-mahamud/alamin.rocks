@@ -10,6 +10,19 @@ services:
     depends_on:
       - backend
 
+  admin:
+    build: ./admin
+    ports:
+      - "3082:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8081/api/v1
+    depends_on:
+      - backend
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+      - /app/.next
+
   backend:
     build: ./backend
     ports:
