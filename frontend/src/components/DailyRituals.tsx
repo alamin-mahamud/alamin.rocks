@@ -122,46 +122,89 @@ const DailyRituals = () => {
           </div>
         </div>
 
-        {/* Five Daily Prayers */}
+        {/* Prayer Clock */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
-            The Five Daily Prayers (Salah)
+            Daily Prayer Schedule (Salah)
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {islamicRituals.map((ritual, index) => (
-              <div
-                key={index}
-                className="group bg-card rounded-xl border border-border p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-300"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Header */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-12 h-12 ${ritual.bgColor} rounded-xl flex items-center justify-center`}>
+          
+          {/* Clock Display */}
+          <div className="relative mx-auto mb-12" style={{ width: '400px', height: '400px' }}>
+            {/* Clock Circle */}
+            <div className="absolute inset-0 border-4 border-accent/20 rounded-full bg-gradient-to-br from-card to-muted/50"></div>
+            
+            {/* Clock Center */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-accent rounded-full shadow-lg flex items-center justify-center">
+              <div className="text-accent-foreground text-xs font-bold">☪️</div>
+            </div>
+
+            {/* Prayer Times on Clock */}
+            {islamicRituals.map((ritual, index) => {
+              // Position prayers around the clock (roughly based on typical prayer times)
+              const angles = [45, 0, 180, 225, 315, 270]; // Fajr, Morning Dhikr, Dhuhr, Asr, Maghrib, Isha
+              const angle = angles[index] || 0;
+              const radius = 160;
+              const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+              const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+              
+              return (
+                <div
+                  key={index}
+                  className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                  style={{
+                    left: `${200 + x}px`,
+                    top: `${200 + y}px`,
+                    animationDelay: `${index * 200}ms`
+                  }}
+                >
+                  {/* Prayer Indicator */}
+                  <div className={`w-16 h-16 ${ritual.bgColor} rounded-full border-2 border-card shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                     <div className={ritual.color}>
                       {ritual.icon}
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
-                      {ritual.name}
-                    </h4>
-                    <p className="text-accent font-medium text-sm">{ritual.arabicName}</p>
-                    <p className="text-muted-foreground text-xs">{ritual.time}</p>
+                  
+                  {/* Prayer Info Tooltip */}
+                  <div className="absolute top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                    <div className="bg-card border border-border rounded-lg p-3 shadow-xl whitespace-nowrap">
+                      <div className="text-sm font-semibold text-foreground">{ritual.name}</div>
+                      <div className="text-xs text-accent">{ritual.arabicName}</div>
+                      <div className="text-xs text-muted-foreground">{ritual.time}</div>
+                    </div>
                   </div>
                 </div>
+              );
+            })}
 
-                {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+            {/* Clock Labels */}
+            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-xs text-muted-foreground font-medium">Dawn</div>
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-muted-foreground font-medium">Day</div>
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-xs text-muted-foreground font-medium">Night</div>
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-xs text-muted-foreground font-medium">Evening</div>
+          </div>
+
+          {/* Prayer Details Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {islamicRituals.map((ritual, index) => (
+              <div
+                key={index}
+                className="bg-card/50 rounded-lg border border-border/50 p-4 hover:bg-card hover:border-accent/30 transition-all duration-300"
+                style={{ animationDelay: `${index * 100 + 600}ms` }}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={`w-8 h-8 ${ritual.bgColor} rounded-lg flex items-center justify-center`}>
+                    <div className={`${ritual.color} scale-75`}>
+                      {ritual.icon}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground">{ritual.name}</h4>
+                    <p className="text-xs text-muted-foreground">{ritual.time}</p>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {ritual.description}
                 </p>
-
-                {/* Significance */}
-                <div className="bg-muted/30 rounded-lg p-3">
-                  <h5 className="text-xs font-medium text-foreground mb-2">Spiritual Significance:</h5>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {ritual.significance}
-                  </p>
-                </div>
               </div>
             ))}
           </div>

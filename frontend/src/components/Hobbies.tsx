@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Bike, Camera, Mountain, Coffee, Headphones, Gamepad2, Plane, BookOpen } from "lucide-react"
+import { Zap, Camera, Mountain, Coffee, Headphones, Dumbbell, Plane, BookOpen, Heart, Users } from "lucide-react"
 
 interface Hobby {
   name: string
@@ -16,18 +16,32 @@ interface Hobby {
 const Hobbies = () => {
   const hobbies: Hobby[] = [
     {
-      name: "Bike Riding",
-      description: "Passionate cyclist exploring scenic routes and maintaining fitness through regular rides",
-      icon: <Bike className="w-8 h-8" />,
+      name: "Motorbike Riding",
+      description: "Passionate motorcyclist exploring scenic routes and maintaining fitness through regular rides, following halal and safe riding practices",
+      icon: <Zap className="w-8 h-8" />,
       color: "text-green-500",
       bgColor: "bg-green-500/10",
       details: [
-        "Weekend long-distance rides (50+ km)",
-        "Mountain biking on challenging terrains",
-        "Urban cycling for daily commute",
-        "Bike maintenance and customization"
+        "Weekend long-distance rides (100+ km)",
+        "Mountain touring on challenging terrains",
+        "City commuting with safety focus",
+        "Motorcycle maintenance and care"
       ],
       frequency: "4-5 times per week"
+    },
+    {
+      name: "Fitness & Strength Training",
+      description: "Maintaining physical fitness as an Islamic obligation (Amanah) through structured workout routines and healthy lifestyle",
+      icon: <Dumbbell className="w-8 h-8" />,
+      color: "text-red-500",
+      bgColor: "bg-red-500/10",
+      details: [
+        "Compound movements and functional training",
+        "Bodyweight exercises and calisthenics",
+        "Flexibility and mobility work",
+        "Halal nutrition and supplement planning"
+      ],
+      frequency: "5-6 times per week"
     },
     {
       name: "Photography",
@@ -86,16 +100,30 @@ const Hobbies = () => {
       frequency: "Daily"
     },
     {
-      name: "Gaming",
-      description: "Strategy games and puzzles that challenge problem-solving skills and provide relaxation",
-      icon: <Gamepad2 className="w-8 h-8" />,
-      color: "text-red-500",
-      bgColor: "bg-red-500/10",
+      name: "Islamic Study & Community",
+      description: "Deepening Islamic knowledge through study circles, community service, and religious discussions",
+      icon: <Heart className="w-8 h-8" />,
+      color: "text-green-600",
+      bgColor: "bg-green-600/10",
       details: [
-        "Strategy and simulation games",
-        "Puzzle and brain training games",
-        "Occasional multiplayer sessions",
-        "Game development as a hobby"
+        "Weekly Islamic study circles",
+        "Community mosque activities",
+        "Volunteering for Islamic charities",
+        "Interfaith dialogue and understanding"
+      ],
+      frequency: "2-3 times per week"
+    },
+    {
+      name: "Halal Gaming & Puzzles",
+      description: "Strategy games and educational puzzles that stimulate the mind while maintaining Islamic principles",
+      icon: <BookOpen className="w-8 h-8" />,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+      details: [
+        "Chess and strategic board games",
+        "Educational and puzzle games",
+        "Islamic-themed mobile apps",
+        "Brain training and logic games"
       ],
       frequency: "2-3 times per week"
     },
@@ -114,16 +142,16 @@ const Hobbies = () => {
       frequency: "Seasonal trips"
     },
     {
-      name: "Reading",
-      description: "Continuous learning through books on technology, philosophy, and personal development",
-      icon: <BookOpen className="w-8 h-8" />,
+      name: "Islamic & Technical Reading",
+      description: "Continuous learning through Islamic literature, technical books, and beneficial knowledge",
+      icon: <Users className="w-8 h-8" />,
       color: "text-indigo-500",
       bgColor: "bg-indigo-500/10",
       details: [
+        "Quran and Islamic literature",
         "Technical books and documentation",
-        "Philosophy and psychology",
-        "Biographies of inspiring leaders",
-        "Science fiction and speculative fiction"
+        "Biographies of Islamic scholars and leaders",
+        "Personal development within Islamic framework"
       ],
       frequency: "Daily reading habit"
     }
@@ -134,33 +162,33 @@ const Hobbies = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-            Hobbies & Interests
+            Hobbies & Halal Activities
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Life beyond code - exploring passions that fuel creativity, maintain balance, and inspire innovation
+            Life beyond code - exploring halal passions that fuel creativity, maintain physical and spiritual balance, and align with Islamic values
           </p>
         </div>
 
-        {/* Featured Hobby - Bike Riding */}
+        {/* Featured Hobby - Motorbike Riding */}
         <div className="mb-16">
           <div className="bg-gradient-to-r from-green-500/10 to-green-400/5 rounded-2xl p-8 border border-green-500/20">
             <div className="flex flex-col lg:flex-row lg:items-center gap-8">
               <div className="flex-shrink-0">
                 <div className="w-24 h-24 bg-green-500/20 rounded-2xl flex items-center justify-center">
-                  <Bike className="w-12 h-12 text-green-500" />
+                  <Zap className="w-12 h-12 text-green-500" />
                 </div>
               </div>
               <div className="flex-1">
                 <h3 className="text-2xl font-bold text-foreground mb-4">
-                  🚴‍♂️ Passionate Cyclist
+                  🏍️ Passionate Motorcyclist & Fitness Enthusiast
                 </h3>
                 <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-                  Bike riding is more than just a hobby for me - it&apos;s a way of life. Whether it&apos;s conquering challenging mountain trails, 
-                  exploring scenic countryside routes, or simply commuting through the city, cycling provides the perfect balance of 
-                  physical fitness, mental clarity, and environmental consciousness.
+                  Motorbike riding and fitness are integral parts of my lifestyle, reflecting the Islamic principle of maintaining a strong, healthy body. 
+                  Whether it&apos;s exploring scenic mountain roads on my motorcycle or maintaining physical strength through disciplined training, 
+                  these activities provide spiritual balance, mental clarity, and physical wellness while following halal practices.
                 </p>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {hobbies[0].details.map((detail, index) => (
+                  {hobbies[0].details.concat(hobbies[1].details.slice(0, 2)).map((detail, index) => (
                     <div key={index} className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span className="text-muted-foreground">{detail}</span>
