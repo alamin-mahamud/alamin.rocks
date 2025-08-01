@@ -9,6 +9,7 @@ interface LinkedInRecommendation {
   author: string
   title: string
   relationship: string
+  date: string
 }
 
 const RECOMMENDATIONS_PER_PAGE = 6
@@ -17,43 +18,161 @@ const LinkedInRecommendations = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedRecommendation, setSelectedRecommendation] = useState<number | null>(null)
 
-  // Static LinkedIn recommendations from About component
+  // Complete LinkedIn recommendations data
   const linkedinRecommendations: LinkedInRecommendation[] = [
     {
       text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
       author: "Sunny Parekh",
       title: "Director of Information Security, Technology and Compliance",
-      relationship: "Worked directly with Alamin"
+      relationship: "Sunny was senior to Alamin but didn't manage Alamin directly",
+      date: "May 6, 2025"
     },
     {
-      text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive.",
+      text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive. Watching his career evolve has been rewarding - from a promising intern to a technology leader architecting scalable cloud platforms that drive real business impact. His unique blend of technical expertise and strategic vision makes him an invaluable asset to any organization. I confidently recommend him and look forward to his continued success in shaping the future of technology.",
       author: "Omar Faruque Tuhin",
-      title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js",
-      relationship: "Mentored Alamin"
+      title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js | Focused on Impact & Efficiency",
+      relationship: "Omar Faruque managed Alamin directly",
+      date: "April 29, 2025"
     },
     {
-      text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company.",
+      text: "Punctual and Energetic, one of the most creative guys I've dealt with.",
+      author: "Bikash K. Bhawmick",
+      title: "Doctoral Researcher, Targeted Therapy Technology (3T) Research Group, City St George's, University of London",
+      relationship: "Bikash K. was Alamin's mentor",
+      date: "August 18, 2019"
+    },
+    {
+      text: "I know Md. Alamin Mahamud from my university's days as he is one year senior to me and from that time to till now, I take technical help from him when I face tough and difficult situations. We worked together in several projects and he is a very **productive, hardworking, broad-minded person**. I am amazed by his **proficiency and skills on computer programming** and his **willingness to learn and take new responsibilities** is something to be desired in any professional. He is very good in **Python programming language** and he also helped me a lot on my BSC final year thesis. Working with Md. Alamin Mahamud is a **signature of success** where I have only optimistic predictions for his career trajectory.",
+      author: "Ta-Seen Junaid",
+      title: "Blockchain, Fintech & AI | GenAI",
+      relationship: "Ta-Seen worked with Alamin but they were at different companies",
+      date: "July 13, 2019"
+    },
+    {
+      text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company. No matter how tense a meeting, Alamin made sure everyone left with a smile. As a team member, Alamin earns my **highest recommendation**.",
       author: "Ilias Kanchan",
-      title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker",
-      relationship: "Worked with Alamin"
+      title: "kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker | MySQL | Python",
+      relationship: "Ilias worked with Alamin on the same team",
+      date: "July 6, 2019"
     },
     {
-      text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
-      author: "Fazle Rabby",
-      title: "Engineering Manager @ Wolt | DoorDash",
-      relationship: "Worked with Alamin on several services"
+      text: "I have worked with him directly. He's **one of the finest developers** we have in the industry and an **excellent problem solver**. It's been a pleasure working with him. I wish him all the best.",
+      author: "Riaz Rahman",
+      title: "Lead iOS Developer at United Commercial Bank PLC | Fintech | Digital Banking | MFS",
+      relationship: "Riaz worked with Alamin on the same team",
+      date: "July 5, 2019"
     },
     {
-      text: "It is rare that you come across a person like Alamin Mahamud. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
-      author: "Ariful Islam",
-      title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB",
-      relationship: "Knows Alamin professionally"
+      text: "He is very **enthusiastic and energetic person** to work with, always **thirsty to learn and discover new things**. Will definitely recommend him towards excellency.",
+      author: "A. S. Md. Ferdousul Haque",
+      title: "Senior Solution Architect - Grameenphone - SWE Digital | CSM | CSD | Problem Solver in Hackerrank, Leetcode | Ex-Banglalink Ex-Portonics Ex-Accenture",
+      relationship: "A. S. Md. Ferdousul worked with Alamin on the same team",
+      date: "July 5, 2019"
+    },
+    {
+      text: "Md. Alamin Mahmud is a **great team player**. He loves to **learn new technologies and to practice them**. He is **self motivated, driven and highly skilled person** in his respected field. Also, with the attitude of **getting things done**, he is a **great problem solver**.",
+      author: "Md Didarul Islam",
+      title: "Mobile Software Engineer | Flutter | Android | iOS",
+      relationship: "Md Didarul worked with Alamin but on different teams",
+      date: "July 3, 2019"
+    },
+    {
+      text: "Alamin was an amazing person to work with. His **analytical ability and expertise in django & Overall backend infrastructure ability** helped the product to stand in a very short time. Will definitely work with him again.",
+      author: "Ahmad Firoz",
+      title: "Senior Product Designer | UX Designer | Design Manager",
+      relationship: "Ahmad worked with Alamin on the same team",
+      date: "July 3, 2019"
+    },
+    {
+      text: "He is a nice person with good skills. His **problem solving is amazing**. He listens with patience, tries to understand the scenarios, analyze the possible options and then takes the right decision to solve it.",
+      author: "Anamoul Rouf 🇵🇸",
+      title: "UX Product Designer | Problem Solver | Research Enthusiast | UX Consultant | Design System Enthusiast | AI-Driven, AR & VR Enthusiast | Ex- ShareTrip",
+      relationship: "Anamoul worked with Alamin but on different teams",
+      date: "July 3, 2019"
     },
     {
       text: "Alamin was a **fantastic person to work with**, and is not only a **multi-skilled and insightful colleague**, but also an **inspiring strategist**. Very good person. Great employee with a **very strong problem solving skills**. He is an **asset to any company**.",
       author: "Al Amin Ibne Mosaddeque Chayan",
       title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer",
-      relationship: "Worked with Alamin"
+      relationship: "Al Amin Ibne Mosaddeque managed Alamin directly",
+      date: "July 3, 2019"
+    },
+    {
+      text: "Md. Alamin Mahamud is a **motivated, forward-thinking and intelligent software engineer** with lots of knowledge in his field. I have always found him to **embrace new technologies**. He is a **good problem solver, broad-minded and ambitious software engineer**.",
+      author: "Sujit Kumar Chanda",
+      title: "Software Engineer",
+      relationship: "Sujit Kumar and Alamin studied together",
+      date: "July 2, 2019"
+    },
+    {
+      text: "I have had the opportunity to work with Md. Alamin Mahamud while working at Portonics Limited. He is **quick learner, good team player and hard worker**. He is a **passionate developer** to develop any projects by new technologies. He was very professional during developing any projects. I wish him all the best.",
+      author: "Md. Jahangir Alam",
+      title: "Senior Software Engineer at Sulaco Tec",
+      relationship: "Md. Jahangir managed Alamin directly",
+      date: "July 1, 2019"
+    },
+    {
+      text: "Interest in working with new technology, interest in learning about something, always encourages me. If you want to be a **hilarious enthusiastic someone** at your team \"Alamin\" will be a good option. He has the **interesting power to keep the entire team in the same fashion**, it's always because of my envy. His **dedication to work** is one of his other qualities. Wish a good luck always for \"Alamin\".",
+      author: "SHAH NOOR AlAM",
+      title: "Senior Software Developer | Full Stack Developer | Node.js | React.js | Next.js | Nest.js",
+      relationship: "SHAH NOOR worked with Alamin but on different teams",
+      date: "July 1, 2019"
+    },
+    {
+      text: "**Courage & passion** are the key elements Alamin possesses. His dreams may be bigger than skies, but his **hard-working mentality and passion towards CS** will guide him to the pinnacle of success. All the best for his future endeavors.",
+      author: "Sakibur Rahaman Chowdhury",
+      title: "Senior Software Engineer | Turing.com | Supply Gen",
+      relationship: "Sakibur was Alamin's teacher",
+      date: "June 30, 2019"
+    },
+    {
+      text: "I've known Alamin for quite some time. Even though we didn't work closely, still I figured out his **enthusiasm about learning and experimenting with new stuff**. We had chat over messaging apps, discussed things over the phone regularly about career, technology, etc. As soon as I had the chance to refer him to the Pathao I didn't wait a bit. I knew that he is the **perfect guy to have in any fast growing team**. He is a **real asset for any technology team**. I'm wishing for his success in every aspect of life.",
+      author: "Ahmed Shamim Hassan",
+      title: "Muslim • Senior software engineer • Laravel core contributor • Mentor @ADPList",
+      relationship: "Ahmed worked with Alamin but on different teams",
+      date: "June 30, 2019"
+    },
+    {
+      text: "As we worked on same team, I found Mr Alamin with **excellent problem solving skill** along with **out of box thinker**. Must recommend him for any tech base team for **better improvement and faster delivery**.",
+      author: "Md Khorshed Alam",
+      title: "Tech Leader | Entrepreneur | Cloud & Software Engineering Expert",
+      relationship: "Md Khorshed worked with Alamin but on different teams",
+      date: "June 30, 2019"
+    },
+    {
+      text: "It is rare that you come across a person like Alamin Mahamud. I have known him since 2014. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. Apart from developing skills he has **exceptional communication skills and loves to read**. He has been a very good friend of mine and I know how well grounded he is. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
+      author: "Ariful Islam",
+      title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB",
+      relationship: "Ariful was senior to Alamin but didn't manage Alamin directly",
+      date: "June 29, 2019"
+    },
+    {
+      text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
+      author: "Fazle Rabby",
+      title: "Engineering Manager @ Wolt | DoorDash",
+      relationship: "Fazle worked with Alamin on the same team",
+      date: "June 27, 2019"
+    },
+    {
+      text: "Thirst for new technologies made Md Alamin Mahmud **\"Next Generation\" programmer** to me. When Alamin is in your team, you know he will **keep you up-to-date with upcoming technologies**. He is also a **Linux expert**. If you want to find the most social and jolly person in the company, probably Alamin will be the one. Finally, Alamin is a **great motivation** to me!",
+      author: "Md Shoeb Abdullah",
+      title: "Experienced Full Stack Developer | Golang | Python | PHP | React | Laravel | Laravel Certified",
+      relationship: "Md Shoeb worked with Alamin but on different teams",
+      date: "March 16, 2019"
+    },
+    {
+      text: "Md. Alamin, a Mechanical Engineer who is very **passionate about Computer Software**. **Hard-worker, responsible and a committed programmer**. Has an immense wish to **learn about new technologies**. Very dedicated and as a team member.",
+      author: "Rakib Hasann",
+      title: "Fullstack SWE | React | Node | Data Engineering",
+      relationship: "Rakib worked with Alamin on the same team",
+      date: "January 26, 2016"
+    },
+    {
+      text: "MD. Alamin Mahamud consistently provides **outstanding work, quick turnaround on bug fixes and efficient solutions**. He is very **hardworking, capable and skilled**. He does his work with **great responsibility, preciseness and to the point**.",
+      author: "Nur-A-Alam Shiddiki",
+      title: "Lead Software Engineer at Samsung R&D Institute Bangladesh Ltd. | iOS | android",
+      relationship: "Nur-A-Alam worked with Alamin on the same team",
+      date: "January 12, 2016"
     }
   ]
 
@@ -130,9 +249,15 @@ const LinkedInRecommendations = () => {
                       <p className="text-accent font-medium text-sm">
                         {recommendation.title}
                       </p>
-                      <div className="flex items-center text-muted-foreground text-sm mt-1">
-                        <Users size={12} className="mr-1" />
-                        <span>{recommendation.relationship}</span>
+                      <div className="flex items-center justify-between text-muted-foreground text-sm mt-2">
+                        <div className="flex items-center">
+                          <Users size={12} className="mr-1" />
+                          <span className="text-xs">{recommendation.relationship}</span>
+                        </div>
+                        <div className="flex items-center text-xs">
+                          <Calendar size={12} className="mr-1" />
+                          <span>{recommendation.date}</span>
+                        </div>
                       </div>
                     </div>
                   </div>

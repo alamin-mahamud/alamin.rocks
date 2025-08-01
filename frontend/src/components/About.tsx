@@ -2,7 +2,7 @@
 
 import React from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
-import TechnologiesGrid from "./ui/TechnologiesGrid"
+import TechnologiesText from "./ui/TechnologiesText"
 
 interface AboutData {
   title: string
@@ -323,7 +323,7 @@ const About = () => {
           <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
             Technologies & Expertise
           </h3>
-          <TechnologiesGrid />
+          <TechnologiesText />
         </div>
 
         {/* CTA */}
