@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Play, Clock, Eye, Calendar, Search, Filter, Grid, List } from "lucide-react"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
+import Pagination from "@/components/ui/Pagination"
 
 interface PodcastEpisode {
   id: string
@@ -17,10 +18,13 @@ interface PodcastEpisode {
   videoUrl: string
 }
 
+const EPISODES_PER_PAGE = 6
+
 const PodcastPage = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
   
   // Sample podcast episodes data - replace with real data
   const podcastEpisodes: PodcastEpisode[] = [
@@ -89,6 +93,105 @@ const PodcastPage = () => {
       publishedAt: "2024-12-11",
       tags: ["Next.js", "React", "Frontend"],
       videoUrl: "https://youtube.com/watch?v=example6"
+    },
+    {
+      id: "7",
+      title: "PostgreSQL Performance Optimization Techniques",
+      description: "Advanced PostgreSQL performance tuning, indexing strategies, and query optimization for high-traffic applications.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "39:28",
+      views: "14.3K",
+      publishedAt: "2024-12-04",
+      tags: ["PostgreSQL", "Database", "Performance"],
+      videoUrl: "https://youtube.com/watch?v=example7"
+    },
+    {
+      id: "8",
+      title: "Redis Caching Strategies for Web Applications",
+      description: "Implementing effective Redis caching patterns, session management, and distributed caching architectures.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "46:15",
+      views: "19.7K",
+      publishedAt: "2024-11-27",
+      tags: ["Redis", "Caching", "Performance"],
+      videoUrl: "https://youtube.com/watch?v=example8"
+    },
+    {
+      id: "9",
+      title: "Prometheus and Grafana: Complete Monitoring Setup",
+      description: "Setting up comprehensive monitoring with Prometheus and Grafana, creating dashboards, and alerting rules.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "54:33",
+      views: "31.2K",
+      publishedAt: "2024-11-20",
+      tags: ["Prometheus", "Grafana", "Monitoring"],
+      videoUrl: "https://youtube.com/watch?v=example9"
+    },
+    {
+      id: "10",
+      title: "AWS Lambda and Serverless Architecture Patterns",
+      description: "Building serverless applications with AWS Lambda, API Gateway, and best practices for serverless design.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "42:18",
+      views: "23.9K",
+      publishedAt: "2024-11-13",
+      tags: ["AWS", "Serverless", "Lambda"],
+      videoUrl: "https://youtube.com/watch?v=example10"
+    },
+    {
+      id: "11",
+      title: "TypeScript Advanced Types and Patterns",
+      description: "Mastering TypeScript's advanced type system, generics, conditional types, and utility types for better code.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "37:45",
+      views: "28.1K",
+      publishedAt: "2024-11-06",
+      tags: ["TypeScript", "Programming", "Frontend"],
+      videoUrl: "https://youtube.com/watch?v=example11"
+    },
+    {
+      id: "12",
+      title: "GraphQL vs REST: API Design Decisions",
+      description: "Comparing GraphQL and REST APIs, when to use each approach, and implementation considerations.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "44:52",
+      views: "16.8K",
+      publishedAt: "2024-10-30",
+      tags: ["GraphQL", "REST", "API Design"],
+      videoUrl: "https://youtube.com/watch?v=example12"
+    },
+    {
+      id: "13",
+      title: "CI/CD Pipeline Best Practices with GitHub Actions",
+      description: "Building robust CI/CD pipelines using GitHub Actions, automated testing, and deployment strategies.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "49:17",
+      views: "35.4K",
+      publishedAt: "2024-10-23",
+      tags: ["CI/CD", "GitHub Actions", "DevOps"],
+      videoUrl: "https://youtube.com/watch?v=example13"
+    },
+    {
+      id: "14",
+      title: "Event-Driven Architecture with Apache Kafka",
+      description: "Implementing event-driven systems using Apache Kafka, message patterns, and microservices communication.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "51:24",
+      views: "21.6K",
+      publishedAt: "2024-10-16",
+      tags: ["Kafka", "Event-Driven", "Microservices"],
+      videoUrl: "https://youtube.com/watch?v=example14"
+    },
+    {
+      id: "15",
+      title: "Security Best Practices for Cloud Applications",
+      description: "Comprehensive security strategies for cloud-native applications, OWASP guidelines, and vulnerability prevention.",
+      thumbnail: "/api/placeholder/320/180",
+      duration: "47:39",
+      views: "26.7K",
+      publishedAt: "2024-10-09",
+      tags: ["Security", "Cloud", "Best Practices"],
+      videoUrl: "https://youtube.com/watch?v=example15"
     }
   ]
 
@@ -102,6 +205,16 @@ const PodcastPage = () => {
     const matchesTag = !selectedTag || episode.tags.includes(selectedTag)
     return matchesSearch && matchesTag
   })
+
+  // Reset to page 1 when filters change
+  React.useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, selectedTag])
+
+  // Pagination
+  const totalPages = Math.ceil(filteredEpisodes.length / EPISODES_PER_PAGE)
+  const startIndex = (currentPage - 1) * EPISODES_PER_PAGE
+  const paginatedEpisodes = filteredEpisodes.slice(startIndex, startIndex + EPISODES_PER_PAGE)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -265,16 +378,16 @@ const PodcastPage = () => {
 
           {/* Results Count */}
           <div className="text-sm text-muted-foreground mb-6">
-            Showing {filteredEpisodes.length} of {podcastEpisodes.length} episodes
+            Showing {startIndex + 1}-{Math.min(startIndex + EPISODES_PER_PAGE, filteredEpisodes.length)} of {filteredEpisodes.length} episodes
           </div>
 
           {/* Episodes Grid/List */}
           <div className={
             viewMode === 'grid' 
-              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
-              : 'space-y-4'
+              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12'
+              : 'space-y-4 mb-12'
           }>
-            {filteredEpisodes.map((episode, index) => (
+            {paginatedEpisodes.map((episode, index) => (
               <div
                 key={episode.id}
                 style={{ animationDelay: `${index * 100}ms` }}
@@ -286,6 +399,15 @@ const PodcastPage = () => {
               </div>
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
 
           {/* No Results */}
           {filteredEpisodes.length === 0 && (
