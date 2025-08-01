@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Quote, Linkedin, Star, Users, Building, Calendar, ChevronLeft, ChevronRight } from "lucide-react"
+import { Quote, Linkedin, Star, Users, Building, Calendar, ChevronRight } from "lucide-react"
 import { portfolioApi, LinkedInRecommendation } from "@/lib/api"
 import Pagination from "./ui/Pagination"
 
-const RECOMMENDATIONS_PER_PAGE = 6
+const RECOMMENDATIONS_PER_PAGE = 4
 
 const Recommendations = () => {
   const [recommendations, setRecommendations] = useState<LinkedInRecommendation[]>([])
@@ -46,25 +46,28 @@ const Recommendations = () => {
   const paginatedRecommendations = recommendations.slice(startIndex, startIndex + RECOMMENDATIONS_PER_PAGE)
 
   return (
-    <section id="recommendations" className="py-20 bg-muted">
+    <section id="recommendations" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-            LinkedIn Recommendations
+            Professional Recommendations
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            What colleagues and clients say about working with me
+            Testimonials from colleagues, clients, and industry leaders
           </p>
-          <div className="flex items-center justify-center mt-4 gap-2">
-            <Linkedin className="text-accent" size={20} />
-            <span className="text-muted-foreground mono text-sm">
-              {recommendations.length} recommendations from industry professionals
-            </span>
+          <div className="flex items-center justify-center mt-6">
+            <div className="inline-flex items-center px-4 py-2 bg-[#0077b5]/10 text-[#0077b5] rounded-full border border-[#0077b5]/20">
+              <Linkedin size={18} className="mr-2" />
+              <span className="text-sm font-medium">
+                {recommendations.length} LinkedIn recommendations
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Results count */}
-        <div className="text-center mb-6 text-sm text-muted-foreground">
+        <div className="text-center mb-8 text-sm text-muted-foreground">
           Showing {startIndex + 1}-{Math.min(startIndex + RECOMMENDATIONS_PER_PAGE, recommendations.length)} of {recommendations.length} recommendations
         </div>
 
@@ -77,98 +80,105 @@ const Recommendations = () => {
             return (
               <div
                 key={recommendation.id}
-                className="group relative bg-card rounded-xl border border-border overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border"
+                className="group relative bg-card rounded-2xl border border-border overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-foreground/10 hover:border-accent/50 hover:-translate-y-2"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="p-8">
-                {/* Quote Icon */}
-                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Quote size={48} className="text-accent" />
-                </div>
-
-                {/* Recommender Info */}
-                <div className="flex items-start mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-accent to-accent/80 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
-                    <span className="text-accent-foreground font-semibold mono text-lg">
-                      {recommendation.recommender_name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                <div className="p-8 relative">
+                  {/* Quote Icon */}
+                  <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Quote size={40} className="text-accent" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mono">
-                      {recommendation.recommender_name}
-                    </h3>
-                    <p className="text-accent font-medium text-sm mono">
-                      {recommendation.recommender_title}
-                    </p>
-                    <div className="flex items-center text-muted-foreground text-sm mt-1">
-                      <Building size={12} className="mr-1" />
-                      <span className="mono">{recommendation.recommender_company}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Relationship & Date */}
-                <div className="flex items-center justify-between mb-4 text-xs text-muted-foreground">
-                  <div className="flex items-center">
-                    <Users size={12} className="mr-1" />
-                    <span className="mono">{recommendation.relationship}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar size={12} className="mr-1" />
-                    <span className="mono">
-                      {new Date(recommendation.date).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'short' 
-                      })}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Recommendation Content */}
-                <div className="mb-6">
-                  <p className="text-foreground leading-relaxed mono text-sm">
-                    {shouldTruncate && !isExpanded 
-                      ? `${recommendation.content.substring(0, 300)}...` 
-                      : recommendation.content
-                    }
-                  </p>
                   
-                  {shouldTruncate && (
-                    <button
-                      onClick={() => setSelectedRecommendation(
-                        isExpanded ? null : recommendation.id
-                      )}
-                      className="text-accent hover:text-accent/80 text-sm mt-2 mono font-medium transition-colors"
-                    >
-                      {isExpanded ? 'Show less' : 'Read more'}
-                    </button>
-                  )}
-                </div>
-
-                {/* Skills Mentioned */}
-                {recommendation.skills_mentioned.length > 0 && (
-                  <div className="border-t border-border pt-4">
-                    <h4 className="text-xs font-medium text-muted-foreground mono mb-2 flex items-center">
-                      <Star size={12} className="mr-1" />
-                      SKILLS MENTIONED
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {recommendation.skills_mentioned.map((skill, idx) => (
-                        <span
-                          key={idx}
-                          className="badge-tech mono"
-                        >
-                          {skill}
-                        </span>
-                      ))}
+                  {/* LinkedIn Badge */}
+                  <div className="absolute top-6 left-6">
+                    <div className="w-8 h-8 bg-[#0077b5] rounded flex items-center justify-center">
+                      <Linkedin size={16} className="text-white" />
                     </div>
                   </div>
-                )}
 
+                  {/* Recommender Info */}
+                  <div className="flex items-start mb-6 mt-8">
+                    <div className="w-14 h-14 bg-gradient-to-br from-accent to-accent/70 rounded-full flex items-center justify-center flex-shrink-0 mr-4 shadow-lg">
+                      <span className="text-accent-foreground font-bold text-lg">
+                        {recommendation.recommender_name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div className="flex-1 pt-1">
+                      <h3 className="text-xl font-bold text-foreground mb-1">
+                        {recommendation.recommender_name}
+                      </h3>
+                      <p className="text-accent font-semibold text-sm mb-1">
+                        {recommendation.recommender_title}
+                      </p>
+                      <div className="flex items-center text-muted-foreground text-sm">
+                        <Building size={14} className="mr-2" />
+                        <span>{recommendation.recommender_company}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Relationship & Date */}
+                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/50">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Users size={14} className="mr-2" />
+                      <span className="font-medium">{recommendation.relationship}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Calendar size={14} className="mr-2" />
+                      <span>
+                        {new Date(recommendation.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'short' 
+                        })}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Recommendation Content */}
+                  <div className="mb-6">
+                    <p className="text-foreground leading-relaxed text-base font-medium">
+                      {shouldTruncate && !isExpanded 
+                        ? `${recommendation.content.substring(0, 300)}...` 
+                        : recommendation.content
+                      }
+                    </p>
+                    
+                    {shouldTruncate && (
+                      <button
+                        onClick={() => setSelectedRecommendation(
+                          isExpanded ? null : recommendation.id
+                        )}
+                        className="inline-flex items-center text-accent hover:text-accent/80 text-sm mt-3 font-semibold transition-colors group"
+                      >
+                        {isExpanded ? 'Show less' : 'Read more'}
+                        <ChevronRight size={14} className={`ml-1 transition-transform ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Skills Mentioned */}
+                  {recommendation.skills_mentioned.length > 0 && (
+                    <div className="border-t border-border/50 pt-4">
+                      <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center">
+                        <Star size={16} className="mr-2 text-yellow-500" />
+                        Skills Highlighted
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {recommendation.skills_mentioned.map((skill, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-accent/10 text-accent border border-accent/20 rounded-full text-sm font-medium transition-all duration-200 hover:bg-accent/20"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Hover Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-2xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none" />
               </div>
             )
           })}
@@ -183,19 +193,18 @@ const Recommendations = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent/10 to-accent/5 backdrop-blur-sm rounded-full border border-accent/30">
-            <Linkedin className="text-accent mr-3" size={24} />
-            <span className="text-lg font-medium text-foreground mono">
-              <a 
-                href="https://linkedin.com/in/alamin-mahamud" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-              >
-                View full LinkedIn profile for more recommendations
-              </a>
+          <a 
+            href="https://linkedin.com/in/alamin-mahamud" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-4 bg-[#0077b5] text-white rounded-xl font-semibold transition-all duration-300 hover:bg-[#005885] hover:shadow-lg hover:shadow-[#0077b5]/25 hover:-translate-y-1 group"
+          >
+            <Linkedin size={24} className="mr-3" />
+            <span className="text-lg">
+              View Full LinkedIn Profile
             </span>
-          </div>
+            <ChevronRight size={20} className="ml-2 transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
