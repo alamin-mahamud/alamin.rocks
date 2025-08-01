@@ -13,9 +13,12 @@ const Navigation = () => {
     { name: "Home", href: "/", id: "home" },
     { name: "About", href: "#about", id: "about" },
     { name: "Skills", href: "#techstack", id: "techstack" },
-    { name: "Achievements", href: "#achievements", id: "achievements" },
     { name: "Experience", href: "#experience", id: "experience" },
     { name: "Projects", href: "#projects", id: "projects" },
+    { name: "Training", href: "#training", id: "training" },
+    { name: "Education", href: "#education", id: "education" },
+    { name: "Impact", href: "#social-impact", id: "social-impact" },
+    { name: "Hobbies", href: "#hobbies", id: "hobbies" },
     { name: "Podcast", href: "/podcast", id: "podcast" },
     { name: "Contact", href: "#contact", id: "contact" },
   ]

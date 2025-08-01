@@ -191,7 +191,7 @@ const LinkedInRecommendations = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-            LinkedIn Recommendations
+            Recommendations
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             What colleagues and industry professionals say about working with me
@@ -264,17 +264,17 @@ const LinkedInRecommendations = () => {
 
                   {/* Recommendation Content */}
                   <div className="mb-6">
-                    <blockquote 
+                    <blockquote
                       className="text-muted-foreground leading-relaxed text-sm italic"
-                      dangerouslySetInnerHTML={{ 
+                      dangerouslySetInnerHTML={{
                         __html: formatDescription(
-                          `"${shouldTruncate && !isExpanded 
-                            ? `${recommendation.text.substring(0, 250)}...` 
+                          `"${shouldTruncate && !isExpanded
+                            ? `${recommendation.text.substring(0, 250)}...`
                             : recommendation.text}"`
-                        ) 
+                        )
                       }}
                     />
-                    
+
                     {shouldTruncate && (
                       <button
                         onClick={() => setSelectedRecommendation(
@@ -287,7 +287,7 @@ const LinkedInRecommendations = () => {
                     )}
                   </div>
                 </div>
-                
+
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/3 to-accent/5 rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none" />
               </div>
@@ -307,9 +307,9 @@ const LinkedInRecommendations = () => {
           <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent/10 to-accent/5 backdrop-blur-sm rounded-full border border-accent/30">
             <Linkedin className="text-accent mr-3" size={24} />
             <span className="text-lg font-medium text-foreground">
-              <a 
-                href="https://linkedin.com/in/alamin-mahamud" 
-                target="_blank" 
+              <a
+                href="https://linkedin.com/in/alamin-mahamud"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"
               >
