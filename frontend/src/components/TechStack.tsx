@@ -173,11 +173,11 @@ const TechStack = () => {
     <section id="techstack" className="py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 mono">
-            $ cat /proc/skills
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
+            Skills & Technologies
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mono">
-            # Comprehensive technology stack with real-time proficiency metrics
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Comprehensive technology stack with real-time proficiency metrics and hands-on experience
           </p>
         </div>
 

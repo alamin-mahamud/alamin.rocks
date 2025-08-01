@@ -188,11 +188,11 @@ const Experience = () => {
     <section id="experience" className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 mono">
-            $ cat experience.log
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
+            Professional Experience
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mono">
-            # 10+ years of building scalable systems and leading teams
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            10+ years of building scalable systems, leading teams, and delivering impactful solutions
           </p>
         </div>
 

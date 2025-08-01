@@ -13,6 +13,7 @@ import Training from "@/components/Training"
 import Certifications from "@/components/Certifications"
 import Education from "@/components/Education"
 import SocialImpact from "@/components/SocialImpact"
+import DailyRituals from "@/components/DailyRituals"
 import Hobbies from "@/components/Hobbies"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
@@ -56,6 +57,7 @@ export default function Home() {
         <Certifications />
         <Education />
         <SocialImpact />
+        <DailyRituals />
         <Hobbies />
         <Contact />
       </main>

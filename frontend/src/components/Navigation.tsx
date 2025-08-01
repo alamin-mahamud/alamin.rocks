@@ -18,6 +18,7 @@ const Navigation = () => {
     { name: "Training", href: "#training", id: "training" },
     { name: "Education", href: "#education", id: "education" },
     { name: "Impact", href: "#social-impact", id: "social-impact" },
+    { name: "Rituals", href: "#daily-rituals", id: "daily-rituals" },
     { name: "Hobbies", href: "#hobbies", id: "hobbies" },
     { name: "Podcast", href: "/podcast", id: "podcast" },
     { name: "Contact", href: "#contact", id: "contact" },
