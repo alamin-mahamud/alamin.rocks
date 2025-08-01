@@ -2,6 +2,7 @@
 
 import React from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
+import TechnologiesGrid from "./ui/TechnologiesGrid"
 
 interface AboutData {
   title: string
@@ -317,43 +318,12 @@ const About = () => {
           </div>
         </div>
 
-        {/* Skills */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">
-            Technologies & Expertise
-          </h3>
-          <div className="flex flex-wrap justify-center gap-2">
-            {data.skills?.map((skill) => (
-              <span
-                key={skill}
-                className="badge-tech"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* LinkedIn Recommendations Section */}
+        {/* Technologies & Expertise */}
         <div>
           <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
-            LinkedIn Recommendations
+            Technologies & Expertise
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.linkedinRecommendations?.map((rec, index) => (
-              <div key={index} className="bg-card rounded-xl p-6 shadow-sm border border-border card-hover hover:shadow-lg transition-all duration-300">
-                <blockquote 
-                  className="text-muted-foreground mb-4 leading-relaxed text-sm italic"
-                  dangerouslySetInnerHTML={{ __html: formatDescription(`"${rec.text}"`) }}
-                />
-                <footer className="border-t border-border pt-4">
-                  <div className="font-semibold text-foreground text-sm">{rec.author}</div>
-                  <div className="text-xs text-muted-foreground mb-1">{rec.title}</div>
-                  <div className="text-xs text-accent">{rec.relationship}</div>
-                </footer>
-              </div>
-            ))}
-          </div>
+          <TechnologiesGrid />
         </div>
 
         {/* CTA */}
