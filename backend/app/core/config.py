@@ -1,5 +1,7 @@
-from pydantic_settings import BaseSettings
 from typing import Optional
+
+from pydantic_settings import BaseSettings
+
 
 class Settings(BaseSettings):
     app_name: str = "Alamin Rocks API"
@@ -9,10 +11,12 @@ class Settings(BaseSettings):
     secret_key: str = "your-secret-key-here"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
-    frontend_url: str = "http://localhost:3000"
-    
+    frontend_url: str = "alamin.rocks"
+    admin_url: str = "admin.alamin.rocks"
+
     class Config:
         env_file = ".env"
-        env_file_encoding = 'utf-8'
+        env_file_encoding = "utf-8"
+
 
 settings = Settings()
