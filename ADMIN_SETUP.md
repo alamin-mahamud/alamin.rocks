@@ -21,11 +21,11 @@ docker-compose up --build
 ```
 
 Services will be available at:
-- **Frontend**: http://localhost:3081
+- **Frontend**: http://localhost:3000
 - **Admin Dashboard**: http://localhost:3082
-- **Backend API**: http://localhost:8081
-- **Database**: localhost:5443
-- **Redis**: localhost:6390
+- **Backend API**: http://localhost:8000
+- **Database**: localhost:5432
+- **Redis**: localhost:6379
 
 ### Option 2: Manual Setup
 
