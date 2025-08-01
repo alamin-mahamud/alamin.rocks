@@ -5,6 +5,26 @@ import { portfolioApi, Project } from "@/lib/api"
 import { generateProjects } from "@/lib/projectGenerator"
 import SkillBadgeSlider from "@/components/ui/SkillBadgeSlider"
 
+// Generate static params for all possible project IDs
+export async function generateStaticParams() {
+  try {
+    // Get both API projects and generated projects
+    const apiProjects = await portfolioApi.getProjects().catch(() => [])
+    const generatedProjects = generateProjects(200)
+    const allProjects = [...apiProjects, ...generatedProjects]
+    
+    return allProjects.map((project) => ({
+      id: project.id,
+    }))
+  } catch (error) {
+    // Fallback to just generated projects if API fails
+    const generatedProjects = generateProjects(200)
+    return generatedProjects.map((project) => ({
+      id: project.id,
+    }))
+  }
+}
+
 async function getProject(id: string): Promise<Project | null> {
   try {
     // Try to get from API first
