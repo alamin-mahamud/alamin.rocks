@@ -18,7 +18,7 @@ const Experience = () => {
     {
       company: "Kahf Yazılım A.Ş.",
       role: "Senior DevOps Engineer",
-      duration: "July 2025 - Present",
+      duration: "August 2025 - Present",
       location: "Istanbul, Turkey",
       current: true,
       achievements: [
@@ -29,6 +29,51 @@ const Experience = () => {
       ],
       technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"],
       website: "https://kahf.co"
+    },
+    {
+      company: "Kahf Yazılım A.Ş.",
+      role: "DevOps Contributor",
+      duration: "May 2025 - July 2025",
+      location: "Istanbul, Turkey",
+      current: false,
+      achievements: [
+        "On a mission to make online world safe & secure",
+        "Migrating entire infrastructure from Azure to Bare-metal",
+        "Implementing cloud-native solutions with Kubernetes orchestration",
+        "Establishing robust monitoring and observability stack"
+      ],
+      technologies: ["CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"],
+      website: "https://kahf.co"
+    },
+    {
+      company: "Source Code Podcast",
+      role: "Founder & Host",
+      duration: "March 2025 - Present",
+      location: "Remote",
+      current: true,
+      achievements: [
+        "Building a platform for technology discussions and knowledge sharing",
+        "Growing audience of developers and technology professionals",
+        "Featuring industry experts and thought leaders",
+        "Contributing to developer community growth and education"
+      ],
+      technologies: ["Content Creation", "Community Building", "Podcasting", "Developer Relations"],
+      website: "https://sourcecode.alamin.rocks"
+    },
+    {
+      company: "Dark Knight Technologies",
+      role: "Founder & Platform Architect",
+      duration: "November 2023 - Present",
+      location: "Remote",
+      current: true,
+      achievements: [
+        "Empowering businesses by building highly scalable, fault-tolerant applications",
+        "Implementing robust cybersecurity measures and efficient platforms",
+        "Architecting cloud-native solutions for global enterprises",
+        "Providing strategic technology consulting for startups and enterprises"
+      ],
+      technologies: ["Full-Stack Development", "Cloud Architecture", "Cybersecurity", "Platform Engineering"],
+      website: "https://darkknight.tech"
     },
     {
       company: "LeadSync.ai",
@@ -56,36 +101,6 @@ const Experience = () => {
         "Currently raising pre-seed strategic investment for AI-powered on-call automation platform"
       ],
       technologies: ["AI/ML", "Python", "TypeScript", "Kubernetes", "AWS", "Product Strategy", "Go-to-Market"]
-    },
-    {
-      company: "Dark Knight Technologies",
-      role: "Founder & Platform Architect",
-      duration: "November 2023 - Present",
-      location: "Remote",
-      current: true,
-      achievements: [
-        "Empowering businesses by building highly scalable, fault-tolerant applications",
-        "Implementing robust cybersecurity measures and efficient platforms",
-        "Architecting cloud-native solutions for global enterprises",
-        "Providing strategic technology consulting for startups and enterprises"
-      ],
-      technologies: ["Full-Stack Development", "Cloud Architecture", "Cybersecurity", "Platform Engineering"],
-      website: "https://darkknight.tech"
-    },
-    {
-      company: "Source Code Podcast",
-      role: "Founder & Host",
-      duration: "March 2025 - Present",
-      location: "Remote",
-      current: true,
-      achievements: [
-        "Building a platform for technology discussions and knowledge sharing",
-        "Growing audience of developers and technology professionals",
-        "Featuring industry experts and thought leaders",
-        "Contributing to developer community growth and education"
-      ],
-      technologies: ["Content Creation", "Community Building", "Podcasting", "Developer Relations"],
-      website: "https://sourcecode.alamin.rocks"
     },
     {
       company: "BriteCore Inc",
@@ -184,14 +199,14 @@ const Experience = () => {
         <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-accent"></div>
-          
+
           <div className="space-y-12">
             {experiences.map((exp, index) => (
               <div key={index} className="relative flex items-start">
                 {/* Timeline dot */}
                 <div className={`absolute left-6 w-4 h-4 rounded-full border-2 ${
-                  exp.current 
-                    ? 'bg-accent border-accent shadow-lg shadow-accent/50' 
+                  exp.current
+                    ? 'bg-accent border-accent shadow-lg shadow-accent/50'
                     : 'bg-background border-muted-foreground'
                 } z-10`}>
                   {exp.current && (
@@ -214,7 +229,7 @@ const Experience = () => {
                           )}
                         </div>
                       </div>
-                      
+
                       <div className="flex flex-col items-end mt-2 lg:mt-0">
                         <div className="flex items-center gap-1 text-sm text-muted-foreground mono">
                           <Calendar size={14} />
