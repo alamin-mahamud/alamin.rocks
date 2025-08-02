@@ -4,33 +4,30 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 # Copy source code and build
 COPY . .
 RUN npm run build
 
-# Production stage - serve static files
-FROM nginx:alpine AS runner
+# Production stage - serve with Next.js standalone
+FROM node:22-alpine AS runner
+WORKDIR /app
 
-# Copy custom nginx config
-COPY --from=builder /app/nginx.conf /etc/nginx/nginx.conf
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copy static files
-COPY --from=builder /app/out /usr/share/nginx/html
+# Copy the standalone output
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
-# Set up nginx directories and permissions
-RUN mkdir -p /var/cache/nginx/client_temp && \
-  mkdir -p /var/cache/nginx/proxy_temp && \
-  mkdir -p /var/cache/nginx/fastcgi_temp && \
-  mkdir -p /var/cache/nginx/uwsgi_temp && \
-  mkdir -p /var/cache/nginx/scgi_temp && \
-  chown -R nginx:nginx /var/cache/nginx && \
-  chown -R nginx:nginx /var/log/nginx && \
-  chown -R nginx:nginx /etc/nginx/conf.d && \
-  touch /var/run/nginx.pid && \
-  chown -R nginx:nginx /var/run/nginx.pid
+USER nextjs
 
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["node", "server.js"]

@@ -12,7 +12,6 @@ import {
   FolderOpen, 
   GraduationCap, 
   Award, 
-  Certificate, 
   Code, 
   Users,
   Edit,
@@ -328,7 +327,7 @@ export default function ResumePage() {
               <p className="text-sm text-muted-foreground">Skill Categories</p>
             </Card>
             <Card className="text-center">
-              <Certificate className="h-8 w-8 text-accent mx-auto mb-2" />
+              <Award className="h-8 w-8 text-accent mx-auto mb-2" />
               <p className="text-2xl font-bold text-foreground">{resume.certifications.length}</p>
               <p className="text-sm text-muted-foreground">Certifications</p>
             </Card>
