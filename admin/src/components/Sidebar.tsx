@@ -8,6 +8,7 @@ import {
   FolderOpen, 
   FileText, 
   Settings,
+  Languages,
   LogOut
 } from 'lucide-react'
 import { clsx } from 'clsx'
@@ -17,6 +18,7 @@ const navigation = [
   { name: 'Messages', href: '/messages', icon: MessageSquare },
   { name: 'Projects', href: '/projects', icon: FolderOpen },
   { name: 'Resume', href: '/resume', icon: FileText },
+  { name: 'Translations', href: '/translations', icon: Languages },
   { name: 'Settings', href: '/settings', icon: Settings },
 ]
 

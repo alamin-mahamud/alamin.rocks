@@ -65,4 +65,33 @@ export const resumeApi = {
   getCommunityEngagement: () => api.get('/api/v1/resume/community'),
 }
 
+// Translation API
+export const translationApi = {
+  getLanguages: () => api.get('/api/translations/languages'),
+  getUITranslations: (languageCode: string = 'en') => api.get(`/api/translations/ui/${languageCode}`),
+  getHero: (lang: string = 'en') => api.get('/api/translations/hero', { params: { lang } }),
+  getAbout: (lang: string = 'en') => api.get('/api/translations/about', { params: { lang } }),
+  getContactInfo: (lang: string = 'en') => api.get('/api/translations/contact', { params: { lang } }),
+  getProjects: (lang: string = 'en', featured: boolean = false) => 
+    api.get('/api/translations/projects', { params: { lang, featured } }),
+  getTechSkills: (lang: string = 'en') => api.get('/api/translations/tech-skills', { params: { lang } }),
+  getAchievements: (lang: string = 'en') => api.get('/api/translations/achievements', { params: { lang } }),
+  getExperiences: (lang: string = 'en') => api.get('/api/translations/experiences', { params: { lang } }),
+  getCompleteness: () => api.get('/api/translations/completeness'),
+  
+  // Admin endpoints for managing translations
+  updateContentTranslation: (tableName: string, recordId: string, fieldName: string, languageCode: string, content: string) =>
+    api.post(`/api/translations/content/${tableName}/${recordId}/${fieldName}`, null, {
+      params: { language_code: languageCode, content }
+    }),
+  updateUITranslation: (key: string, languageCode: string, value: string) =>
+    api.post(`/api/translations/ui/${key}`, null, {
+      params: { language_code: languageCode, value }
+    }),
+  deleteContentTranslation: (tableName: string, recordId: string, fieldName: string, languageCode: string) =>
+    api.delete(`/api/translations/content/${tableName}/${recordId}/${fieldName}`, {
+      params: { language_code: languageCode }
+    }),
+}
+
 export default api

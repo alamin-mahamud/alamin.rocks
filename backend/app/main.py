@@ -11,6 +11,7 @@ from app.api import (
     recommendations,
     resume,
     techstack,
+    translations,
 )
 from app.core.config import settings
 from app.core.logging import setup_logging
@@ -89,6 +90,9 @@ app.include_router(hero.router, prefix="/api/hero", tags=["hero"])
 app.include_router(about.router, prefix="/api/about", tags=["about"])
 app.include_router(
     contact_info.router, prefix="/api/contact-info", tags=["contact-info"]
+)
+app.include_router(
+    translations.router, prefix="/api", tags=["translations"]
 )
 
 
