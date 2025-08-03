@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { ArrowDown, Github, Linkedin, Mail, Terminal, Code, Cloud, Zap } from "lucide-react"
 import { portfolioApi, Hero as HeroType } from "@/lib/api"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0)
@@ -11,6 +12,7 @@ const Hero = () => {
   const [metricsVisible, setMetricsVisible] = useState(false)
   const [heroData, setHeroData] = useState<HeroType | null>(null)
   const [loading, setLoading] = useState(true)
+  const { t } = useLanguage()
 
 
   const scrollToProjects = () => {
@@ -112,7 +114,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl sm:text-7xl font-bold text-foreground mb-6 tracking-tight">
-            Hi, I&apos;m{" "}
+            {t('hero.greeting')},{" "}
             <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
               {heroData?.name.split(' ')[0] || 'Alamin'}
             </span>
@@ -126,19 +128,19 @@ const Hero = () => {
           <div className={`grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto transition-all duration-1000 ${metricsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.total_impact || '$21.2M+'}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Total Impact</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{t('hero.totalImpact')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.users_served || '100K+'}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Users Served</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{t('hero.usersServed')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.uptime_sla || '99.99%'}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Uptime SLA</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{t('hero.uptimeSla')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-accent mb-1">{heroData?.metrics?.experience || '10+'}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">Years Exp</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{t('hero.yearsExperience')}</div>
             </div>
           </div>
 
@@ -173,7 +175,7 @@ const Hero = () => {
               className="btn btn-primary btn-lg group relative overflow-hidden"
             >
               <Code size={18} className="mr-2 transition-transform duration-200 group-hover:scale-110" />
-              View My Work
+              {t('hero.viewProjects')}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
             <a
@@ -181,7 +183,7 @@ const Hero = () => {
               className="btn btn-secondary btn-lg"
             >
               <Terminal size={18} className="mr-2" />
-              Get In Touch
+              {t('hero.contactMe')}
             </a>
           </div>
         </div>

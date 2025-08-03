@@ -3,11 +3,13 @@ import "./globals.css"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/contexts/ThemeContext"
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext"
+import { LanguageProvider } from "@/contexts/LanguageContext"
 import FloatingThemeToggle from "@/components/FloatingThemeToggle"
 import ThemeTransition from "@/components/ThemeTransition"
 import AccessibilityPanel from "@/components/AccessibilityPanel"
 import SkipNavigation from "@/components/SkipNavigation"
 import AccessibilityTester from "@/components/AccessibilityTester"
+import LanguageWrapper from "@/components/LanguageWrapper"
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://alamin.rocks'),
@@ -88,15 +90,19 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeProvider>
           <AccessibilityProvider>
-            <SkipNavigation />
-            <Suspense fallback={<HeroSkeleton />}>
-              {children}
-            </Suspense>
-            <FloatingThemeToggle />
-            <AccessibilityPanel />
-            <AccessibilityTester />
-            <ThemeTransition />
-            <PerformanceMonitor />
+            <LanguageProvider>
+              <LanguageWrapper>
+                <SkipNavigation />
+                <Suspense fallback={<HeroSkeleton />}>
+                  {children}
+                </Suspense>
+                <FloatingThemeToggle />
+                <AccessibilityPanel />
+                <AccessibilityTester />
+                <ThemeTransition />
+                <PerformanceMonitor />
+              </LanguageWrapper>
+            </LanguageProvider>
           </AccessibilityProvider>
         </ThemeProvider>
       </body>

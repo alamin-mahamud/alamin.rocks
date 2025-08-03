@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
 import { portfolioApi, ContactInfo } from "@/lib/api"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 const Contact = () => {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: "",
     email: "",

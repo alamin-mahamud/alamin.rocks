@@ -3,20 +3,23 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Menu, X, Terminal, Code2 } from "lucide-react"
+import LanguageSelector from "@/components/LanguageSelector"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
+  const { t } = useLanguage()
 
   const navItems = [
-    { name: "Home", href: "/", id: "home" },
-    { name: "About", href: "#about", id: "about" },
-    { name: "Experience", href: "#experience", id: "experience" },
-    { name: "Projects", href: "#projects", id: "projects" },
-    { name: "Goals", href: "#goals-mission", id: "goals-mission" },
-    { name: "Podcast", href: "/podcast", id: "podcast" },
-    { name: "Contact", href: "#contact", id: "contact" },
+    { name: t("nav.home"), href: "/", id: "home" },
+    { name: t("nav.about"), href: "#about", id: "about" },
+    { name: t("nav.experience"), href: "#experience", id: "experience" },
+    { name: t("nav.projects"), href: "#projects", id: "projects" },
+    { name: t("nav.goals"), href: "#goals-mission", id: "goals-mission" },
+    { name: t("nav.podcast"), href: "/podcast", id: "podcast" },
+    { name: t("nav.contact"), href: "#contact", id: "contact" },
   ]
 
   // Handle scroll effect
@@ -89,7 +92,8 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-3">
+            <div className="flex items-center space-x-1">
             {navItems.map((item) => {
               const isActive = activeSection === item.id
               return (
@@ -110,10 +114,16 @@ const Navigation = () => {
                 </Link>
               )
             })}
+            </div>
+            <div className="ml-2">
+              <LanguageSelector />
+            </div>
           </div>
 
-          {/* Mobile menu button */}
-          <button
+          {/* Mobile menu button and language selector */}
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSelector />
+            <button
             className="md:hidden relative p-2 rounded-lg hover:bg-muted/80 transition-colors duration-200"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -126,6 +136,7 @@ const Navigation = () => {
               )}
             </div>
           </button>
+          </div>
         </div>
       </div>
 

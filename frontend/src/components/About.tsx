@@ -2,6 +2,7 @@
 
 import React from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface AboutData {
   title: string
@@ -21,6 +22,7 @@ interface AboutData {
 }
 
 const About = () => {
+  const { t } = useLanguage()
 
   // Complete static data extracted from resume and LinkedIn profile
   const staticAboutData = {
@@ -233,7 +235,7 @@ const About = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-            About Me
+            {t('about.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A <strong className="text-foreground">multi-dimensional thinker</strong> with a <strong className="text-foreground">global mindset</strong>, 
