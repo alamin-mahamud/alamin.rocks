@@ -1,6 +1,8 @@
 import { Github, Linkedin, Mail, Twitter, Youtube, MapPin, Heart } from "lucide-react"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 const Footer = () => {
+  const { t } = useLanguage()
   const currentYear = new Date().getFullYear()
 
   const navigationLinks = [
