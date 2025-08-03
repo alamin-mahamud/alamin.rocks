@@ -1,6 +1,6 @@
 {
-  "hero.greeting": "নমস্কার, আমি",
-  "hero.iam": "আমি একজন",
+  "hero.greeting": "সালাম, আমি",
+  "hero.iam": "আমি",
   "hero.viewProjects": "কাজ দেখুন",
   "hero.contactMe": "যোগাযোগ করুন",
   "hero.yearsExperience": "বছরের অভিজ্ঞতা",
@@ -9,7 +9,6 @@
   "hero.usersServed": "সেবাপ্রাপ্ত ব্যবহারকারী",
   "hero.uptimeSla": "Uptime SLA",
   "hero.totalImpact": "সর্বমোট প্রভাব",
-  
   "nav.home": "মূলপাতা",
   "nav.about": "পরিচিতি",
   "nav.experience": "অভিজ্ঞতা",
@@ -17,7 +16,6 @@
   "nav.goals": "লক্ষ্য",
   "nav.podcast": "Podcast",
   "nav.contact": "যোগাযোগ",
-  
   "about.title": "আমার পরিচয়",
   "about.intro": "দশ বছরেরও বেশি অভিজ্ঞতা সম্পন্ন প্রযুক্তি নেতা, যিনি scalable cloud platform তৈরি এবং DevOps দল পরিচালনায় দক্ষ। $1M+ খরচ সাশ্রয় এবং $20M+ SaaS ARR অর্জনের প্রমাণিত সাফল্য।",
   "about.journey": "পেশাগত যাত্রা",
@@ -25,21 +23,17 @@
   "about.technical": "প্রযুক্তিগত নেতৃত্ব",
   "about.innovation": "উদ্ভাবন ও প্রবৃদ্ধি",
   "about.community": "সামাজিক অবদান",
-  
   "experience.title": "অভিজ্ঞতা",
   "experience.current": "বর্তমান",
   "experience.viewMore": "আরও দেখুন",
-  
   "projects.title": "নির্বাচিত প্রকল্পসমূহ",
   "projects.viewDemo": "প্রদর্শন দেখুন",
   "projects.viewCode": "কোড দেখুন",
   "projects.technologies": "প্রযুক্তি",
-  
   "goals.title": "লক্ষ্য ও উদ্দেশ্য",
   "goals.vision": "দৃষ্টিভঙ্গি",
   "goals.mission": "লক্ষ্য",
   "goals.values": "মূল্যবোধ",
-  
   "contact.title": "যোগাযোগ",
   "contact.email": "ইমেইল",
   "contact.linkedin": "LinkedIn",
@@ -51,7 +45,6 @@
   "contact.sending": "পাঠানো হচ্ছে...",
   "contact.success": "আপনার বার্তা সফলভাবে পাঠানো হয়েছে!",
   "contact.error": "বার্তা পাঠাতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।",
-  
   "techstack.title": "প্রযুক্তি স্ট্যাক",
   "techstack.cloud": "Cloud ও পরিকাঠামো",
   "techstack.backend": "Backend উন্নয়ন",
@@ -59,11 +52,9 @@
   "techstack.devops": "DevOps ও স্বয়ংক্রিয়করণ",
   "techstack.monitoring": "পর্যবেক্ষণ ও Observability",
   "techstack.ai": "AI ও Machine Learning",
-  
   "achievements.title": "অর্জনসমূহ",
   "achievements.certifications": "সনদপত্র",
   "achievements.awards": "পুরস্কার ও সম্মাননা",
-  
   "footer.copyright": "© ২০২৪ Alamin Mahamud। সর্বস্বত্ব সংরক্ষিত।",
   "footer.builtWith": "নির্মিত",
   "footer.and": "এবং",
@@ -78,7 +69,6 @@
   "footer.recommendations": "সুপারিশ",
   "footer.training": "প্রশিক্ষণ",
   "footer.education": "শিক্ষা",
-  
   "common.loading": "অপেক্ষা করুন...",
   "common.error": "সমস্যা",
   "common.retry": "আবার চেষ্টা করুন",
