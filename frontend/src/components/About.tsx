@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
 import { useLanguage } from "@/contexts/LanguageContext"
 
@@ -22,205 +22,155 @@ interface AboutData {
 }
 
 const About = () => {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
-  // Complete static data extracted from resume and LinkedIn profile
-  const staticAboutData = {
-    title: "About Me",
-    description: [
-      "I'm a **strategic technology leader** dedicated to architecting and scaling **innovative cloud-native solutions** for global enterprises, with a strong **entrepreneurial spirit** that drives startup growth. Over the past **10+ years**, I've successfully built next-generation **Event-driven SaaS platforms**, led transformative **DevOps and SRE initiatives**, and consistently delivered **measurable impact**.",
-      
-      "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
-      
-      "Previously at **BriteCore Inc** for **5 years 5 months**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
-      
-      "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) since **March 2025** and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech) since **November 2023**, where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity.",
-      
-      "I'm also a **Co-Founder & CSO** at **AK2 Tech** (August 2024 - April 2025), where I built **next-generation AI-powered solutions** to assist on-call support, spearheaded product strategy and GTM, secured initial customer traction in **Bangladesh and Southeast Asia**, and grew the internal team to **10+ members across 3 time zones**."
-    ],
-    
-    // Professional Experience Summary
-    experience: [
-      {
-        company: "Kahf Yazılım A.Ş.",
-        role: "Senior DevOps Engineer",
-        duration: "July 2025 - Present",
-        location: "Istanbul, Turkey",
-        achievements: [
-          "On a mission to make online world safe & secure",
-          "Migrating entire infrastructure from Azure to Bare-metal"
-        ],
-        technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"]
-      },
-      {
-        company: "LeadSync.ai",
-        role: "Senior Software Engineer - AI Products",
-        duration: "May 2025 - July 2025",
-        location: "Singapore, Remote",
-        achievements: [
-          "Accelerated time-to-market by 40% by architecting end-to-end MCP integration with advanced LLMs",
-          "Boosted qualified lead discovery by 25% through AI-driven lead scoring and semantic enrichment"
-        ],
-        technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS"]
-      },
-      {
-        company: "BriteCore Inc",
-        role: "Senior Platform Engineer & SRE",
-        duration: "February 2022 - January 2025 (3 years)",
-        location: "Springfield, MO, USA",
-        achievements: [
-          "Generated $20M+ ARR by designing highly available, cost-efficient SaaS platforms",
-          "Cut $1M+ cloud bill by spearheading cost-saving initiatives",
-          "Eliminated 30% of production brownouts through runtime optimization",
-          "Accelerated development cycles by ~35% with CI/CD pipelines enabling 200+ daily builds",
-          "Attained SOC2 compliance by lowering vulnerability exposure by ~60%",
-          "Neutralized DDoS attacks blocking several thousand malicious requests per day",
-          "Streamlined infrastructure provisioning by 80% using Terraform modules",
-          "Enhanced production visibility by reducing MTTD by 80% through real-time dashboards"
-        ],
-        technologies: ["AWS", "Kubernetes", "Terraform", "GitHub Actions", "DataDog", "Prometheus", "Grafana"]
-      }
-    ],
+  // Get static data with language support
+  const getStaticAboutData = (lang: string = 'en') => {
+    const descriptions = {
+      en: [
+        "I'm a **strategic technology leader** dedicated to architecting and scaling **innovative cloud-native solutions** for global enterprises, with a strong **entrepreneurial spirit** that drives startup growth. Over the past **10+ years**, I've successfully built next-generation **Event-driven SaaS platforms**, led transformative **DevOps and SRE initiatives**, and consistently delivered **measurable impact**.",
+        
+        "Currently serving dual roles as **Senior DevOps Engineer** at [Kahf Yazılım A.Ş.](https://kahf.co) and **Senior Software Engineer - AI Products** at [LeadSync.ai](https://leadsync.ai), where I'm **migrating entire infrastructure from Azure to Bare-metal** and building **AI-powered Model Customization Platforms (MCP)** that accelerate time-to-market by **40%**.",
+        
+        "Previously at **BriteCore Inc** for **5 years 5 months**, I **generated $20M+ ARR** by designing and implementing highly available, cost-efficient SaaS platforms, while **cutting $1M+ cloud costs** through intelligent optimization strategies. I've **maintained 99.99% uptime** across 50+ client environments and **eliminated 30% of production brownouts** through advanced monitoring and automation.",
+        
+        "Beyond my technical expertise, I'm the **Founder & Host** of [Source Code Podcast](https://sourcecode.alamin.rocks) since **March 2025** and **Founder & Platform Architect** at [Dark Knight Technologies](https://darkknight.tech) since **November 2023**, where I empower businesses by building **highly scalable, fault-tolerant applications** with robust cybersecurity.",
+        
+        "I'm also a **Co-Founder & CSO** at **AK2 Tech** (August 2024 - April 2025), where I built **next-generation AI-powered solutions** to assist on-call support, spearheaded product strategy and GTM, secured initial customer traction in **Bangladesh and Southeast Asia**, and grew the internal team to **10+ members across 3 time zones**."
+      ],
+      bn: [
+        "আমি একজন **কৌশলগত প্রযুক্তি নেতা** যিনি বিশ্বব্যাপী প্রতিষ্ঠানের জন্য **উদ্ভাবনী cloud-native সমাধান** ডিজাইন ও স্কেল করতে নিবেদিত, একটি শক্তিশালী **উদ্যোক্তা মনোভাব** নিয়ে যা startup-এর বৃদ্ধি চালিত করে। গত **১০+ বছরে**, আমি সফলভাবে নতুন প্রজন্মের **Event-driven SaaS platform** তৈরি করেছি, রূপান্তরকারী **DevOps ও SRE উদ্যোগ** পরিচালনা করেছি, এবং ধারাবাহিকভাবে **পরিমাপযোগ্য প্রভাব** প্রদান করেছি।",
+        
+        "বর্তমানে [Kahf Yazılım A.Ş.](https://kahf.co)-তে **Senior DevOps Engineer** এবং [LeadSync.ai](https://leadsync.ai)-তে **Senior Software Engineer - AI Products** হিসেবে দ্বৈত ভূমিকা পালন করছি, যেখানে আমি **Azure থেকে Bare-metal-এ সম্পূর্ণ infrastructure migrate** করছি এবং **AI-powered Model Customization Platform (MCP)** তৈরি করছি যা time-to-market **৪০%** ত্বরান্বিত করে।",
+        
+        "পূর্বে **BriteCore Inc**-তে **৫ বছর ৫ মাস** ধরে, আমি highly available, cost-efficient SaaS platform ডিজাইন ও বাস্তবায়নের মাধ্যমে **$20M+ ARR তৈরি** করেছি, এবং বুদ্ধিমান optimization কৌশলের মাধ্যমে **$1M+ cloud খরচ** কমিয়েছি। আমি ৫০+ client environment জুড়ে **৯৯.৯৯% uptime বজায়** রেখেছি এবং advanced monitoring ও automation-এর মাধ্যমে **৩০% production brownout দূর** করেছি।",
+        
+        "আমার প্রযুক্তিগত দক্ষতার পাশাপাশি, আমি **মার্চ ২০২৫** থেকে [Source Code Podcast](https://sourcecode.alamin.rocks)-এর **Founder ও Host** এবং **নভেম্বর ২০২৩** থেকে [Dark Knight Technologies](https://darkknight.tech)-এর **Founder ও Platform Architect**, যেখানে আমি শক্তিশালী cybersecurity সহ **highly scalable, fault-tolerant application** তৈরি করে ব্যবসাকে ক্ষমতায়ন করি।",
+        
+        "আমি **AK2 Tech**-এর **Co-Founder ও CSO** (আগস্ট ২০২৪ - এপ্রিল ২০২৫), যেখানে আমি on-call support সহায়তার জন্য **next-generation AI-powered সমাধান** তৈরি করেছি, product strategy ও GTM-এর নেতৃত্ব দিয়েছি, **বাংলাদেশ ও দক্ষিণ-পূর্ব এশিয়ায়** প্রাথমিক customer traction নিশ্চিত করেছি, এবং **৩টি time zone জুড়ে ১০+ সদস্যের** internal দল গড়ে তুলেছি।"
+      ]
+    }
 
-    // Complete LinkedIn Recommendations
-    linkedinRecommendations: [
-      {
-        text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
-        author: "Sunny Parekh",
-        title: "Director of Information Security, Technology and Compliance",
-        relationship: "Worked directly with Alamin"
-      },
-      {
-        text: "I had the privilege of mentoring him during his 2018 internship where he worked with Django REST Framework. Even then, he stood out for his **technical prowess, problem-solving skills, and ability to deliver production-ready solutions**. His **curiosity and dedication to mastering complex concepts** were truly impressive.",
-        author: "Omar Faruque Tuhin",
-        title: "Leading Teams to Build Robust Solutions in Kubernetes & Node.js",
-        relationship: "Mentored Alamin"
-      },
-      {
-        text: "I rarely come across **real talents** who stand out like Alamin. Alamin's **ability to handle multiple projects** was unlike any I've seen before and made a **dramatic increase in the productivity level** of our company.",
-        author: "Ilias Kanchan",
-        title: "Kubernetes | CKA | AWS | Linux | RHCE | Ansible | Docker",
-        relationship: "Worked with Alamin"
-      },
-      {
-        text: "Alamin is a **problem solver and a very quick learner**. Worked with him in several services directly and found him very **passionate about what he does**. Wish him a very bright career ahead.",
-        author: "Fazle Rabby",
-        title: "Engineering Manager @ Wolt | DoorDash",
-        relationship: "Worked with Alamin on several services"
-      },
-      {
-        text: "It is rare that you come across a person like Alamin Mahamud. He has **transformed himself from a Mechanical Engineer to a professional Software Engineer**. He has built a **reputation in the dev community with his broad vision**. I recommend Alamin Mahamud highly as I know that he will **never let anyone down**.",
-        author: "Ariful Islam",
-        title: "Software Engineering | Android | Kotlin | Flutter | Node.Js | MongoDB",
-        relationship: "Knows Alamin professionally"
-      },
-      {
-        text: "Alamin was a **fantastic person to work with**, and is not only a **multi-skilled and insightful colleague**, but also an **inspiring strategist**. Very good person. Great employee with a **very strong problem solving skills**. He is an **asset to any company**.",
-        author: "Al Amin Ibne Mosaddeque Chayan",
-        title: "Principal Software Engineer | Certified Laravel Developer, Zend Certified Engineer",
-        relationship: "Worked with Alamin"
-      }
-    ],
+    return {
+      title: "About Me",
+      description: descriptions[lang as keyof typeof descriptions] || descriptions.en,
+      
+      // Professional Experience Summary - keeping in English as it's factual data
+      experience: [
+        {
+          company: "Kahf Yazılım A.Ş.",
+          role: "Senior DevOps Engineer",
+          duration: "July 2025 - Present",
+          location: "Istanbul, Turkey",
+          achievements: [
+            "On a mission to make online world safe & secure",
+            "Migrating entire infrastructure from Azure to Bare-metal"
+          ],
+          technologies: ["Bind9", "CloudNative-PG", "Kubernetes", "Ansible", "Terraform", "Microsoft Azure", "Traefik", "Helm Charts", "Prometheus", "Grafana", "Loki"]
+        },
+        {
+          company: "LeadSync.ai",
+          role: "Senior Software Engineer - AI Products",
+          duration: "May 2025 - July 2025",
+          location: "Singapore, Remote",
+          achievements: [
+            "Accelerated time-to-market by 40% by architecting end-to-end MCP integration with advanced LLMs",
+            "Boosted qualified lead discovery by 25% through AI-driven lead scoring and semantic enrichment"
+          ],
+          technologies: ["MCP Protocol", "LLM Integration", "AI-SDK", "TypeScript", "PostgreSQL", "Nest.JS", "Next.JS"]
+        },
+        {
+          company: "BriteCore Inc",
+          role: "Senior Platform Engineer & SRE",
+          duration: "February 2022 - January 2025 (3 years)",
+          location: "Springfield, MO, USA",
+          achievements: [
+            "Generated $20M+ ARR by designing highly available, cost-efficient SaaS platforms",
+            "Cut $1M+ cloud bill by spearheading cost-saving initiatives",
+            "Eliminated 30% of production brownouts through runtime optimization",
+            "Maintained 99.99% uptime across 50+ client environments"
+          ],
+          technologies: ["Amazon S3", "MongoDB", "Redis", "EventBridge", "DynamoDB", "Docker", "Kubernetes", "Terraform", "Python", "FastAPI", "React", "TypeScript"]
+        }
+      ],
 
-    achievements: [
-      {
-        icon: TrendingUp,
-        title: "$21.2M+ Total Impact",
-        description: "$20M+ SaaS ARR + $1.2M+ cost savings"
+      // Quick Facts
+      quick_facts: {
+        "🌍 Location": "Remote (Available Worldwide)",
+        "💼 Experience": "10+ Years",
+        "🎯 Specialization": "DevOps, SRE, AI Products",
+        "🚀 Impact": "$21.2M+ Total Business Value",
+        "📈 Success Rate": "99.99% Uptime SLA",
+        "🌐 Global Reach": "100K+ Users Served"
       },
-      {
-        icon: Users,
-        title: "100K+ Users Served",
-        description: "Across multiple platforms and projects"
-      },
-      {
-        icon: Award,
-        title: "99.99% Uptime",
-        description: "Reliable systems across 50+ client environments"
-      }
-    ],
 
-    // Comprehensive Skills from Resume
-    skills: [
-      // Programming Languages
-      "Python", "Go", "TypeScript", "JavaScript",
-      
-      // Web Frameworks
-      "FastAPI", "Nest.JS", "Next.JS", "Gin", "Flask", "Django",
-      
-      // Cloud Platforms
-      "AWS", "GCP", "Azure",
-      
-      // Container & Orchestration
-      "Docker", "Kubernetes", "ECS", "EKS", "Containerd", "LXC",
-      
-      // Infrastructure as Code
-      "Terraform", "AWS CDK", "CloudFormation", "Ansible", "SaltStack",
-      
-      // CI/CD & DevOps
-      "GitHub Actions", "Jenkins", "ArgoCD", "Helm", "Kustomize",
-      
-      // Databases & Caching
-      "PostgreSQL", "MySQL", "Redis", "Elasticsearch", "OpenSearch",
-      
-      // Monitoring & Observability
-      "Prometheus", "Grafana", "DataDog", "CloudWatch", "Loki", "ELK Stack",
-      
-      // Networking & Security
-      "Traefik", "Nginx", "Istio", "Calico", "pfSense", "VPN", "TLS", "BGP",
-      
-      // AI & ML
-      "MCP Protocol", "LLM Integration", "AI-SDK", "TensorFlow",
-      
-      // Messaging & Queues
-      "RabbitMQ",
-      
-      // Storage & Backup
-      "Longhorn", "Ceph", "ZFS", "NFS", "TrueNAS",
-      
-      // Operating Systems
-      "Linux", "Ubuntu", "Debian", "Arch"
-    ],
+      // Skills categorized
+      skills: [
+        "Cloud Architecture", "DevOps", "SRE", "Kubernetes", "Docker", "Terraform",
+        "AWS", "Azure", "GCP", "Python", "TypeScript", "React", "Node.js",
+        "MongoDB", "PostgreSQL", "Redis", "Monitoring", "CI/CD", "GitOps"
+      ],
 
-    quick_facts: {
-      location: "Istanbul, Turkey / Remote",
-      experience: "10+ Years",
-      focus: "AI, Cloud & MLOps",
-      interests: "Source Code Podcast, Open Source, Mentoring",
-      languages: "English (Native/Bilingual), Bangla (Native/Bilingual), Hindi (Native/Bilingual), Urdu (Full Professional), Turkish (Limited Working)",
-      education: "BSc Mechanical Engineering, CUET (2013-2017)",
-      certifications: "CKA (In-Progress), Observability with Grafana/Prometheus/Loki",
-      awards: "Hackathon Champion & App Fest Runner-Up (2015)"
-    },
+      // Core Values & Principles
+      achievements: [
+        {
+          icon: TrendingUp,
+          title: "Innovation & Growth",
+          description: "Driving technological innovation while ensuring sustainable business growth"
+        },
+        {
+          icon: Users,
+          title: "Team Leadership",
+          description: "Building and mentoring high-performing engineering teams across multiple time zones"
+        },
+        {
+          icon: Award,
+          title: "Excellence",
+          description: "Maintaining 99.99% uptime and delivering measurable business impact consistently"
+        },
+        {
+          icon: Heart,
+          title: "Social Impact",
+          description: "Contributing to global communities through technology and entrepreneurship"
+        }
+      ],
 
-    // Projects from Resume
-    projects: [
-      {
-        name: "HomeLab",
-        description: "Infrastructure as Code and GitOps framework for automating homelab provisioning and operations",
-        technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD"],
-        type: "Infrastructure"
-      },
-      {
-        name: "Alexandria",
-        description: "Terraform library for Infrastructure as Code templates and modules for cloud-based architectures",
-        technologies: ["Terraform", "AWS", "GCP", "Azure", "IaC"],
-        type: "Infrastructure"
-      },
-      {
-        name: "Capstone",
-        description: "Asset Allocation Problem solver using optimization algorithms for strategic resource allocation",
-        technologies: ["Python", "Optimization Algorithms", "Mathematical Modeling"],
-        type: "AI/ML"
-      },
-      {
-        name: "AlterYouth.com",
-        description: "C2C scholarship platform enabling global scholarship funding through digital banking",
-        technologies: ["Full-Stack Development", "Digital Banking", "Payment Processing"],
-        type: "Social Impact"
-      }
-    ]
+      // Projects from Resume
+      projects: [
+        {
+          name: "HomeLab",
+          description: "Infrastructure as Code and GitOps framework for automating homelab provisioning and operations",
+          technologies: ["Terraform", "Kubernetes", "Ansible", "GitOps", "ArgoCD"],
+          type: "Infrastructure"
+        },
+        {
+          name: "Alexandria",
+          description: "Terraform library for Infrastructure as Code templates and modules for cloud-based architectures",
+          technologies: ["Terraform", "AWS", "GCP", "Azure", "IaC"],
+          type: "Infrastructure"
+        },
+        {
+          name: "Capstone",
+          description: "Asset Allocation Problem solver using optimization algorithms for strategic resource allocation",
+          technologies: ["Python", "Optimization Algorithms", "Mathematical Modeling"],
+          type: "AI/ML"
+        },
+        {
+          name: "AlterYouth.com",
+          description: "C2C scholarship platform enabling global scholarship funding through digital banking",
+          technologies: ["Full-Stack Development", "Digital Banking", "Payment Processing"],
+          type: "Social Impact"
+        }
+      ]
+    }
   }
+
+  const [aboutData, setAboutData] = useState(getStaticAboutData(language))
+
+  // Update about data when language changes
+  useEffect(() => {
+    setAboutData(getStaticAboutData(language))
+  }, [language])
 
   const formatDescription = (text: string) => {
     // Convert markdown-style bold to HTML
@@ -228,7 +178,7 @@ const About = () => {
       .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent/80 transition-colors inline-flex items-center gap-1">$1<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg></a>')
   }
 
-  const data = staticAboutData
+  const data = aboutData
 
   return (
     <section id="about" className="py-20 bg-muted">
@@ -267,79 +217,42 @@ const About = () => {
                     <MapPin className="w-4 h-4" />
                     Location:
                   </span>
-                  <span className="text-accent font-medium">{data.quick_facts?.location}</span>
+                  <span className="text-foreground font-medium">Remote (Global)</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Experience:
-                  </span>
-                  <span className="text-accent font-medium">{data.quick_facts?.experience}</span>
+                  <span className="text-muted-foreground">Experience:</span>
+                  <span className="text-foreground font-medium">10+ Years</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4" />
-                    Focus:
-                  </span>
-                  <span className="text-accent font-medium">{data.quick_facts?.focus}</span>
+                  <span className="text-muted-foreground">Specialization:</span>
+                  <span className="text-foreground font-medium">DevOps, SRE, AI</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <Heart className="w-4 h-4" />
-                    Interests:
-                  </span>
-                  <span className="text-accent font-medium">{data.quick_facts?.interests}</span>
+                  <span className="text-muted-foreground">Impact:</span>
+                  <span className="text-accent font-semibold">$21.2M+ Value</span>
                 </div>
               </div>
             </div>
 
-            {/* Achievement Stats */}
+            {/* Core Values */}
             <div className="bg-card rounded-xl p-6 shadow-sm border border-border card-hover">
               <h3 className="text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
-                <Award className="w-5 h-5 text-accent" />
-                Key Achievements
+                <Heart className="w-5 h-5 text-accent" />
+                Core Values
               </h3>
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
                 {data.achievements?.map((achievement, index) => {
-                  const IconComponent = achievement.icon
+                  const Icon = achievement.icon
                   return (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="bg-accent/10 p-2 rounded-lg">
-                        <IconComponent className="w-5 h-5 text-accent" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground">{achievement.title}</h4>
-                        <p className="text-sm text-muted-foreground">{achievement.description}</p>
-                      </div>
+                    <div key={index} className="text-center p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
+                      <Icon className="w-8 h-8 text-accent mx-auto mb-2" />
+                      <h4 className="font-semibold text-sm text-foreground mb-1">{achievement.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{achievement.description}</p>
                     </div>
                   )
                 })}
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <a
-              href="https://linkedin.com/in/alamin-mahamud"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-lg group"
-            >
-              <Users className="w-5 h-5 mr-2" />
-              Connect on LinkedIn
-            </a>
-            
-            <a
-              href="https://sourcecode.alamin.rocks"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary btn-lg group"
-            >
-              🎙️ Source Code Podcast
-            </a>
           </div>
         </div>
       </div>

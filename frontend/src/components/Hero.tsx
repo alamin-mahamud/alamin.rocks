@@ -12,36 +12,61 @@ const Hero = () => {
   const [metricsVisible, setMetricsVisible] = useState(false)
   const [heroData, setHeroData] = useState<HeroType | null>(null)
   const [loading, setLoading] = useState(true)
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
 
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Comprehensive static hero data from resume
-  const staticHeroData: HeroType = {
-    id: "hero",
-    roles: [
-      "Senior DevOps Engineer",
-      "AI Products Engineer", 
-      "Site Reliability Engineer",
-      "Cloud Architect",
-      "Platform Engineer",
-      "Co-Founder & CSO",
-      "Founder & Host"
-    ],
-    name: "Alamin Mahamud",
-    description: "Strategic technology leader with 10+ years of expertise in building scalable cloud platforms, leading DevOps + SRE teams, and architecting AI-powered solutions that drive $20M+ ARR and serve 100K+ users globally.",
-    metrics: {
-      cost_savings: "$1.2M+",
-      saas_arr: "$20M+", 
-      experience: "10+",
-      users_served: "100K+",
-      uptime_sla: "99.99%",
-      total_impact: "$21.2M+"
+  // Static hero data with language support  
+  const getStaticHeroData = (lang: string = 'en'): HeroType => {
+    const roles = {
+      en: [
+        "Senior DevOps Engineer",
+        "AI Products Engineer", 
+        "Site Reliability Engineer",
+        "Cloud Architect",
+        "Platform Engineer",
+        "Co-Founder & CSO",
+        "Founder & Host"
+      ],
+      bn: [
+        "Senior DevOps Engineer",
+        "AI Products Engineer", 
+        "Site Reliability Engineer",
+        "Cloud Architect",
+        "Platform Engineer",
+        "Co-Founder ও CSO",
+        "Founder ও Host"
+      ]
+    }
+
+    const descriptions = {
+      en: "Strategic technology leader with 10+ years of expertise in building scalable cloud platforms, leading DevOps + SRE teams, and architecting AI-powered solutions that drive $20M+ ARR and serve 100K+ users globally.",
+      bn: "১০+ বছরের অভিজ্ঞতা সম্পন্ন কৌশলগত প্রযুক্তি নেতা, যিনি scalable cloud platform তৈরি, DevOps + SRE দল পরিচালনা, এবং AI-powered সমাধান ডিজাইনে দক্ষ যা $20M+ ARR অর্জন এবং বিশ্বব্যাপী 100K+ ব্যবহারকারীকে সেবা প্রদান করে।"
+    }
+
+    return {
+      id: "hero",
+      roles: roles[lang as keyof typeof roles] || roles.en,
+      name: "Alamin Mahamud",
+      description: descriptions[lang as keyof typeof descriptions] || descriptions.en,
+      metrics: {
+        cost_savings: "$1.2M+",
+        saas_arr: "$20M+", 
+        experience: "10+",
+        users_served: "100K+",
+        uptime_sla: "99.99%",
+        total_impact: "$21.2M+"
+      }
     }
   }
+
+  // Initialize with static data
+  useEffect(() => {
+    setHeroData(getStaticHeroData())
+  }, [])
 
   useEffect(() => {
     const fetchHeroData = async () => {
@@ -51,7 +76,7 @@ const Hero = () => {
       } catch (error) {
         console.error("Failed to fetch hero data:", error)
         // Use static data as fallback
-        setHeroData(staticHeroData)
+        setHeroData(getStaticHeroData())
       } finally {
         setLoading(false)
       }
@@ -60,6 +85,13 @@ const Hero = () => {
     fetchHeroData()
     setTimeout(() => setMetricsVisible(true), 1000)
   }, [])
+
+  // Update hero data when language changes
+  useEffect(() => {
+    if (!loading) {
+      setHeroData(getStaticHeroData(language))
+    }
+  }, [language, loading])
 
   // Typing animation effect
   useEffect(() => {
