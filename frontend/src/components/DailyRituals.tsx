@@ -14,7 +14,65 @@ interface Ritual {
   bgColor: string
 }
 
+interface ScheduleBlock {
+  block: string
+  work: string
+  deliverables?: string
+}
+
+interface SuperObjective {
+  title: string
+  by: string
+  outcome: string
+}
+
 const DailyRituals = () => {
+  const superObjectives: SuperObjective[] = [
+    {
+      title: "Allah SWT's Satisfaction",
+      by: "By",
+      outcome: "Eventually"
+    },
+    {
+      title: "Dawah (Inviting)",
+      by: "Read the Quran (Read Bengali Translation and Tafsirs)",
+      outcome: "Muslim Scholar, Mentor"
+    },
+    {
+      title: "Khilafah (Caretaking)",
+      by: "Q3 - Kahf - Become the best employee of Kahf",
+      outcome: "Business Entrepreneur, Investor, Nation Builder"
+    },
+    {
+      title: "Warrior",
+      by: "CR7 - 2H Strength & Stretching",
+      outcome: "CR7 Fitness Inshallah."
+    }
+  ]
+
+  const schedule: ScheduleBlock[] = [
+    {
+      block: "Isha - Tahajjud Prayer (0900-0330)",
+      work: "(Mandatory) - Sleep"
+    },
+    {
+      block: "Tahajjud - Fajr Prayer (0330-0430)",
+      work: "(Dawah) - Tahajjud, Quran, Fajr"
+    },
+    {
+      block: "Fajr - Asr Prayer (0430-1700)",
+      work: "(Khilafah) - Ihsan + Ilm"
+    },
+    {
+      block: "Asr Prayer - Magrib Prayer (1700-1900)",
+      work: "(Warrior) - CR7 Work Ethic"
+    },
+    {
+      block: "Magrib - Isha Prayer (1900-2100)",
+      work: "(Family Time) or Ilm"
+    }
+  ]
+
   const islamicRituals: Ritual[] = [
     {
       name: "Fajr Prayer",
@@ -119,6 +177,51 @@ const DailyRituals = () => {
             <div className="text-accent text-sm font-medium">
               ☪️ Practicing Muslim • Following the Sunnah • Seeking Allah&apos;s Guidance
             </div>
+          </div>
+        </div>
+
+        {/* Super Objectives */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
+            Super Objectives (Inshallah)
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {superObjectives.map((objective, index) => (
+              <div
+                key={index}
+                className="bg-card rounded-xl border border-border p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-300"
+              >
+                <h4 className="text-lg font-semibold text-foreground mb-3">{objective.title}</h4>
+                <div className="space-y-2">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm text-muted-foreground">{objective.by}</span>
+                    <span className="text-sm font-medium text-accent">{objective.outcome}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Daily Schedule */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-semibold text-foreground mb-8 text-center">
+            Daily Schedule
+          </h3>
+          <div className="max-w-4xl mx-auto bg-card rounded-xl border border-border overflow-hidden">
+            <div className="grid grid-cols-2 bg-accent/10 p-4 border-b border-border">
+              <div className="text-sm font-semibold text-foreground">Block</div>
+              <div className="text-sm font-semibold text-foreground">Work / Deliverables</div>
+            </div>
+            {schedule.map((item, index) => (
+              <div
+                key={index}
+                className="grid grid-cols-2 p-4 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-b-0"
+              >
+                <div className="text-sm text-foreground pr-4">{item.block}</div>
+                <div className="text-sm text-muted-foreground">{item.work}</div>
+              </div>
+            ))}
           </div>
         </div>
 
