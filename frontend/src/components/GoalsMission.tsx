@@ -160,15 +160,15 @@ const GoalsMission = () => {
             {mission.map((item, index) => (
               <div
                 key={index}
-                className="text-center p-8 bg-card rounded-xl border border-border hover:shadow-lg hover:border-accent/30 transition-all duration-300"
+                className="group text-center p-8 bg-card rounded-xl border border-border hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-accent/20 to-accent/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-accent/20 to-accent/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <div className={item.color}>
                     {item.icon}
                   </div>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-4">{item.title}</h4>
+                <h4 className="text-xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors">{item.title}</h4>
                 <p className="text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             ))}
@@ -188,13 +188,13 @@ const GoalsMission = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className={`w-12 h-12 ${goal.bgColor} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                  <div className={`w-12 h-12 ${goal.bgColor} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                     <div className={goal.color}>
                       {goal.icon}
                     </div>
                   </div>
                   <div className="flex-1">
-                    <div className="inline-flex items-center px-2 py-1 bg-muted rounded-full text-xs font-medium text-muted-foreground mb-2">
+                    <div className="inline-flex items-center px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-medium mb-2">
                       {goal.category}
                     </div>
                     <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
@@ -207,12 +207,15 @@ const GoalsMission = () => {
                   {goal.description}
                 </p>
                 
-                <div className="space-y-2">
+                <div className="space-y-2 pt-3 border-t border-border/50">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Key Metrics:</span>
-                    <span className="text-accent font-medium">{goal.timeline}</span>
+                    <span className="text-muted-foreground font-medium">Timeline:</span>
+                    <span className="text-accent font-semibold">{goal.timeline}</span>
                   </div>
-                  <p className="text-sm text-foreground font-medium">{goal.metrics}</p>
+                  <div className="pt-1">
+                    <span className="text-xs text-muted-foreground font-medium block mb-1">Key Metrics:</span>
+                    <p className="text-sm text-foreground font-medium">{goal.metrics}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -228,11 +231,11 @@ const GoalsMission = () => {
             {coreValues.map((value, index) => (
               <div
                 key={index}
-                className="text-center p-4 bg-muted/30 rounded-xl hover:bg-muted/50 transition-colors duration-300"
+                className="group text-center p-6 bg-card rounded-xl border border-border hover:shadow-lg hover:border-accent/30 transition-all duration-300"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="text-3xl mb-3">{value.icon}</div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">{value.title}</h4>
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{value.icon}</div>
+                <h4 className="text-sm font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">{value.title}</h4>
                 <p className="text-xs text-muted-foreground leading-relaxed">{value.description}</p>
               </div>
             ))}
@@ -240,13 +243,15 @@ const GoalsMission = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl p-8">
-          <div className="mb-4">
-            <TrendingUp className="w-16 h-16 text-accent mx-auto mb-4" />
+        <div className="text-center bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl p-8 border border-accent/20">
+          <div className="mb-6">
+            <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <TrendingUp className="w-10 h-10 text-accent" />
+            </div>
             <h3 className="text-2xl font-semibold text-foreground mb-4">
               Join the Journey
             </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-6">
+            <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
               These goals are not just personal ambitions but opportunities for collaboration and collective impact. 
               Whether you&apos;re a fellow entrepreneur, a student seeking mentorship, or an organization looking to make 
               a difference, let&apos;s work together to create meaningful change.
@@ -255,16 +260,16 @@ const GoalsMission = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               href="#contact"
-              className="btn btn-primary"
+              className="inline-flex items-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg font-medium transition-colors duration-200"
             >
               <Target className="w-4 h-4 mr-2" />
               Collaborate on Goals
             </a>
             <a
-              href="https://linkedin.com/in/alamin-mahamud"
+              href="https://linkedin.com/in/alaminmahamud"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-secondary"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border hover:bg-muted text-foreground rounded-lg font-medium transition-colors duration-200"
             >
               Connect & Follow Journey
             </a>
