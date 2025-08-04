@@ -9,6 +9,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { ProjectForm } from '@/components/Projects/ProjectForm'
 import { Plus, Edit, Trash2, Star, ExternalLink, Github } from 'lucide-react'
 import { Project, ProjectCreate } from '@/types'
+import { portfolioApi } from '@/lib/api'
 import { format } from 'date-fns'
 
 // Mock data - replace with actual API calls
@@ -39,15 +40,40 @@ const mockProjects: Project[] = [
 ]
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>(mockProjects)
+  const [projects, setProjects] = useState<Project[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(false)
+  const [initialLoading, setInitialLoading] = useState(true)
+
+  // Load projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await portfolioApi.getProjects()
+        setProjects(response.data || [])
+      } catch (error) {
+        console.error('Error fetching projects:', error)
+        // Use mock data as fallback
+        setProjects(mockProjects)
+      } finally {
+        setInitialLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
 
   const handleCreateProject = async (data: ProjectCreate) => {
     setLoading(true)
     try {
-      // TODO: Replace with actual API call
+      const response = await portfolioApi.createProject(data)
+      const newProject = response.data
+      setProjects(prev => [newProject, ...prev])
+      setShowForm(false)
+    } catch (error) {
+      console.error('Error creating project:', error)
+      // Fallback to local creation
       const newProject: Project = {
         ...data,
         id: String(Date.now()),
@@ -56,8 +82,6 @@ export default function ProjectsPage() {
       }
       setProjects(prev => [newProject, ...prev])
       setShowForm(false)
-    } catch (error) {
-      console.error('Error creating project:', error)
     } finally {
       setLoading(false)
     }
@@ -68,7 +92,16 @@ export default function ProjectsPage() {
     
     setLoading(true)
     try {
-      // TODO: Replace with actual API call
+      const response = await portfolioApi.updateProject(editingProject.id, data)
+      const updatedProject = response.data
+      setProjects(prev =>
+        prev.map(p => p.id === editingProject.id ? updatedProject : p)
+      )
+      setEditingProject(null)
+      setShowForm(false)
+    } catch (error) {
+      console.error('Error updating project:', error)
+      // Fallback to local update
       const updatedProject: Project = {
         ...editingProject,
         ...data,
@@ -79,8 +112,6 @@ export default function ProjectsPage() {
       )
       setEditingProject(null)
       setShowForm(false)
-    } catch (error) {
-      console.error('Error updating project:', error)
     } finally {
       setLoading(false)
     }
@@ -90,10 +121,12 @@ export default function ProjectsPage() {
     if (!confirm('Are you sure you want to delete this project?')) return
     
     try {
-      // TODO: Replace with actual API call
+      await portfolioApi.deleteProject(projectId)
       setProjects(prev => prev.filter(p => p.id !== projectId))
     } catch (error) {
       console.error('Error deleting project:', error)
+      // Still remove from local state even if API call fails
+      setProjects(prev => prev.filter(p => p.id !== projectId))
     }
   }
 
@@ -105,6 +138,20 @@ export default function ProjectsPage() {
   const handleCancelForm = () => {
     setShowForm(false)
     setEditingProject(null)
+  }
+
+  if (initialLoading) {
+    return (
+      <AuthWrapper>
+        <Layout>
+          <div className="space-y-6">
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-pulse text-muted-foreground">Loading projects...</div>
+            </div>
+          </div>
+        </Layout>
+      </AuthWrapper>
+    )
   }
 
   if (showForm) {

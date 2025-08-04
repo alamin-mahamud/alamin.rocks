@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, Heart } from "lucide-react"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { portfolioApi, About as AboutType } from "@/lib/api"
 
 interface AboutData {
   title: string
@@ -166,11 +167,46 @@ const About = () => {
   }
 
   const [aboutData, setAboutData] = useState(getStaticAboutData(language))
+  const [loading, setLoading] = useState(true)
+
+  // Fetch about data from API with fallback to static data
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const data = await portfolioApi.getAbout()
+        setAboutData({
+          ...data,
+          // Merge with static data for additional fields not in API
+          experience: getStaticAboutData(language).experience,
+          achievements: getStaticAboutData(language).achievements,
+          projects: getStaticAboutData(language).projects
+        })
+      } catch (error) {
+        console.error("Failed to fetch about data:", error)
+        // Use static data as fallback
+        setAboutData(getStaticAboutData(language))
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAboutData()
+  }, [])
 
   // Update about data when language changes
   useEffect(() => {
-    setAboutData(getStaticAboutData(language))
-  }, [language])
+    if (!loading) {
+      setAboutData(prevData => ({
+        ...prevData,
+        ...getStaticAboutData(language),
+        // Keep API data if available
+        title: prevData.title || getStaticAboutData(language).title,
+        description: prevData.description || getStaticAboutData(language).description,
+        skills: prevData.skills || getStaticAboutData(language).skills,
+        quick_facts: prevData.quick_facts || getStaticAboutData(language).quick_facts
+      }))
+    }
+  }, [language, loading])
 
   const formatDescription = (text: string) => {
     // Convert markdown-style bold to HTML

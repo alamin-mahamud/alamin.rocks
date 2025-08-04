@@ -1,6 +1,6 @@
 // API utility functions with fallback to static data
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8120'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 // Generic API client with retry and fallback logic
 class ApiClient {
@@ -168,13 +168,13 @@ export const portfolioApi = {
     if (params?.category) searchParams.append('category', params.category)
     if (params?.limit) searchParams.append('limit', params.limit.toString())
 
-    const endpoint = `/api/v1/projects${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+    const endpoint = `/api/projects${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
 
     return apiClient.get<Project[]>(endpoint, FALLBACK_DATA.projects)
   },
 
   async getProject(id: string): Promise<Project> {
-    const project = await apiClient.get<Project>(`/api/v1/projects/${id}`,
+    const project = await apiClient.get<Project>(`/api/projects/${id}`,
       FALLBACK_DATA.projects.find(p => p.id === id)
     )
     return project
@@ -186,7 +186,7 @@ export const portfolioApi = {
     if (params?.category) searchParams.append('category', params.category)
     if (params?.limit) searchParams.append('limit', params.limit.toString())
 
-    const endpoint = `/api/v1/achievements${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+    const endpoint = `/api/achievements${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
 
     return apiClient.get<Achievement[]>(endpoint, FALLBACK_DATA.achievements)
   },
@@ -198,7 +198,7 @@ export const portfolioApi = {
     if (params?.min_level) searchParams.append('min_level', params.min_level.toString())
     if (params?.limit) searchParams.append('limit', params.limit.toString())
 
-    const endpoint = `/api/v1/techstack${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+    const endpoint = `/api/techstack${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
 
     return apiClient.get<TechSkill[]>(endpoint, FALLBACK_DATA.techSkills)
   },
@@ -209,24 +209,24 @@ export const portfolioApi = {
     if (params?.limit) searchParams.append('limit', params.limit.toString())
     if (params?.recent) searchParams.append('recent', params.recent.toString())
 
-    const endpoint = `/api/v1/recommendations${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+    const endpoint = `/api/recommendations${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
 
     return apiClient.get<LinkedInRecommendation[]>(endpoint, FALLBACK_DATA.recommendations)
   },
 
   // Hero
   async getHero(): Promise<Hero> {
-    return apiClient.get<Hero>('/api/v1/hero', FALLBACK_DATA.hero)
+    return apiClient.get<Hero>('/api/hero', FALLBACK_DATA.hero)
   },
 
   // About
   async getAbout(): Promise<About> {
-    return apiClient.get<About>('/api/v1/about', FALLBACK_DATA.about)
+    return apiClient.get<About>('/api/about', FALLBACK_DATA.about)
   },
 
   // Contact Info
   async getContactInfo(): Promise<ContactInfo> {
-    return apiClient.get<ContactInfo>('/api/v1/contact-info', FALLBACK_DATA.contactInfo)
+    return apiClient.get<ContactInfo>('/api/contact-info', FALLBACK_DATA.contactInfo)
   },
 
   // Contact form submission
@@ -748,7 +748,7 @@ const FALLBACK_DATA = {
 // Utility function to check if API is available
 export async function checkApiHealth(): Promise<boolean> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/v1/health`, {
+    const response = await fetch(`${API_BASE_URL}/health`, {
       method: 'GET',
       signal: AbortSignal.timeout(3000) // 3 second timeout
     })

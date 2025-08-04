@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8120',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -38,12 +38,12 @@ export const contactApi = {
 export const portfolioApi = {
   getProjects: (featured?: boolean) => {
     const params = featured !== undefined ? { featured } : {}
-    return api.get('/api/v1/portfolio/projects', { params })
+    return api.get('/api/projects', { params })
   },
-  getProject: (id: string) => api.get(`/api/v1/portfolio/projects/${id}`),
-  createProject: (data: any) => api.post('/api/v1/portfolio/projects', data),
-  updateProject: (id: string, data: any) => api.patch(`/api/v1/portfolio/projects/${id}`, data),
-  deleteProject: (id: string) => api.delete(`/api/v1/portfolio/projects/${id}`),
+  getProject: (id: string) => api.get(`/api/projects/${id}`),
+  createProject: (data: any) => api.post('/api/projects', data),
+  updateProject: (id: string, data: any) => api.patch(`/api/projects/${id}`, data),
+  deleteProject: (id: string) => api.delete(`/api/projects/${id}`),
 }
 
 // Resume API
@@ -92,6 +92,56 @@ export const translationApi = {
     api.delete(`/api/translations/content/${tableName}/${recordId}/${fieldName}`, {
       params: { language_code: languageCode }
     }),
+}
+
+// Hero API
+export const heroApi = {
+  getHero: () => api.get('/api/hero'),
+}
+
+// About API  
+export const aboutApi = {
+  getAbout: () => api.get('/api/about'),
+}
+
+// Tech Stack API
+export const techStackApi = {
+  getTechSkills: (category?: string, minLevel?: number) => {
+    const params: any = {}
+    if (category) params.category = category
+    if (minLevel) params.min_level = minLevel
+    return api.get('/api/techstack', { params })
+  },
+  getTechSkill: (id: string) => api.get(`/api/techstack/${id}`),
+  getCategories: () => api.get('/api/techstack/categories/list'),
+  getSummary: () => api.get('/api/techstack/summary/stats'),
+}
+
+// Achievements API
+export const achievementsApi = {
+  getAchievements: (category?: string) => {
+    const params = category ? { category } : {}
+    return api.get('/api/achievements', { params })
+  },
+  getAchievement: (id: string) => api.get(`/api/achievements/${id}`),
+}
+
+// Recommendations API
+export const recommendationsApi = {
+  getRecommendations: (limit?: number, recent?: boolean) => {
+    const params: any = {}
+    if (limit) params.limit = limit
+    if (recent) params.recent = recent
+    return api.get('/api/recommendations', { params })
+  },
+  getRecommendation: (id: string) => api.get(`/api/recommendations/${id}`),
+  getSkillsMentioned: () => api.get('/api/recommendations/skills/mentioned'),
+  getSummary: () => api.get('/api/recommendations/summary/stats'),
+}
+
+// Contact Info API
+export const contactInfoApi = {
+  getContactInfo: () => api.get('/api/contact-info'),
 }
 
 export default api

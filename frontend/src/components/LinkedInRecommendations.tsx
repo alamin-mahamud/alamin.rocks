@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Quote, Linkedin, Users, Building, Calendar, ChevronLeft, ChevronRight } from "lucide-react"
+import { portfolioApi, LinkedInRecommendation as LinkedInRecommendationType } from "@/lib/api"
 import Pagination from "./ui/Pagination"
 
 interface LinkedInRecommendation {
@@ -17,9 +18,67 @@ const RECOMMENDATIONS_PER_PAGE = 6
 const LinkedInRecommendations = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedRecommendation, setSelectedRecommendation] = useState<number | null>(null)
+  const [recommendations, setRecommendations] = useState<LinkedInRecommendationType[]>([])
+  const [loading, setLoading] = useState(true)
 
-  // Complete LinkedIn recommendations data
-  const linkedinRecommendations: LinkedInRecommendation[] = [
+  // Load recommendations from API with fallback to static data
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const data = await portfolioApi.getRecommendations({ recent: true, limit: 50 })
+        setRecommendations(data)
+      } catch (error) {
+        console.error("Failed to fetch recommendations:", error)
+        // Use static fallback data
+        setRecommendations([
+          {
+            id: "rec-1",
+            recommender_name: "Sunny Parekh", 
+            recommender_title: "Director of Information Security, Technology and Compliance",
+            recommender_company: "BriteCore Inc",
+            recommender_image: "",
+            relationship: "worked directly with",
+            content: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
+            date: "2025-05-06",
+            skills_mentioned: ["DevOps", "SaaS", "Cloud", "Scalability"]
+          }
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchRecommendations()
+  }, [])
+
+  if (loading) {
+    return (
+      <section id="linkedin-recommendations" className="py-20 bg-muted">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-pulse">Loading recommendations...</div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Convert API data to display format for compatibility
+  const displayRecommendations = recommendations.map(rec => ({
+    text: rec.content,
+    author: rec.recommender_name,
+    title: rec.recommender_title,
+    relationship: rec.relationship,
+    date: new Date(rec.date).toLocaleDateString("en-US", { 
+      year: "numeric", 
+      month: "long", 
+      day: "numeric" 
+    }),
+    company: rec.recommender_company
+  }))
+
+  // Static LinkedIn recommendations data as fallback
+  const staticRecommendations: LinkedInRecommendation[] = [
     {
       text: "I've had the pleasure of working with Alamin, whose **expertise in building cloud-driven SaaS platforms** is impressive. Alamin has guided **DevOps efforts with a focus on scalability, functionality, and efficiency**. Alamin is a **reliable, forward-thinking professional** who delivers **real business impact** through technology.",
       author: "Sunny Parekh",
@@ -180,6 +239,9 @@ const LinkedInRecommendations = () => {
     // Convert markdown-style bold to HTML
     return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground font-semibold">$1</strong>')
   }
+
+  // Use API data if available, otherwise use static data
+  const linkedinRecommendations = displayRecommendations.length > 0 ? displayRecommendations : staticRecommendations
 
   // Pagination
   const totalPages = Math.ceil(linkedinRecommendations.length / RECOMMENDATIONS_PER_PAGE)
