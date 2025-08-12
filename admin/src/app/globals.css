@@ -1,77 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Solarized Light Theme */
-    --background: 44 87% 94%; /* base3 #fdf6e3 */
-    --foreground: 194 14% 40%; /* base00 #657b83 */
-    --primary: 205 69% 98%; /* base2 #eee8d5 */
-    --primary-foreground: 194 14% 40%; /* base00 #657b83 */
-    --secondary: 44 87% 94%; /* base3 #fdf6e3 */
-    --secondary-foreground: 194 14% 40%; /* base00 #657b83 */
-    --muted: 205 69% 98%; /* base2 #eee8d5 */
-    --muted-foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --accent: 68 100% 30%; /* green #859900 */
-    --accent-foreground: 44 87% 94%; /* base3 #fdf6e3 */
-    --border: 180 7% 80%; /* base1 lighter */
-    --card: 44 87% 94%; /* base3 #fdf6e3 */
-    --destructive: 1 71% 52%; /* red #dc322f */
-    --warning: 45 100% 35%; /* yellow #b58900 */
-    --info: 205 56% 76%; /* blue #268bd2 */
-    --success: 68 100% 30%; /* green #859900 */
-    --radius: 0.25rem;
+    /* Vercel-inspired Light Theme with Futuristic Elements */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 250 100% 65%;
+    --accent-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --destructive: 0 84.2% 60.2%;
+    --warning: 38 92% 50%;
+    --info: 220 100% 65%;
+    --success: 142 76% 36%;
+    --gradient-start: 250 100% 65%;
+    --gradient-end: 220 100% 65%;
+    --glow-color: 250 100% 65% / 0.15;
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Solarized Dark Theme */
-    --background: 192 100% 11%; /* base03 #002b36 */
-    --foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --primary: 192 81% 14%; /* base02 #073642 */
-    --primary-foreground: 186 8% 84%; /* base0 #839496 */
-    --secondary: 192 100% 11%; /* base03 #002b36 */
-    --secondary-foreground: 180 7% 60%; /* base1 #93a1a1 */
-    --muted: 192 81% 14%; /* base02 #073642 */
-    --muted-foreground: 180 9% 46%; /* base01 #586e75 */
-    --accent: 68 100% 30%; /* green #859900 */
-    --accent-foreground: 192 100% 11%; /* base03 #002b36 */
-    --border: 180 9% 46%; /* base01 #586e75 */
-    --card: 192 81% 14%; /* base02 #073642 */
-    --destructive: 1 71% 52%; /* red #dc322f */
-    --warning: 45 100% 35%; /* yellow #b58900 */
-    --info: 205 56% 76%; /* blue #268bd2 */
-    --success: 68 100% 30%; /* green #859900 */
+    /* Vercel-inspired Dark Theme with Futuristic Elements */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 250 100% 70%;
+    --accent-foreground: 0 0% 9%;
+    --border: 0 0% 14.9%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --warning: 38 92% 50%;
+    --info: 220 100% 70%;
+    --success: 142 76% 36%;
+    --gradient-start: 250 100% 70%;
+    --gradient-end: 220 100% 70%;
+    --glow-color: 250 100% 70% / 0.25;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   body {
     @apply bg-background text-foreground;
-    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1, "liga" 1;
+    font-variation-settings: "wght" 400;
+    line-height: 1.6;
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+  
+  /* Monospace font for code elements */
+  code, pre, .mono {
+    font-family: "Geist Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    font-feature-settings: "calt" 1;
+    font-variation-settings: "wght" 400;
+  }
+  
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
-    font-weight: 600;
-  }
-  .mono {
-    font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-variation-settings: "wght" 600;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Vercel-inspired typography classes */
+  .text-xs { font-size: 0.75rem; line-height: 1rem; }
+  .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+  .text-base { font-size: 1rem; line-height: 1.5rem; }
+  .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+  .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+  .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+  .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+  .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+  .text-5xl { font-size: 3rem; line-height: 1; }
+  .text-6xl { font-size: 3.75rem; line-height: 1; }
+  .text-7xl { font-size: 4.5rem; line-height: 1; }
+
+  /* Vercel button styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    border-radius: 6px;
+    font-variation-settings: "wght" 500;
+  }
+
+  .btn-primary {
+    @apply btn bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-foreground;
+    padding: 0 16px;
+    height: 36px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-secondary {
+    @apply btn border border-border bg-background hover:bg-muted focus-visible:ring-accent;
+    padding: 0 16px;
+    height: 36px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-ghost {
+    @apply btn hover:bg-muted hover:text-foreground focus-visible:ring-accent;
+    padding: 0 12px;
+    height: 36px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-lg {
+    padding: 0 24px;
+    height: 44px;
+    font-size: 0.875rem;
+  }
+
+  .btn-sm {
+    padding: 0 12px;
+    height: 32px;
+    font-size: 0.75rem;
   }
   
   /* Theme transition utilities */
@@ -86,43 +171,54 @@
   .theme-transition-slow {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
-  /* Glow effects for dark theme */
-  .dark .glow-accent {
-    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
-  }
-  
-  .dark .glow-blue {
-    box-shadow: 0 0 20px hsl(205 56% 76% / 0.3);
-  }
-  
-  .dark .glow-green {
-    box-shadow: 0 0 20px hsl(68 100% 30% / 0.3);
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-border hover:-translate-y-1;
   }
 
-  /* Admin specific styles */
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-all duration-200;
+  }
+
+  .badge-featured {
+    @apply badge bg-foreground text-background;
+  }
+
+  .badge-ai {
+    @apply badge bg-accent text-accent-foreground;
+  }
+
+  .badge-tech {
+    @apply badge bg-muted text-foreground border border-border hover:bg-accent/10 hover:border-accent/30;
+  }
+
+  /* Admin specific styles - Updated to match frontend */
   .admin-card {
-    @apply bg-card border border-border rounded-lg p-6 shadow-sm;
+    @apply bg-card border border-border rounded-lg p-6 shadow-sm card-hover;
   }
   
   .admin-button {
-    @apply px-4 py-2 rounded-md font-medium transition-colors;
+    @apply btn;
   }
   
   .admin-button-primary {
-    @apply admin-button bg-accent text-accent-foreground hover:bg-accent/90;
+    @apply btn-primary;
   }
   
   .admin-button-secondary {
-    @apply admin-button bg-secondary text-secondary-foreground hover:bg-secondary/80;
+    @apply btn-secondary;
   }
   
   .admin-button-danger {
-    @apply admin-button bg-destructive text-white hover:bg-destructive/90;
+    @apply btn bg-destructive text-white hover:bg-destructive/90;
+    padding: 0 16px;
+    height: 36px;
   }
   
   .admin-input {
-    @apply w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent;
+    @apply w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200;
   }
   
   .admin-table {
@@ -139,5 +235,34 @@
   
   .admin-table tbody tr:hover {
     @apply bg-muted/50;
+  }
+  
+  /* Enhanced focus styles */
+  .focus-visible *:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Keyboard user styles */
+  .keyboard-user *:focus {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
   }
 }

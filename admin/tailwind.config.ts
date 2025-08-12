@@ -55,8 +55,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        mono: ["JetBrains Mono", "SF Mono", "Monaco", "Inconsolata", "Fira Code", "Droid Sans Mono", "Source Code Pro", "monospace"],
-        sans: ["JetBrains Mono", "SF Mono", "Monaco", "Inconsolata", "Fira Code", "Droid Sans Mono", "Source Code Pro", "monospace"],
+        mono: ["Geist Mono", "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", "Consolas", "Courier New", "monospace"],
+        sans: ["Geist", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
       },
       animation: {
         "fade-up": "fadeUp 0.5s ease-out",

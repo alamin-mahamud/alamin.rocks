@@ -34,9 +34,9 @@ export default function DashboardPage() {
         
         setStats({
           totalMessages: messages.length,
-          unreadMessages: messages.filter(m => !m.read).length || Math.floor(messages.length * 0.2),
+          unreadMessages: messages.filter((m: any) => !m.read).length || Math.floor(messages.length * 0.2),
           totalProjects: projects.length,
-          featuredProjects: projects.filter(p => p.featured).length,
+          featuredProjects: projects.filter((p: any) => p.featured).length,
           resumeViews: 1234, // Mock data
           portfolioVisits: 5678 // Mock data
         })
@@ -57,7 +57,7 @@ export default function DashboardPage() {
         <div className="space-y-6">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-muted-foreground">Welcome back! Here's an overview of your content.</p>
+            <p className="text-muted-foreground">Welcome back! Here&apos;s an overview of your content.</p>
           </div>
 
           {/* Stats Cards */}

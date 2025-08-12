@@ -2,7 +2,7 @@ import React from 'react'
 import { clsx } from 'clsx'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
   children: React.ReactNode
@@ -17,19 +17,20 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
   
   const variantClasses = {
-    primary: 'bg-accent text-accent-foreground hover:bg-accent/90',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border',
-    danger: 'bg-destructive text-white hover:bg-destructive/90',
-    ghost: 'hover:bg-muted text-foreground'
+    primary: 'bg-foreground text-background hover:bg-foreground/90 shadow-sm hover:shadow-md hover:-translate-y-0.5',
+    secondary: 'bg-background border border-border hover:bg-muted shadow-sm hover:shadow-md hover:-translate-y-0.5',
+    danger: 'bg-destructive text-white hover:bg-destructive/90 shadow-sm hover:shadow-md hover:-translate-y-0.5',
+    ghost: 'hover:bg-muted hover:text-foreground hover:-translate-y-0.5',
+    outline: 'border border-border bg-transparent hover:bg-accent hover:text-accent-foreground hover:-translate-y-0.5'
   }
   
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2',
-    lg: 'px-6 py-3 text-lg'
+    sm: 'px-3 py-1.5 text-sm h-8',
+    md: 'px-4 py-2 h-9',
+    lg: 'px-6 py-3 text-lg h-11'
   }
 
   return (
@@ -38,6 +39,7 @@ export function Button({
         baseClasses,
         variantClasses[variant],
         sizeClasses[size],
+        loading && 'pointer-events-none',
         className
       )}
       disabled={disabled || loading}
