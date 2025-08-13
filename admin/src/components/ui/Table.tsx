@@ -20,22 +20,30 @@ interface TableRowProps {
   children: React.ReactNode
   className?: string
   onClick?: () => void
+  hover?: boolean
 }
 
 interface TableHeadProps {
   children: React.ReactNode
   className?: string
+  sortable?: boolean
+  sorted?: 'asc' | 'desc' | false
+  onSort?: () => void
 }
 
 interface TableCellProps {
   children: React.ReactNode
   className?: string
+  align?: 'left' | 'center' | 'right'
 }
 
 export function Table({ children, className }: TableProps) {
   return (
-    <div className="overflow-x-auto">
-      <table className={clsx('admin-table', className)}>
+    <div className="w-full overflow-x-auto">
+      <table className={clsx(
+        'w-full text-sm',
+        className
+      )}>
         {children}
       </table>
     </div>
@@ -43,17 +51,36 @@ export function Table({ children, className }: TableProps) {
 }
 
 export function TableHeader({ children, className }: TableHeaderProps) {
-  return <thead className={className}>{children}</thead>
+  return (
+    <thead className={clsx(
+      'border-b border-border',
+      className
+    )}>
+      {children}
+    </thead>
+  )
 }
 
 export function TableBody({ children, className }: TableBodyProps) {
-  return <tbody className={className}>{children}</tbody>
+  return (
+    <tbody className={clsx(
+      'divide-y divide-border',
+      className
+    )}>
+      {children}
+    </tbody>
+  )
 }
 
-export function TableRow({ children, className, onClick }: TableRowProps) {
+export function TableRow({ children, className, onClick, hover = true }: TableRowProps) {
   return (
     <tr
-      className={clsx(onClick && 'cursor-pointer', className)}
+      className={clsx(
+        'transition-colors',
+        hover && 'hover:bg-muted/30',
+        onClick && 'cursor-pointer',
+        className
+      )}
       onClick={onClick}
     >
       {children}
@@ -61,10 +88,53 @@ export function TableRow({ children, className, onClick }: TableRowProps) {
   )
 }
 
-export function TableHead({ children, className }: TableHeadProps) {
-  return <th className={className}>{children}</th>
+export function TableHead({ 
+  children, 
+  className, 
+  sortable, 
+  sorted,
+  onSort 
+}: TableHeadProps) {
+  return (
+    <th 
+      className={clsx(
+        'h-10 px-2 text-left align-middle font-medium text-muted-foreground',
+        'text-xs uppercase tracking-wider',
+        sortable && 'cursor-pointer select-none hover:text-foreground',
+        className
+      )}
+      onClick={sortable ? onSort : undefined}
+    >
+      <div className="flex items-center space-x-1">
+        <span>{children}</span>
+        {sortable && (
+          <span className="text-muted-foreground">
+            {sorted === 'asc' && '↑'}
+            {sorted === 'desc' && '↓'}
+            {!sorted && '↕'}
+          </span>
+        )}
+      </div>
+    </th>
+  )
 }
 
-export function TableCell({ children, className }: TableCellProps) {
-  return <td className={className}>{children}</td>
+export function TableCell({ 
+  children, 
+  className,
+  align = 'left' 
+}: TableCellProps) {
+  return (
+    <td className={clsx(
+      'p-2 align-middle',
+      {
+        'text-left': align === 'left',
+        'text-center': align === 'center',
+        'text-right': align === 'right'
+      },
+      className
+    )}>
+      {children}
+    </td>
+  )
 }

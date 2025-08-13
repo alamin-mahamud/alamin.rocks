@@ -7,27 +7,44 @@ interface CardProps {
   title?: string
   description?: string
   hover?: boolean
+  action?: React.ReactNode
 }
 
-export function Card({ children, className, title, description, hover = true }: CardProps) {
+export function Card({ 
+  children, 
+  className, 
+  title, 
+  description, 
+  hover = false,
+  action 
+}: CardProps) {
   return (
     <div className={clsx(
-      'bg-card border border-border rounded-lg p-6 shadow-sm theme-transition',
-      hover && 'card-hover',
+      'bg-card border border-border rounded-lg p-6',
+      hover && 'transition-shadow hover:shadow-md',
       className
     )}>
-      {(title || description) && (
+      {(title || description || action) && (
         <div className="mb-4">
-          {title && (
-            <h3 className="text-lg font-semibold text-foreground mb-1">
-              {title}
-            </h3>
-          )}
-          {description && (
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {description}
-            </p>
-          )}
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              {title && (
+                <h3 className="text-sm font-semibold text-foreground">
+                  {title}
+                </h3>
+              )}
+              {description && (
+                <p className="text-sm text-muted-foreground mt-1">
+                  {description}
+                </p>
+              )}
+            </div>
+            {action && (
+              <div className="ml-4">
+                {action}
+              </div>
+            )}
+          </div>
         </div>
       )}
       {children}

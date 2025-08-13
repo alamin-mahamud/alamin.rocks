@@ -10,17 +10,17 @@ import {
   Settings,
   Languages,
   LogOut,
-  Activity,
-  BarChart3
+  BarChart3,
+  ChevronRight
 } from 'lucide-react'
 import { clsx } from 'clsx'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard, badge: null },
-  { name: 'Messages', href: '/messages', icon: MessageSquare, badge: '12' },
+  { name: 'Messages', href: '/messages', icon: MessageSquare, badge: 12 },
   { name: 'Projects', href: '/projects', icon: FolderOpen, badge: null },
   { name: 'Resume', href: '/resume', icon: FileText, badge: null },
-  { name: 'Translations', href: '/translations', icon: Languages, badge: '2' },
+  { name: 'Translations', href: '/translations', icon: Languages, badge: 2 },
   { name: 'Analytics', href: '/analytics', icon: BarChart3, badge: null },
   { name: 'Settings', href: '/settings', icon: Settings, badge: null },
 ]
@@ -29,22 +29,19 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="flex flex-col w-64 bg-card border-r border-border theme-transition">
-      {/* Brand Header */}
-      <div className="flex items-center justify-center h-16 px-4 border-b border-border">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 bg-gradient-to-br from-accent to-accent/80 rounded-lg flex items-center justify-center">
-            <Activity className="h-4 w-4 text-accent-foreground" />
-          </div>
-          <div>
-            <h1 className="text-sm font-semibold text-foreground">Alamin.rocks</h1>
-            <p className="text-xs text-muted-foreground">Admin Panel</p>
-          </div>
-        </div>
+    <div className="flex flex-col w-64 bg-background border-r border-border">
+      {/* Brand Header - Vercel Style */}
+      <div className="h-14 flex items-center px-6 border-b border-border">
+        <Link href="/" className="flex items-center space-x-2 text-foreground hover:opacity-80 transition-opacity">
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 19.5h20L12 2z"/>
+          </svg>
+          <span className="font-semibold text-sm">Admin</span>
+        </Link>
       </div>
       
-      {/* Navigation */}
-      <nav className="flex-1 px-4 py-6 space-y-1">
+      {/* Navigation - Vercel Style */}
+      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {navigation.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -52,55 +49,65 @@ export function Sidebar() {
               key={item.name}
               href={item.href}
               className={clsx(
-                'flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 group',
+                'flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors group relative',
                 isActive
-                  ? 'bg-accent text-accent-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/70 hover:translate-x-1'
+                  ? 'bg-muted text-foreground font-medium'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               )}
             >
               <div className="flex items-center">
                 <item.icon className={clsx(
-                  'mr-3 h-4 w-4 transition-colors',
-                  isActive ? 'text-accent-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                  'mr-3 h-4 w-4 flex-shrink-0',
+                  isActive ? 'text-foreground' : 'text-muted-foreground'
                 )} />
-                {item.name}
+                <span>{item.name}</span>
               </div>
-              {item.badge && (
-                <span className={clsx(
-                  'text-xs px-2 py-0.5 rounded-full font-medium',
-                  isActive 
-                    ? 'bg-accent-foreground/20 text-accent-foreground'
-                    : 'bg-accent text-accent-foreground'
-                )}>
-                  {item.badge}
-                </span>
-              )}
+              <div className="flex items-center">
+                {item.badge && (
+                  <span className={clsx(
+                    'text-xs px-1.5 py-0.5 rounded font-medium mr-1',
+                    isActive 
+                      ? 'bg-foreground/10 text-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  )}>
+                    {item.badge}
+                  </span>
+                )}
+                {isActive && (
+                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                )}
+              </div>
             </Link>
           )
         })}
       </nav>
       
-      {/* Footer */}
-      <div className="p-4 border-t border-border">
-        <div className="mb-4 p-3 bg-muted/30 rounded-lg">
-          <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-            <span>Storage Used</span>
-            <span>68%</span>
+      {/* User Section - Vercel Style */}
+      <div className="p-3 border-t border-border">
+        <div className="p-3 rounded-md bg-muted/30 mb-2">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs text-muted-foreground">Usage</span>
+            <span className="text-xs font-medium text-foreground">68%</span>
           </div>
-          <div className="w-full bg-border rounded-full h-1.5">
-            <div className="bg-accent h-1.5 rounded-full" style={{ width: '68%' }}></div>
+          <div className="w-full bg-border rounded-full h-1 overflow-hidden">
+            <div 
+              className="h-full bg-foreground rounded-full transition-all duration-300" 
+              style={{ width: '68%' }}
+            />
           </div>
         </div>
         
         <button
-          className="flex items-center w-full px-3 py-2.5 text-sm font-medium text-muted-foreground rounded-lg hover:text-foreground hover:bg-destructive/10 hover:text-destructive transition-all duration-200 group"
+          className="flex items-center justify-between w-full px-3 py-2 text-sm text-muted-foreground rounded-md hover:bg-muted/50 hover:text-foreground transition-colors"
           onClick={() => {
             localStorage.removeItem('admin_token')
             window.location.href = '/login'
           }}
         >
-          <LogOut className="mr-3 h-4 w-4 group-hover:text-destructive" />
-          Logout
+          <div className="flex items-center">
+            <LogOut className="mr-3 h-4 w-4" />
+            <span>Sign Out</span>
+          </div>
         </button>
       </div>
     </div>
