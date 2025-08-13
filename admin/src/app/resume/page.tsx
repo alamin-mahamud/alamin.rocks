@@ -16,52 +16,12 @@ import {
   Users,
   Edit,
   Save,
-  X
+  X,
+  RefreshCw,
+  AlertCircle
 } from 'lucide-react'
 import { Resume, Experience, SkillCategory } from '@/types'
-
-// Mock resume data
-const mockResume: Resume = {
-  contact: {
-    name: 'Md. Alamin Mahamud',
-    email: 'hello@alamin.rocks',
-    phone: '+880 168 7060 434',
-    website: 'https://alamin.rocks',
-    location: 'Istanbul, Turkey'
-  },
-  executive_summary: [
-    'Dynamic technology leader with 10+ years of expertise in building scalable cloud platforms & leading DevOps + SRE teams.',
-    'Proven track record of saving over $1M in cloud costs and contributing to SaaS ARR of $20M+.',
-    'A multi-dimensional thinker with a global mindset, systems-level thinking, and a relentless execution habit.'
-  ],
-  experiences: [
-    {
-      id: '1',
-      company: 'Kahf Yazılım A.Ş.',
-      role: 'Senior DevOps Engineer',
-      duration: 'May 2025 - July 2027',
-      location: 'Istanbul, Turkey',
-      current: true,
-      achievements: [
-        'On a mission to make online world safe & secure',
-        'Migrating the entire infrastructure from Azure to Bare-metal'
-      ],
-      technologies: ['Bind9', 'CloudNative-PG', 'Kubernetes', 'Ansible', 'Terraform']
-    }
-  ],
-  projects: [],
-  education: [],
-  awards: [],
-  certifications: [],
-  skills: [
-    {
-      category: 'SaaS Architecture, Development',
-      skills: ['Python', 'Go', 'TypeScript', 'FastAPI', 'PostgreSQL']
-    }
-  ],
-  community_engagement: [],
-  updated_at: '2024-01-15T10:00:00Z'
-}
+import { resumeApi } from '@/lib/api'
 
 interface EditableSection {
   section: string
@@ -69,9 +29,69 @@ interface EditableSection {
 }
 
 export default function ResumePage() {
-  const [resume, setResume] = useState<Resume>(mockResume)
+  const [resume, setResume] = useState<Resume | null>(null)
   const [editingSections, setEditingSections] = useState<EditableSection[]>([])
   const [loading, setLoading] = useState(false)
+  const [initialLoading, setInitialLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchResumeData()
+  }, [])
+
+  const fetchResumeData = async () => {
+    try {
+      setInitialLoading(true)
+      setError(null)
+      
+      // Fetch all resume sections in parallel
+      const [
+        contactResponse,
+        experienceResponse,
+        projectsResponse,
+        skillsResponse,
+        educationResponse,
+        awardsResponse,
+        certificationsResponse,
+        communityResponse
+      ] = await Promise.allSettled([
+        resumeApi.getContact(),
+        resumeApi.getExperience(),
+        resumeApi.getProjects(),
+        resumeApi.getSkills(),
+        resumeApi.getEducation(),
+        resumeApi.getAwards(),
+        resumeApi.getCertifications(),
+        resumeApi.getCommunityEngagement()
+      ])
+
+      // Build resume object from API responses
+      const resumeData: Resume = {
+        contact: contactResponse.status === 'fulfilled' ? contactResponse.value.data : {
+          name: '',
+          email: '',
+          phone: '',
+          location: ''
+        },
+        executive_summary: [], // This might come from a separate endpoint
+        experiences: experienceResponse.status === 'fulfilled' ? experienceResponse.value.data : [],
+        projects: projectsResponse.status === 'fulfilled' ? projectsResponse.value.data : [],
+        education: educationResponse.status === 'fulfilled' ? educationResponse.value.data : [],
+        awards: awardsResponse.status === 'fulfilled' ? awardsResponse.value.data : [],
+        certifications: certificationsResponse.status === 'fulfilled' ? certificationsResponse.value.data : [],
+        skills: skillsResponse.status === 'fulfilled' ? skillsResponse.value.data : [],
+        community_engagement: communityResponse.status === 'fulfilled' ? communityResponse.value.data : [],
+        updated_at: new Date().toISOString()
+      }
+
+      setResume(resumeData)
+    } catch (error) {
+      console.error('Error fetching resume data:', error)
+      setError('Failed to load resume data. Please try again.')
+    } finally {
+      setInitialLoading(false)
+    }
+  }
 
   const isEditing = (section: string) => {
     return editingSections.some(es => es.section === section && es.isEditing)
@@ -104,45 +124,100 @@ export default function ResumePage() {
   }
 
   const updateContactInfo = (field: string, value: string) => {
-    setResume(prev => ({
+    if (!resume) return
+    setResume(prev => prev ? ({
       ...prev,
       contact: {
         ...prev.contact,
         [field]: value
       }
-    }))
+    }) : null)
   }
 
   const updateExecutiveSummary = (index: number, value: string) => {
-    setResume(prev => ({
+    if (!resume) return
+    setResume(prev => prev ? ({
       ...prev,
       executive_summary: prev.executive_summary.map((item, i) => 
         i === index ? value : item
       )
-    }))
+    }) : null)
   }
 
   const addSummaryPoint = () => {
-    setResume(prev => ({
+    if (!resume) return
+    setResume(prev => prev ? ({
       ...prev,
       executive_summary: [...prev.executive_summary, '']
-    }))
+    }) : null)
   }
 
   const removeSummaryPoint = (index: number) => {
-    setResume(prev => ({
+    if (!resume) return
+    setResume(prev => prev ? ({
       ...prev,
       executive_summary: prev.executive_summary.filter((_, i) => i !== index)
-    }))
+    }) : null)
+  }
+
+  if (initialLoading) {
+    return (
+      <AuthWrapper>
+        <Layout>
+          <div className="space-y-6">
+            <div className="flex items-center justify-center py-12">
+              <RefreshCw className="h-6 w-6 animate-spin mr-2" />
+              <span className="text-muted-foreground">Loading resume data...</span>
+            </div>
+          </div>
+        </Layout>
+      </AuthWrapper>
+    )
+  }
+
+  if (error) {
+    return (
+      <AuthWrapper>
+        <Layout>
+          <div className="space-y-6">
+            <div className="flex items-center justify-center p-8 text-center">
+              <div>
+                <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+                <h3 className="font-medium text-foreground mb-2">Error Loading Resume</h3>
+                <p className="text-sm text-muted-foreground mb-4">{error}</p>
+                <Button onClick={fetchResumeData} variant="secondary">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Try Again
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Layout>
+      </AuthWrapper>
+    )
+  }
+
+  if (!resume) {
+    return null
   }
 
   return (
     <AuthWrapper>
       <Layout>
         <div className="space-y-6">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">Resume Management</h1>
-            <p className="text-muted-foreground">Update your resume content and information</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Resume Management</h1>
+              <p className="text-muted-foreground">Update your resume content and information</p>
+            </div>
+            <Button
+              variant="secondary"
+              onClick={fetchResumeData}
+              disabled={initialLoading}
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${initialLoading ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
           </div>
 
           {/* Contact Information */}
