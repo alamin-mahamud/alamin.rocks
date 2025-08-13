@@ -1,10 +1,11 @@
 services:
+  # Frontend - Hosted on Vercel
   frontend:
     build: ./frontend
     ports:
       - "${FRONTEND_PORT:-3120}:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8120}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://api.alamin.rocks}
     env_file:
       - .env
     depends_on:
@@ -12,12 +13,13 @@ services:
     profiles:
       - all
 
+  # Admin Panel - Hosted on Vercel
   admin:
     build: ./admin
     ports:
       - "${ADMIN_PORT:-3121}:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8120}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://api.alamin.rocks}
     env_file:
       - .env
     depends_on:
@@ -61,6 +63,36 @@ services:
     profiles:
       - all
       - backend
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/certbot/conf:/etc/letsencrypt:ro
+      - ./nginx/certbot/www:/var/www/certbot:ro
+    depends_on:
+      - backend
+      # - frontend
+      # - admin
+    profiles:
+      - all
+      - production
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    profiles:
+      - production
 
 volumes:
   postgres_data:

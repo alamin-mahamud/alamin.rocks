@@ -42,8 +42,11 @@ app.add_middleware(
     allow_origins=[
         settings.frontend_url,
         settings.admin_url,
-        "alamin.rocks",
-        "admin.alamin.rocks",
+        "https://alamin.rocks",
+        "https://www.alamin.rocks",
+        "https://admin.alamin.rocks",
+        "http://alamin.rocks",
+        "http://admin.alamin.rocks",
         "http://localhost:3120",
         "http://localhost:3121",
         "http://10.7.0.1:3121",

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://103.198.137.95:8120",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://api.alamin.rocks",
   headers: {
     "Content-Type": "application/json",
   },
