@@ -53,7 +53,7 @@ class Achievement(BaseModel):
     description: str
     icon: str
     color: str
-    percentage: int
+    percentage: float
     details: List[str]
     category: str
     created_at: datetime

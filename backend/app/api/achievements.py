@@ -49,7 +49,7 @@ achievements_data = [
         "description": "Uptime SLA maintained across 50+ client environments",
         "icon": "Shield",
         "color": "text-accent",
-        "percentage": 99.99,
+        "percentage": 100,
         "details": [
             "Advanced monitoring and alerting systems",
             "Blue/green deployment strategies eliminating downtime",
