@@ -42,12 +42,12 @@ export const contactApi = {
 export const portfolioApi = {
   getProjects: (featured?: boolean) => {
     const params = featured !== undefined ? { featured } : {}
-    return api.get('/api/projects', { params })
+    return api.get('/api/v1/portfolio/projects', { params })
   },
-  getProject: (id: string) => api.get(`/api/projects/${id}`),
-  createProject: (data: any) => api.post('/api/projects', data),
-  updateProject: (id: string, data: any) => api.patch(`/api/projects/${id}`, data),
-  deleteProject: (id: string) => api.delete(`/api/projects/${id}`),
+  getProject: (id: string) => api.get(`/api/v1/portfolio/projects/${id}`),
+  createProject: (data: any) => api.post('/api/v1/portfolio/projects', data),
+  updateProject: (id: string, data: any) => api.patch(`/api/v1/portfolio/projects/${id}`, data),
+  deleteProject: (id: string) => api.delete(`/api/v1/portfolio/projects/${id}`),
 }
 
 // Resume API
