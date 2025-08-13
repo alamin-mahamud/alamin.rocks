@@ -1,0 +1,478 @@
+[
+  {
+    "id": "1",
+    "name": "Python",
+    "category": "Languages",
+    "proficiency": "Intermediate",
+    "years_experience": 1
+  },
+  {
+    "id": "2",
+    "name": "JavaScript",
+    "category": "Languages",
+    "proficiency": "Intermediate",
+    "years_experience": 5
+  },
+  {
+    "id": "3",
+    "name": "TypeScript",
+    "category": "Languages",
+    "proficiency": "Beginner",
+    "years_experience": 4
+  },
+  {
+    "id": "4",
+    "name": "Go",
+    "category": "Languages",
+    "proficiency": "Intermediate",
+    "years_experience": 5
+  },
+  {
+    "id": "5",
+    "name": "Java",
+    "category": "Languages",
+    "proficiency": "Expert",
+    "years_experience": 6
+  },
+  {
+    "id": "6",
+    "name": "C++",
+    "category": "Languages",
+    "proficiency": "Beginner",
+    "years_experience": 4
+  },
+  {
+    "id": "7",
+    "name": "Rust",
+    "category": "Languages",
+    "proficiency": "Advanced",
+    "years_experience": 6
+  },
+  {
+    "id": "8",
+    "name": "Ruby",
+    "category": "Languages",
+    "proficiency": "Beginner",
+    "years_experience": 2
+  },
+  {
+    "id": "9",
+    "name": "PHP",
+    "category": "Languages",
+    "proficiency": "Expert",
+    "years_experience": 9
+  },
+  {
+    "id": "10",
+    "name": "Swift",
+    "category": "Languages",
+    "proficiency": "Expert",
+    "years_experience": 8
+  },
+  {
+    "id": "11",
+    "name": "React",
+    "category": "Frontend",
+    "proficiency": "Intermediate",
+    "years_experience": 2
+  },
+  {
+    "id": "12",
+    "name": "Vue.js",
+    "category": "Frontend",
+    "proficiency": "Intermediate",
+    "years_experience": 6
+  },
+  {
+    "id": "13",
+    "name": "Angular",
+    "category": "Frontend",
+    "proficiency": "Advanced",
+    "years_experience": 1
+  },
+  {
+    "id": "14",
+    "name": "Next.js",
+    "category": "Frontend",
+    "proficiency": "Advanced",
+    "years_experience": 3
+  },
+  {
+    "id": "15",
+    "name": "Svelte",
+    "category": "Frontend",
+    "proficiency": "Beginner",
+    "years_experience": 9
+  },
+  {
+    "id": "16",
+    "name": "Redux",
+    "category": "Frontend",
+    "proficiency": "Intermediate",
+    "years_experience": 1
+  },
+  {
+    "id": "17",
+    "name": "MobX",
+    "category": "Frontend",
+    "proficiency": "Expert",
+    "years_experience": 6
+  },
+  {
+    "id": "18",
+    "name": "Webpack",
+    "category": "Frontend",
+    "proficiency": "Expert",
+    "years_experience": 3
+  },
+  {
+    "id": "19",
+    "name": "Vite",
+    "category": "Frontend",
+    "proficiency": "Intermediate",
+    "years_experience": 5
+  },
+  {
+    "id": "20",
+    "name": "TailwindCSS",
+    "category": "Frontend",
+    "proficiency": "Intermediate",
+    "years_experience": 6
+  },
+  {
+    "id": "21",
+    "name": "FastAPI",
+    "category": "Backend",
+    "proficiency": "Intermediate",
+    "years_experience": 7
+  },
+  {
+    "id": "22",
+    "name": "Django",
+    "category": "Backend",
+    "proficiency": "Advanced",
+    "years_experience": 4
+  },
+  {
+    "id": "23",
+    "name": "Flask",
+    "category": "Backend",
+    "proficiency": "Expert",
+    "years_experience": 6
+  },
+  {
+    "id": "24",
+    "name": "Express",
+    "category": "Backend",
+    "proficiency": "Expert",
+    "years_experience": 8
+  },
+  {
+    "id": "25",
+    "name": "NestJS",
+    "category": "Backend",
+    "proficiency": "Intermediate",
+    "years_experience": 10
+  },
+  {
+    "id": "26",
+    "name": "Spring Boot",
+    "category": "Backend",
+    "proficiency": "Intermediate",
+    "years_experience": 4
+  },
+  {
+    "id": "27",
+    "name": "Rails",
+    "category": "Backend",
+    "proficiency": "Expert",
+    "years_experience": 7
+  },
+  {
+    "id": "28",
+    "name": "Laravel",
+    "category": "Backend",
+    "proficiency": "Intermediate",
+    "years_experience": 7
+  },
+  {
+    "id": "29",
+    "name": "Gin",
+    "category": "Backend",
+    "proficiency": "Advanced",
+    "years_experience": 4
+  },
+  {
+    "id": "30",
+    "name": "Echo",
+    "category": "Backend",
+    "proficiency": "Intermediate",
+    "years_experience": 4
+  },
+  {
+    "id": "31",
+    "name": "PostgreSQL",
+    "category": "Databases",
+    "proficiency": "Advanced",
+    "years_experience": 3
+  },
+  {
+    "id": "32",
+    "name": "MySQL",
+    "category": "Databases",
+    "proficiency": "Expert",
+    "years_experience": 6
+  },
+  {
+    "id": "33",
+    "name": "MongoDB",
+    "category": "Databases",
+    "proficiency": "Expert",
+    "years_experience": 8
+  },
+  {
+    "id": "34",
+    "name": "Redis",
+    "category": "Databases",
+    "proficiency": "Advanced",
+    "years_experience": 2
+  },
+  {
+    "id": "35",
+    "name": "Elasticsearch",
+    "category": "Databases",
+    "proficiency": "Beginner",
+    "years_experience": 8
+  },
+  {
+    "id": "36",
+    "name": "Cassandra",
+    "category": "Databases",
+    "proficiency": "Intermediate",
+    "years_experience": 10
+  },
+  {
+    "id": "37",
+    "name": "DynamoDB",
+    "category": "Databases",
+    "proficiency": "Intermediate",
+    "years_experience": 8
+  },
+  {
+    "id": "38",
+    "name": "Neo4j",
+    "category": "Databases",
+    "proficiency": "Intermediate",
+    "years_experience": 2
+  },
+  {
+    "id": "39",
+    "name": "InfluxDB",
+    "category": "Databases",
+    "proficiency": "Advanced",
+    "years_experience": 5
+  },
+  {
+    "id": "40",
+    "name": "AWS",
+    "category": "Cloud",
+    "proficiency": "Intermediate",
+    "years_experience": 5
+  },
+  {
+    "id": "41",
+    "name": "GCP",
+    "category": "Cloud",
+    "proficiency": "Beginner",
+    "years_experience": 6
+  },
+  {
+    "id": "42",
+    "name": "Azure",
+    "category": "Cloud",
+    "proficiency": "Beginner",
+    "years_experience": 10
+  },
+  {
+    "id": "43",
+    "name": "Docker",
+    "category": "Cloud",
+    "proficiency": "Beginner",
+    "years_experience": 3
+  },
+  {
+    "id": "44",
+    "name": "Kubernetes",
+    "category": "Cloud",
+    "proficiency": "Intermediate",
+    "years_experience": 10
+  },
+  {
+    "id": "45",
+    "name": "Terraform",
+    "category": "Cloud",
+    "proficiency": "Advanced",
+    "years_experience": 3
+  },
+  {
+    "id": "46",
+    "name": "Ansible",
+    "category": "Cloud",
+    "proficiency": "Expert",
+    "years_experience": 9
+  },
+  {
+    "id": "47",
+    "name": "Jenkins",
+    "category": "Cloud",
+    "proficiency": "Beginner",
+    "years_experience": 6
+  },
+  {
+    "id": "48",
+    "name": "GitLab CI",
+    "category": "Cloud",
+    "proficiency": "Intermediate",
+    "years_experience": 6
+  },
+  {
+    "id": "49",
+    "name": "GitHub Actions",
+    "category": "Cloud",
+    "proficiency": "Advanced",
+    "years_experience": 8
+  },
+  {
+    "id": "50",
+    "name": "TensorFlow",
+    "category": "AI/ML",
+    "proficiency": "Intermediate",
+    "years_experience": 8
+  },
+  {
+    "id": "51",
+    "name": "PyTorch",
+    "category": "AI/ML",
+    "proficiency": "Advanced",
+    "years_experience": 8
+  },
+  {
+    "id": "52",
+    "name": "Scikit-learn",
+    "category": "AI/ML",
+    "proficiency": "Advanced",
+    "years_experience": 3
+  },
+  {
+    "id": "53",
+    "name": "Keras",
+    "category": "AI/ML",
+    "proficiency": "Expert",
+    "years_experience": 1
+  },
+  {
+    "id": "54",
+    "name": "Pandas",
+    "category": "AI/ML",
+    "proficiency": "Advanced",
+    "years_experience": 1
+  },
+  {
+    "id": "55",
+    "name": "NumPy",
+    "category": "AI/ML",
+    "proficiency": "Beginner",
+    "years_experience": 8
+  },
+  {
+    "id": "56",
+    "name": "Hugging Face",
+    "category": "AI/ML",
+    "proficiency": "Expert",
+    "years_experience": 9
+  },
+  {
+    "id": "57",
+    "name": "OpenAI",
+    "category": "AI/ML",
+    "proficiency": "Beginner",
+    "years_experience": 7
+  },
+  {
+    "id": "58",
+    "name": "LangChain",
+    "category": "AI/ML",
+    "proficiency": "Beginner",
+    "years_experience": 3
+  },
+  {
+    "id": "59",
+    "name": "Git",
+    "category": "Tools",
+    "proficiency": "Advanced",
+    "years_experience": 8
+  },
+  {
+    "id": "60",
+    "name": "Linux",
+    "category": "Tools",
+    "proficiency": "Advanced",
+    "years_experience": 8
+  },
+  {
+    "id": "61",
+    "name": "Vim",
+    "category": "Tools",
+    "proficiency": "Beginner",
+    "years_experience": 8
+  },
+  {
+    "id": "62",
+    "name": "VS Code",
+    "category": "Tools",
+    "proficiency": "Intermediate",
+    "years_experience": 8
+  },
+  {
+    "id": "63",
+    "name": "IntelliJ",
+    "category": "Tools",
+    "proficiency": "Expert",
+    "years_experience": 8
+  },
+  {
+    "id": "64",
+    "name": "Postman",
+    "category": "Tools",
+    "proficiency": "Intermediate",
+    "years_experience": 8
+  },
+  {
+    "id": "65",
+    "name": "Grafana",
+    "category": "Tools",
+    "proficiency": "Intermediate",
+    "years_experience": 9
+  },
+  {
+    "id": "66",
+    "name": "Prometheus",
+    "category": "Tools",
+    "proficiency": "Beginner",
+    "years_experience": 3
+  },
+  {
+    "id": "67",
+    "name": "Datadog",
+    "category": "Tools",
+    "proficiency": "Advanced",
+    "years_experience": 8
+  },
+  {
+    "id": "68",
+    "name": "New Relic",
+    "category": "Tools",
+    "proficiency": "Advanced",
+    "years_experience": 2
+  }
+]

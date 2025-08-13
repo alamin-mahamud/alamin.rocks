@@ -1,0 +1,362 @@
+[
+  {
+    "id": "1",
+    "name": "Google Cloud Professional Cloud Architect",
+    "issuer": "Google Cloud",
+    "issue_date": "2024-07",
+    "expiry_date": "2025-08",
+    "credential_id": "91AEFAAE-618",
+    "credential_url": "https://verify.googlecloud.com/cert/ae019af6"
+  },
+  {
+    "id": "2",
+    "name": "AWS DevOps Engineer",
+    "issuer": "AWS",
+    "issue_date": "2025-02",
+    "expiry_date": null,
+    "credential_id": "455038E0-5E7",
+    "credential_url": "https://verify.aws.com/cert/3e561989"
+  },
+  {
+    "id": "3",
+    "name": "Microsoft Azure Administrator",
+    "issuer": "Microsoft",
+    "issue_date": "2023-10",
+    "expiry_date": null,
+    "credential_id": "8C99851F-309",
+    "credential_url": "https://verify.microsoft.com/cert/54c2fe24"
+  },
+  {
+    "id": "4",
+    "name": "Kubernetes CKA",
+    "issuer": "Kubernetes",
+    "issue_date": "2021-01",
+    "expiry_date": null,
+    "credential_id": "D11989E9-CB5",
+    "credential_url": "https://verify.kubernetes.com/cert/ad03b397"
+  },
+  {
+    "id": "5",
+    "name": "Google Cloud Professional Data Engineer",
+    "issuer": "Google Cloud",
+    "issue_date": "2023-09",
+    "expiry_date": null,
+    "credential_id": "B563EA08-597",
+    "credential_url": "https://verify.googlecloud.com/cert/9034d652"
+  },
+  {
+    "id": "6",
+    "name": "Kubernetes CKS",
+    "issuer": "Kubernetes",
+    "issue_date": "2022-10",
+    "expiry_date": null,
+    "credential_id": "CB301666-6D6",
+    "credential_url": "https://verify.kubernetes.com/cert/4fd4558c"
+  },
+  {
+    "id": "7",
+    "name": "Security Security+",
+    "issuer": "Security",
+    "issue_date": "2023-12",
+    "expiry_date": "2025-10",
+    "credential_id": "2BA4DE84-446",
+    "credential_url": "https://verify.security.com/cert/aa3d9aa7"
+  },
+  {
+    "id": "8",
+    "name": "Google Cloud Professional Cloud Architect",
+    "issuer": "Google Cloud",
+    "issue_date": "2024-10",
+    "expiry_date": null,
+    "credential_id": "2C1EEDDE-67B",
+    "credential_url": "https://verify.googlecloud.com/cert/35270a8f"
+  },
+  {
+    "id": "9",
+    "name": "HashiCorp Terraform Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2022-04",
+    "expiry_date": null,
+    "credential_id": "1AD755E0-401",
+    "credential_url": "https://verify.hashicorp.com/cert/462e8d25"
+  },
+  {
+    "id": "10",
+    "name": "Linux RHCSA",
+    "issuer": "Linux",
+    "issue_date": "2024-08",
+    "expiry_date": null,
+    "credential_id": "D66F1D60-285",
+    "credential_url": "https://verify.linux.com/cert/4644224d"
+  },
+  {
+    "id": "11",
+    "name": "AWS Solutions Architect",
+    "issuer": "AWS",
+    "issue_date": "2022-09",
+    "expiry_date": null,
+    "credential_id": "279C6FF5-3F0",
+    "credential_url": "https://verify.aws.com/cert/c9d5bf65"
+  },
+  {
+    "id": "12",
+    "name": "HashiCorp Terraform Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2022-06",
+    "expiry_date": null,
+    "credential_id": "44E0BACC-622",
+    "credential_url": "https://verify.hashicorp.com/cert/50a47ae5"
+  },
+  {
+    "id": "13",
+    "name": "Google Cloud Professional Cloud Architect",
+    "issuer": "Google Cloud",
+    "issue_date": "2023-04",
+    "expiry_date": null,
+    "credential_id": "32E01282-2A8",
+    "credential_url": "https://verify.googlecloud.com/cert/92a0acf0"
+  },
+  {
+    "id": "14",
+    "name": "Linux LPIC-2",
+    "issuer": "Linux",
+    "issue_date": "2024-09",
+    "expiry_date": "2026-03",
+    "credential_id": "D44B0395-47C",
+    "credential_url": "https://verify.linux.com/cert/45bd6cd4"
+  },
+  {
+    "id": "15",
+    "name": "Microsoft Azure Developer",
+    "issuer": "Microsoft",
+    "issue_date": "2023-03",
+    "expiry_date": null,
+    "credential_id": "A6208CA7-987",
+    "credential_url": "https://verify.microsoft.com/cert/f1e8be04"
+  },
+  {
+    "id": "16",
+    "name": "Security Security+",
+    "issuer": "Security",
+    "issue_date": "2021-01",
+    "expiry_date": "2022-10",
+    "credential_id": "7FE3F368-711",
+    "credential_url": "https://verify.security.com/cert/006d2ec6"
+  },
+  {
+    "id": "17",
+    "name": "HashiCorp Consul Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2024-03",
+    "expiry_date": "2026-12",
+    "credential_id": "B6448C48-A43",
+    "credential_url": "https://verify.hashicorp.com/cert/380301dd"
+  },
+  {
+    "id": "18",
+    "name": "Kubernetes CKA",
+    "issuer": "Kubernetes",
+    "issue_date": "2024-06",
+    "expiry_date": "2025-10",
+    "credential_id": "30206200-E21",
+    "credential_url": "https://verify.kubernetes.com/cert/5c8e098c"
+  },
+  {
+    "id": "19",
+    "name": "Kubernetes CKA",
+    "issuer": "Kubernetes",
+    "issue_date": "2023-06",
+    "expiry_date": "2024-06",
+    "credential_id": "14399F69-CFC",
+    "credential_url": "https://verify.kubernetes.com/cert/b4965237"
+  },
+  {
+    "id": "20",
+    "name": "AWS Developer Associate",
+    "issuer": "AWS",
+    "issue_date": "2023-07",
+    "expiry_date": null,
+    "credential_id": "9DB7FC90-468",
+    "credential_url": "https://verify.aws.com/cert/504ee81f"
+  },
+  {
+    "id": "21",
+    "name": "Linux LPIC-1",
+    "issuer": "Linux",
+    "issue_date": "2024-07",
+    "expiry_date": "2025-08",
+    "credential_id": "C9F06CF0-576",
+    "credential_url": "https://verify.linux.com/cert/a350e9d4"
+  },
+  {
+    "id": "22",
+    "name": "Linux LPIC-2",
+    "issuer": "Linux",
+    "issue_date": "2023-03",
+    "expiry_date": "2025-05",
+    "credential_id": "011FDBCF-5CF",
+    "credential_url": "https://verify.linux.com/cert/d555d512"
+  },
+  {
+    "id": "23",
+    "name": "Microsoft Azure Developer",
+    "issuer": "Microsoft",
+    "issue_date": "2021-11",
+    "expiry_date": "2023-12",
+    "credential_id": "CE1944A4-6F3",
+    "credential_url": "https://verify.microsoft.com/cert/4212ff76"
+  },
+  {
+    "id": "24",
+    "name": "Kubernetes CKA",
+    "issuer": "Kubernetes",
+    "issue_date": "2025-04",
+    "expiry_date": null,
+    "credential_id": "7C3045E9-08D",
+    "credential_url": "https://verify.kubernetes.com/cert/efd67e3d"
+  },
+  {
+    "id": "25",
+    "name": "HashiCorp Terraform Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2023-01",
+    "expiry_date": null,
+    "credential_id": "2B87EC08-169",
+    "credential_url": "https://verify.hashicorp.com/cert/42aeb1b4"
+  },
+  {
+    "id": "26",
+    "name": "Google Cloud Associate Cloud Engineer",
+    "issuer": "Google Cloud",
+    "issue_date": "2024-06",
+    "expiry_date": null,
+    "credential_id": "12382CFE-6C5",
+    "credential_url": "https://verify.googlecloud.com/cert/9430f1fd"
+  },
+  {
+    "id": "27",
+    "name": "AWS Solutions Architect",
+    "issuer": "AWS",
+    "issue_date": "2024-03",
+    "expiry_date": null,
+    "credential_id": "4F54A06A-FD3",
+    "credential_url": "https://verify.aws.com/cert/fb2b7871"
+  },
+  {
+    "id": "28",
+    "name": "Linux LPIC-2",
+    "issuer": "Linux",
+    "issue_date": "2024-11",
+    "expiry_date": null,
+    "credential_id": "E6668167-E50",
+    "credential_url": "https://verify.linux.com/cert/27c9e106"
+  },
+  {
+    "id": "29",
+    "name": "HashiCorp Vault Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2024-09",
+    "expiry_date": null,
+    "credential_id": "DE9EF60F-ADF",
+    "credential_url": "https://verify.hashicorp.com/cert/4d29a8c1"
+  },
+  {
+    "id": "30",
+    "name": "Linux RHCSA",
+    "issuer": "Linux",
+    "issue_date": "2023-02",
+    "expiry_date": "2025-12",
+    "credential_id": "D8F6ADCE-841",
+    "credential_url": "https://verify.linux.com/cert/09b5f0ab"
+  },
+  {
+    "id": "31",
+    "name": "HashiCorp Terraform Associate",
+    "issuer": "HashiCorp",
+    "issue_date": "2023-10",
+    "expiry_date": null,
+    "credential_id": "3E23BDE6-7C8",
+    "credential_url": "https://verify.hashicorp.com/cert/59d14a18"
+  },
+  {
+    "id": "32",
+    "name": "Microsoft Azure Developer",
+    "issuer": "Microsoft",
+    "issue_date": "2022-07",
+    "expiry_date": "2025-01",
+    "credential_id": "396006D6-C42",
+    "credential_url": "https://verify.microsoft.com/cert/e76353fb"
+  },
+  {
+    "id": "33",
+    "name": "Kubernetes CKS",
+    "issuer": "Kubernetes",
+    "issue_date": "2021-09",
+    "expiry_date": "2023-04",
+    "credential_id": "4E94C319-D09",
+    "credential_url": "https://verify.kubernetes.com/cert/91042f6d"
+  },
+  {
+    "id": "34",
+    "name": "Google Cloud Associate Cloud Engineer",
+    "issuer": "Google Cloud",
+    "issue_date": "2021-01",
+    "expiry_date": "2023-10",
+    "credential_id": "307B9724-727",
+    "credential_url": "https://verify.googlecloud.com/cert/79520e12"
+  },
+  {
+    "id": "35",
+    "name": "Linux LPIC-1",
+    "issuer": "Linux",
+    "issue_date": "2021-10",
+    "expiry_date": "2023-09",
+    "credential_id": "5DBF7D56-505",
+    "credential_url": "https://verify.linux.com/cert/3f3448f1"
+  },
+  {
+    "id": "36",
+    "name": "Security OSCP",
+    "issuer": "Security",
+    "issue_date": "2023-07",
+    "expiry_date": "2026-06",
+    "credential_id": "E080DC60-CF4",
+    "credential_url": "https://verify.security.com/cert/91f4d65d"
+  },
+  {
+    "id": "37",
+    "name": "Kubernetes CKAD",
+    "issuer": "Kubernetes",
+    "issue_date": "2023-06",
+    "expiry_date": null,
+    "credential_id": "C71F5F14-F75",
+    "credential_url": "https://verify.kubernetes.com/cert/6e958856"
+  },
+  {
+    "id": "38",
+    "name": "Linux LPIC-1",
+    "issuer": "Linux",
+    "issue_date": "2024-02",
+    "expiry_date": "2026-04",
+    "credential_id": "EAB06F29-049",
+    "credential_url": "https://verify.linux.com/cert/2724bc6a"
+  },
+  {
+    "id": "39",
+    "name": "AWS Solutions Architect",
+    "issuer": "AWS",
+    "issue_date": "2022-02",
+    "expiry_date": "2024-10",
+    "credential_id": "9D844D0D-245",
+    "credential_url": "https://verify.aws.com/cert/e072752e"
+  },
+  {
+    "id": "40",
+    "name": "Microsoft Azure Developer",
+    "issuer": "Microsoft",
+    "issue_date": "2023-01",
+    "expiry_date": "2025-05",
+    "credential_id": "70451451-27C",
+    "credential_url": "https://verify.microsoft.com/cert/2f081c1c"
+  }
+]

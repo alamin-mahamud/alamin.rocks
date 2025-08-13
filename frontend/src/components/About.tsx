@@ -5,16 +5,9 @@ import { ExternalLink, Award, Users, TrendingUp, MapPin, Calendar, Briefcase, He
 import { useLanguage } from "@/contexts/LanguageContext"
 import { portfolioApi, About as AboutType } from "@/lib/api"
 
-interface AboutData {
-  title: string
-  description: string[]
-  skills: string[]
-  quick_facts: Record<string, string>
-  recommendations?: {
-    text: string
-    author: string
-    title: string
-  }[]
+interface AboutData extends Omit<AboutType, 'id'> {
+  experience?: any[]
+  projects?: any[]
   achievements?: {
     icon: any
     title: string
@@ -166,7 +159,7 @@ const About = () => {
     }
   }
 
-  const [aboutData, setAboutData] = useState(getStaticAboutData(language))
+  const [aboutData, setAboutData] = useState<AboutData>(getStaticAboutData(language))
   const [loading, setLoading] = useState(true)
 
   // Fetch about data from API with fallback to static data
@@ -174,12 +167,15 @@ const About = () => {
     const fetchAboutData = async () => {
       try {
         const data = await portfolioApi.getAbout()
+        const staticData = getStaticAboutData(language)
         setAboutData({
+          ...staticData,
           ...data,
           // Merge with static data for additional fields not in API
-          experience: getStaticAboutData(language).experience,
-          achievements: getStaticAboutData(language).achievements,
-          projects: getStaticAboutData(language).projects
+          experience: staticData.experience,
+          achievements: staticData.achievements,
+          projects: staticData.projects,
+          quick_facts: staticData.quick_facts // Use static quick_facts to maintain type compatibility
         })
       } catch (error) {
         console.error("Failed to fetch about data:", error)
