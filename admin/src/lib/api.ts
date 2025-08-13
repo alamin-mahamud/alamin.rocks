@@ -98,6 +98,15 @@ export const translationApi = {
     }),
 }
 
+// Analytics API
+export const analyticsApi = {
+  getOverview: (days?: number) => api.get('/api/analytics/overview', { params: { days } }),
+  getTraffic: (days?: number) => api.get('/api/analytics/traffic', { params: { days } }),
+  getMessages: (days?: number) => api.get('/api/analytics/messages', { params: { days } }),
+  getProjects: () => api.get('/api/analytics/projects'),
+  getSkills: () => api.get('/api/analytics/skills'),
+}
+
 // Hero API
 export const heroApi = {
   getHero: () => api.get('/api/hero'),

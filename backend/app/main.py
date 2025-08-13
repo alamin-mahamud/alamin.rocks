@@ -3,6 +3,7 @@ import logging.config
 from app.api import (
     about,
     achievements,
+    analytics,
     contact,
     contact_info,
     hero,
@@ -93,6 +94,9 @@ app.include_router(
 )
 app.include_router(
     translations.router, prefix="/api", tags=["translations"]
+)
+app.include_router(
+    analytics.router, prefix="/api/analytics", tags=["analytics"]
 )
 
 

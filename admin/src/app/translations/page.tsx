@@ -258,11 +258,11 @@ export default function TranslationsPage() {
 
         {/* About Content */}
         {aboutData && (
-          <Card className="mb-8 p-6">
-            <h2 className="text-xl font-semibold mb-4">About Section ({selectedLanguage.toUpperCase()})</h2>
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">About Section ({selectedLanguage.toUpperCase()})</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Title</label>
                 <Input
                   value={getTranslatedValue(aboutData, 'title', aboutData.title || '')}
                   onChange={(e) => updateContentTranslation('about', 'about', 'title', e.target.value)}
@@ -270,21 +270,21 @@ export default function TranslationsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Description (JSON Array)</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Description (JSON Array)</label>
                 <textarea
                   value={getTranslatedValue(aboutData, 'description', JSON.stringify(aboutData.description || []))}
                   onChange={(e) => updateContentTranslation('about', 'about', 'description', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
+                  className="w-full px-3 py-1.5 text-sm border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 focus:border-foreground/20 transition-colors duration-150 font-mono min-h-[120px]"
                   rows={6}
                   placeholder='["Paragraph 1", "Paragraph 2"]'
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Quick Facts (JSON Object)</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Quick Facts (JSON Object)</label>
                 <textarea
                   value={getTranslatedValue(aboutData, 'quick_facts', JSON.stringify(aboutData.quick_facts || {}))}
                   onChange={(e) => updateContentTranslation('about', 'about', 'quick_facts', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
+                  className="w-full px-3 py-1.5 text-sm border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 focus:border-foreground/20 transition-colors duration-150 font-mono min-h-[80px]"
                   rows={4}
                   placeholder='{"location": "City, Country", "experience": "X Years"}'
                 />
@@ -295,15 +295,15 @@ export default function TranslationsPage() {
 
         {/* Featured Projects */}
         {projectsData.length > 0 && (
-          <Card className="mb-8 p-6">
-            <h2 className="text-xl font-semibold mb-4">Featured Projects ({selectedLanguage.toUpperCase()})</h2>
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">Featured Projects ({selectedLanguage.toUpperCase()})</h2>
             <div className="space-y-6">
               {projectsData.map((project) => (
-                <div key={project.id} className="border border-gray-200 rounded-lg p-4">
-                  <h3 className="font-medium text-gray-900 mb-3">Project: {project.id}</h3>
+                <div key={project.id} className="border border-border rounded-lg p-4">
+                  <h3 className="font-medium text-foreground mb-3">Project: {project.id}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Title</label>
                       <Input
                         value={getTranslatedValue(project, 'title', project.title || '')}
                         onChange={(e) => updateContentTranslation('projects', project.id, 'title', e.target.value)}
@@ -311,7 +311,7 @@ export default function TranslationsPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Category</label>
                       <Input
                         value={getTranslatedValue(project, 'category', project.category || '')}
                         onChange={(e) => updateContentTranslation('projects', project.id, 'category', e.target.value)}
@@ -319,21 +319,21 @@ export default function TranslationsPage() {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Description</label>
                       <textarea
                         value={getTranslatedValue(project, 'description', project.description || '')}
                         onChange={(e) => updateContentTranslation('projects', project.id, 'description', e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg"
+                        className="w-full px-3 py-1.5 text-sm border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 focus:border-foreground/20 transition-colors duration-150 min-h-[60px]"
                         rows={3}
                         placeholder="Project description"
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Long Description</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Long Description</label>
                       <textarea
                         value={getTranslatedValue(project, 'long_description', project.long_description || '')}
                         onChange={(e) => updateContentTranslation('projects', project.id, 'long_description', e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg"
+                        className="w-full px-3 py-1.5 text-sm border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 focus:border-foreground/20 transition-colors duration-150 min-h-[80px]"
                         rows={4}
                         placeholder="Detailed project description"
                       />
@@ -347,17 +347,17 @@ export default function TranslationsPage() {
 
         {/* Experiences */}
         {experiencesData.length > 0 && (
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Experiences ({selectedLanguage.toUpperCase()})</h2>
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">Experiences ({selectedLanguage.toUpperCase()})</h2>
             <div className="space-y-6">
               {experiencesData.map((experience) => (
-                <div key={experience.id} className="border border-gray-200 rounded-lg p-4">
-                  <h3 className="font-medium text-gray-900 mb-3">
+                <div key={experience.id} className="border border-border rounded-lg p-4">
+                  <h3 className="font-medium text-foreground mb-3">
                     Experience: {experience.company} ({experience.id})
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Role</label>
                       <Input
                         value={getTranslatedValue(experience, 'role', experience.role || '')}
                         onChange={(e) => updateContentTranslation('experiences', experience.id, 'role', e.target.value)}
@@ -365,7 +365,7 @@ export default function TranslationsPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Location</label>
                       <Input
                         value={getTranslatedValue(experience, 'location', experience.location || '')}
                         onChange={(e) => updateContentTranslation('experiences', experience.id, 'location', e.target.value)}
@@ -373,11 +373,11 @@ export default function TranslationsPage() {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Achievements (JSON Array)</label>
+                      <label className="block text-sm font-medium text-foreground mb-2">Achievements (JSON Array)</label>
                       <textarea
                         value={getTranslatedValue(experience, 'achievements', JSON.stringify(experience.achievements || []))}
                         onChange={(e) => updateContentTranslation('experiences', experience.id, 'achievements', e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
+                        className="w-full px-3 py-1.5 text-sm border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 focus:border-foreground/20 transition-colors duration-150 font-mono min-h-[80px]"
                         rows={4}
                         placeholder='["Achievement 1", "Achievement 2"]'
                       />
