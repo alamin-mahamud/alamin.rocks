@@ -7,37 +7,10 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/Table'
 import { ProjectForm } from '@/components/Projects/ProjectForm'
-import { Plus, Edit, Trash2, Star, ExternalLink, Github } from 'lucide-react'
+import { Plus, Edit, Trash2, Star, ExternalLink, Github, RefreshCw, AlertCircle } from 'lucide-react'
 import { Project, ProjectCreate } from '@/types'
 import { portfolioApi } from '@/lib/api'
 import { format } from 'date-fns'
-
-// Mock data - replace with actual API calls
-const mockProjects: Project[] = [
-  {
-    id: '1',
-    title: 'E-commerce Platform',
-    description: 'A full-stack e-commerce solution with real-time inventory management',
-    technologies: ['Next.js', 'FastAPI', 'PostgreSQL', 'Redis'],
-    github_url: 'https://github.com/alamin-mahamud/ecommerce',
-    live_url: 'https://shop.example.com',
-    image_url: '/images/projects/ecommerce.png',
-    featured: true,
-    created_at: '2024-01-10T10:00:00Z',
-    updated_at: '2024-01-15T14:30:00Z'
-  },
-  {
-    id: '2',
-    title: 'Task Management System',
-    description: 'Collaborative task management app with real-time updates',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io'],
-    github_url: 'https://github.com/alamin-mahamud/taskmaster',
-    image_url: '/images/projects/taskmaster.png',
-    featured: true,
-    created_at: '2024-01-05T09:15:00Z',
-    updated_at: '2024-01-12T16:20:00Z'
-  }
-]
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -45,24 +18,28 @@ export default function ProjectsPage() {
   const [editingProject, setEditingProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(false)
   const [initialLoading, setInitialLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState<string | null>(null)
 
   // Load projects from API
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await portfolioApi.getProjects()
-        setProjects(response.data || [])
-      } catch (error) {
-        console.error('Error fetching projects:', error)
-        // Use mock data as fallback
-        setProjects(mockProjects)
-      } finally {
-        setInitialLoading(false)
-      }
-    }
-
     fetchProjects()
   }, [])
+
+  const fetchProjects = async () => {
+    try {
+      setInitialLoading(true)
+      setError(null)
+      const response = await portfolioApi.getProjects()
+      setProjects(response.data || [])
+    } catch (error) {
+      console.error('Error fetching projects:', error)
+      setError('Failed to load projects. Please try again.')
+      setProjects([])
+    } finally {
+      setInitialLoading(false)
+    }
+  }
 
   const handleCreateProject = async (data: ProjectCreate) => {
     setLoading(true)
@@ -73,15 +50,7 @@ export default function ProjectsPage() {
       setShowForm(false)
     } catch (error) {
       console.error('Error creating project:', error)
-      // Fallback to local creation
-      const newProject: Project = {
-        ...data,
-        id: String(Date.now()),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-      setProjects(prev => [newProject, ...prev])
-      setShowForm(false)
+      alert('Failed to create project. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -101,17 +70,7 @@ export default function ProjectsPage() {
       setShowForm(false)
     } catch (error) {
       console.error('Error updating project:', error)
-      // Fallback to local update
-      const updatedProject: Project = {
-        ...editingProject,
-        ...data,
-        updated_at: new Date().toISOString()
-      }
-      setProjects(prev =>
-        prev.map(p => p.id === editingProject.id ? updatedProject : p)
-      )
-      setEditingProject(null)
-      setShowForm(false)
+      alert('Failed to update project. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -121,12 +80,14 @@ export default function ProjectsPage() {
     if (!confirm('Are you sure you want to delete this project?')) return
     
     try {
+      setDeleting(projectId)
       await portfolioApi.deleteProject(projectId)
       setProjects(prev => prev.filter(p => p.id !== projectId))
     } catch (error) {
       console.error('Error deleting project:', error)
-      // Still remove from local state even if API call fails
-      setProjects(prev => prev.filter(p => p.id !== projectId))
+      alert('Failed to delete project. Please try again.')
+    } finally {
+      setDeleting(null)
     }
   }
 
@@ -146,7 +107,8 @@ export default function ProjectsPage() {
         <Layout>
           <div className="space-y-6">
             <div className="flex items-center justify-center py-12">
-              <div className="animate-pulse text-muted-foreground">Loading projects...</div>
+              <RefreshCw className="h-6 w-6 animate-spin mr-2" />
+              <span className="text-muted-foreground">Loading projects...</span>
             </div>
           </div>
         </Layout>
@@ -192,25 +154,55 @@ export default function ProjectsPage() {
               <p className="text-muted-foreground">Manage your portfolio projects</p>
             </div>
             
-            <Button onClick={() => setShowForm(true)}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Project
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="secondary"
+                onClick={fetchProjects}
+                disabled={initialLoading}
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${initialLoading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
+              <Button onClick={() => setShowForm(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                Add Project
+              </Button>
+            </div>
           </div>
 
           <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Technologies</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Updated</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {projects.map((project) => (
+            {error ? (
+              <div className="flex items-center justify-center p-8 text-center">
+                <div>
+                  <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
+                  <h3 className="font-medium text-foreground mb-2">Error Loading Projects</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{error}</p>
+                  <Button onClick={fetchProjects} variant="secondary">
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Try Again
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Technologies</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Updated</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {projects.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                        No projects found. Add your first project to get started.
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    projects.map((project) => (
                   <TableRow key={project.id}>
                     <TableCell>
                       <div className="flex items-center space-x-2">
@@ -283,15 +275,22 @@ export default function ProjectsPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDeleteProject(project.id)}
+                          disabled={deleting === project.id}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          {deleting === project.id ? (
+                            <RefreshCw className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4" />
+                          )}
                         </Button>
                       </div>
                     </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    </TableRow>
+                  ))
+                )}
+                </TableBody>
+              </Table>
+            )}
           </Card>
         </div>
       </Layout>
