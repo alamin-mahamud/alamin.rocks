@@ -1,6 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator, model_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
+import json
 
 class Language(BaseModel):
     code: str
@@ -57,6 +58,15 @@ class TranslatedHero(BaseModel):
     translations: Optional[Dict[str, Dict[str, Any]]] = {}
     created_at: datetime
     updated_at: datetime
+    
+    @model_validator(mode='before')
+    @classmethod
+    def parse_json_fields(cls, values):
+        if isinstance(values, dict):
+            # Parse metrics if it's a string
+            if 'metrics' in values and isinstance(values['metrics'], str):
+                values['metrics'] = json.loads(values['metrics'])
+        return values
     
     def get_roles(self, language_code: str = "en") -> List[str]:
         """Get roles with translation support"""
@@ -126,6 +136,17 @@ class TranslatedProject(BaseModel):
     translations: Optional[Dict[str, Dict[str, str]]] = {}
     created_at: datetime
     updated_at: datetime
+    
+    @model_validator(mode='before')
+    @classmethod
+    def parse_json_fields(cls, values):
+        if isinstance(values, dict):
+            # Parse impact and stats if they're strings
+            if 'impact' in values and isinstance(values['impact'], str):
+                values['impact'] = json.loads(values['impact'])
+            if 'stats' in values and isinstance(values['stats'], str):
+                values['stats'] = json.loads(values['stats'])
+        return values
     
     def get_title(self, language_code: str = "en") -> str:
         """Get title with translation support"""
@@ -249,6 +270,15 @@ class TranslatedContactInfo(BaseModel):
     translations: Optional[Dict[str, Dict[str, str]]] = {}
     created_at: datetime
     updated_at: datetime
+    
+    @model_validator(mode='before')
+    @classmethod
+    def parse_json_fields(cls, values):
+        if isinstance(values, dict):
+            # Parse social_links if it's a string
+            if 'social_links' in values and isinstance(values['social_links'], str):
+                values['social_links'] = json.loads(values['social_links'])
+        return values
     
     def get_location(self, language_code: str = "en") -> str:
         """Get location with translation support"""

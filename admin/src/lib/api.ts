@@ -32,6 +32,10 @@ api.interceptors.response.use(
 export const contactApi = {
   getMessages: () => api.get('/api/v1/contact/messages'),
   getMessage: (id: string) => api.get(`/api/v1/contact/messages/${id}`),
+  getStats: () => api.get('/api/v1/contact/stats'),
+  markAsRead: (id: string) => api.patch(`/api/v1/contact/messages/${id}/read`),
+  markAsReplied: (id: string) => api.patch(`/api/v1/contact/messages/${id}/replied`),
+  deleteMessage: (id: string) => api.delete(`/api/v1/contact/messages/${id}`),
 }
 
 // Portfolio API

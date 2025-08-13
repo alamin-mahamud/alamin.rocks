@@ -97,6 +97,10 @@ class TranslationService:
         hero_data = dict(hero_row)
         hero_data['translations'] = {language_code: translations.get("hero", {})} if translations.get("hero") else {}
         
+        # Parse JSON fields manually
+        if 'metrics' in hero_data and isinstance(hero_data['metrics'], str):
+            hero_data['metrics'] = json.loads(hero_data['metrics'])
+        
         return TranslatedHero(**hero_data)
     
     async def get_about_with_translations(self, language_code: str = "en") -> Optional[TranslatedAbout]:
@@ -147,6 +151,10 @@ class TranslationService:
         contact_data = dict(contact_row)
         contact_data['translations'] = {language_code: translations.get("contact", {})} if translations.get("contact") else {}
         
+        # Parse JSON fields manually
+        if 'social_links' in contact_data and isinstance(contact_data['social_links'], str):
+            contact_data['social_links'] = json.loads(contact_data['social_links'])
+        
         return TranslatedContactInfo(**contact_data)
     
     async def get_projects_with_translations(self, language_code: str = "en", 
@@ -183,6 +191,13 @@ class TranslationService:
             project_data = dict(row)
             project_id = project_data['id']
             project_data['translations'] = {language_code: translations.get(project_id, {})} if translations.get(project_id) else {}
+            
+            # Parse JSON fields manually
+            if 'impact' in project_data and isinstance(project_data['impact'], str):
+                project_data['impact'] = json.loads(project_data['impact'])
+            if 'stats' in project_data and isinstance(project_data['stats'], str):
+                project_data['stats'] = json.loads(project_data['stats'])
+            
             projects.append(TranslatedProject(**project_data))
         
         return projects

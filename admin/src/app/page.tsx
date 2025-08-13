@@ -23,26 +23,34 @@ export default function DashboardPage() {
     const fetchDashboardData = async () => {
       try {
         // Fetch dashboard statistics
-        const [projectsResponse, messagesResponse] = await Promise.allSettled([
+        const [projectsResponse, contactStatsResponse] = await Promise.allSettled([
           portfolioApi.getProjects(),
-          contactApi.getMessages().catch(() => ({ data: [] }))
+          contactApi.getStats()
         ])
 
         // Extract data from responses
         const projects = projectsResponse.status === 'fulfilled' ? projectsResponse.value.data || [] : []
-        const messages = messagesResponse.status === 'fulfilled' ? messagesResponse.value.data || [] : []
+        const contactStats = contactStatsResponse.status === 'fulfilled' ? contactStatsResponse.value.data : { total: 0, unread: 0 }
         
         setStats({
-          totalMessages: messages.length,
-          unreadMessages: messages.filter((m: any) => !m.read).length || Math.floor(messages.length * 0.2),
+          totalMessages: contactStats.total || 0,
+          unreadMessages: contactStats.unread || 0,
           totalProjects: projects.length,
           featuredProjects: projects.filter((p: any) => p.featured).length,
-          resumeViews: 1234, // Mock data
-          portfolioVisits: 5678 // Mock data
+          resumeViews: 1234, // Mock data for now
+          portfolioVisits: 5678 // Mock data for now
         })
       } catch (error) {
         console.error('Error fetching dashboard data:', error)
-        // Keep default mock values
+        // Keep default values on error
+        setStats({
+          totalMessages: 0,
+          unreadMessages: 0,
+          totalProjects: 0,
+          featuredProjects: 0,
+          resumeViews: 1234,
+          portfolioVisits: 5678
+        })
       } finally {
         setLoading(false)
       }

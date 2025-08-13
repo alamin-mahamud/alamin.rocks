@@ -46,3 +46,60 @@ async def get_message(
             detail=f"Contact message with ID {message_id} not found"
         )
     return message
+
+@router.patch("/messages/{message_id}/read", response_model=ContactResponse)
+async def mark_message_as_read(
+    message_id: str,
+    service: ContactService = Depends(get_contact_service)
+):
+    """
+    Mark message as read
+    """
+    message = await service.update_message_status(message_id, "read")
+    if not message:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Contact message with ID {message_id} not found"
+        )
+    return message
+
+@router.patch("/messages/{message_id}/replied", response_model=ContactResponse)
+async def mark_message_as_replied(
+    message_id: str,
+    service: ContactService = Depends(get_contact_service)
+):
+    """
+    Mark message as replied
+    """
+    message = await service.update_message_status(message_id, "replied")
+    if not message:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Contact message with ID {message_id} not found"
+        )
+    return message
+
+@router.delete("/messages/{message_id}")
+async def delete_message(
+    message_id: str,
+    service: ContactService = Depends(get_contact_service)
+):
+    """
+    Delete a message
+    """
+    success = await service.delete_message(message_id)
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Contact message with ID {message_id} not found"
+        )
+    return {"message": "Message deleted successfully"}
+
+@router.get("/stats")
+async def get_message_stats(
+    service: ContactService = Depends(get_contact_service)
+):
+    """
+    Get message statistics
+    """
+    return await service.get_message_stats()

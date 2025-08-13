@@ -88,3 +88,33 @@ class ContactService:
             if contact.id == message_id:
                 return contact
         return None
+    
+    async def update_message_status(self, message_id: str, status: str) -> Optional[ContactResponse]:
+        """Update message status"""
+        for contact in self.contacts:
+            if contact.id == message_id:
+                contact.status = status
+                return contact
+        return None
+    
+    async def delete_message(self, message_id: str) -> bool:
+        """Delete a message"""
+        for i, contact in enumerate(self.contacts):
+            if contact.id == message_id:
+                del self.contacts[i]
+                return True
+        return False
+    
+    async def get_message_stats(self) -> dict:
+        """Get message statistics"""
+        total = len(self.contacts)
+        unread = len([c for c in self.contacts if c.status == "unread"])
+        read = len([c for c in self.contacts if c.status == "read"])
+        replied = len([c for c in self.contacts if c.status == "replied"])
+        
+        return {
+            "total": total,
+            "unread": unread,
+            "read": read,
+            "replied": replied
+        }
