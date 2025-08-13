@@ -9,6 +9,8 @@ services:
       - .env
     depends_on:
       - backend
+    profiles:
+      - all
 
   admin:
     build: ./admin
@@ -20,6 +22,8 @@ services:
       - .env
     depends_on:
       - backend
+    profiles:
+      - all
 
   backend:
     build: ./backend
@@ -30,6 +34,9 @@ services:
     depends_on:
       - db
       - redis
+    profiles:
+      - all
+      - backend
 
   db:
     image: postgres:17-alpine
@@ -41,6 +48,9 @@ services:
       - "${POSTGRES_PORT:-5452}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    profiles:
+      - all
+      - backend
 
   redis:
     image: redis:8-alpine
@@ -48,6 +58,9 @@ services:
       - "${REDIS_PORT:-6389}:6379"
     volumes:
       - redis_data:/data
+    profiles:
+      - all
+      - backend
 
 volumes:
   postgres_data:
