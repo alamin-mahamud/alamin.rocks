@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { authApi } from '@/lib/api'
 
 export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -9,16 +10,38 @@ export function useAuth() {
   const router = useRouter()
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token')
-    if (token) {
-      setIsAuthenticated(true)
-    } else {
-      router.push('/login')
+    const verifyAuth = async () => {
+      const token = localStorage.getItem('admin_token')
+      if (!token) {
+        setLoading(false)
+        router.push('/login')
+        return
+      }
+
+      try {
+        await authApi.verify(token)
+        setIsAuthenticated(true)
+      } catch (error) {
+        console.error('Auth verification failed:', error)
+        localStorage.removeItem('admin_token')
+        router.push('/login')
+      } finally {
+        setLoading(false)
+      }
     }
-    setLoading(false)
+
+    verifyAuth()
   }, [router])
 
-  const logout = () => {
+  const logout = async () => {
+    const token = localStorage.getItem('admin_token')
+    if (token) {
+      try {
+        await authApi.logout(token)
+      } catch (error) {
+        console.error('Logout API call failed:', error)
+      }
+    }
     localStorage.removeItem('admin_token')
     setIsAuthenticated(false)
     router.push('/login')

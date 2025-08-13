@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card } from '@/components/ui/Card'
+import { authApi } from '@/lib/api'
 
 export function LoginForm() {
   const [username, setUsername] = useState('')
@@ -19,15 +20,21 @@ export function LoginForm() {
     setError('')
 
     try {
-      // Simple authentication - in production, use proper auth
-      if (username === 'admin' && password === 'admin123') {
-        localStorage.setItem('admin_token', 'mock-token')
-        router.push('/')
-      } else {
+      const response = await authApi.login(username, password)
+      const { access_token } = response.data
+      
+      // Store the token
+      localStorage.setItem('admin_token', access_token)
+      
+      // Redirect to dashboard
+      router.push('/')
+    } catch (err: any) {
+      console.error('Login error:', err)
+      if (err.response?.status === 401) {
         setError('Invalid credentials')
+      } else {
+        setError('Login failed. Please try again.')
       }
-    } catch (err) {
-      setError('Login failed')
     } finally {
       setLoading(false)
     }

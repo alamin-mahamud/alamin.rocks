@@ -4,6 +4,7 @@ from app.api import (
     about,
     achievements,
     analytics,
+    auth,
     contact,
     contact_info,
     hero,
@@ -72,6 +73,7 @@ async def health_check():
 # Include routers with API versioning
 api_v1_prefix = "/api/v1"
 
+app.include_router(auth.router, prefix=f"{api_v1_prefix}/auth", tags=["auth"])
 app.include_router(contact.router, prefix=f"{api_v1_prefix}/contact", tags=["contact"])
 app.include_router(
     portfolio.router, prefix=f"{api_v1_prefix}/portfolio", tags=["portfolio"]

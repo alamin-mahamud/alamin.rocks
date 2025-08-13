@@ -7,6 +7,18 @@ const api = axios.create({
   },
 })
 
+// Auth API
+export const authApi = {
+  login: (username: string, password: string) => 
+    api.post('/api/v1/auth/login', { username, password }),
+  verify: (token: string) => 
+    api.post('/api/v1/auth/verify', { token }),
+  logout: (token: string) => 
+    api.post('/api/v1/auth/logout', { token }),
+  getMe: (token: string) => 
+    api.get('/api/v1/auth/me', { params: { token } }),
+}
+
 // Request interceptor for auth
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('admin_token')
