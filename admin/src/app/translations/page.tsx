@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { AuthWrapper } from '@/components/AuthWrapper'
+import { Layout } from '@/components/Layout'
 import { translationApi } from '@/lib/api'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -124,129 +126,135 @@ export default function TranslationsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading translations...</p>
-        </div>
-      </div>
+      <AuthWrapper>
+        <Layout>
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+              <p className="mt-4 text-muted-foreground">Loading translations...</p>
+            </div>
+          </div>
+        </Layout>
+      </AuthWrapper>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="p-8 max-w-md">
-          <h2 className="text-xl font-bold text-red-600 mb-4">Error</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <Button onClick={loadData}>Retry</Button>
-        </Card>
-      </div>
+      <AuthWrapper>
+        <Layout>
+          <div className="flex items-center justify-center py-12">
+            <Card className="p-8 max-w-md text-center">
+              <h2 className="text-xl font-bold text-destructive mb-4">Error</h2>
+              <p className="text-muted-foreground mb-4">{error}</p>
+              <Button onClick={loadData} variant="secondary">Retry</Button>
+            </Card>
+          </div>
+        </Layout>
+      </AuthWrapper>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Translation Management</h1>
-          <p className="text-gray-600">Manage multilingual content for the portfolio website</p>
-        </div>
-
-        {/* Language Selector */}
-        <Card className="mb-8 p-6">
-          <h2 className="text-xl font-semibold mb-4">Select Language</h2>
-          <div className="flex flex-wrap gap-3">
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => setSelectedLanguage(lang.code)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  selectedLanguage === lang.code
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {lang.native_name} ({lang.code})
-              </button>
-            ))}
+    <AuthWrapper>
+      <Layout>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Translation Management</h1>
+            <p className="text-muted-foreground">Manage multilingual content for the portfolio website</p>
           </div>
-        </Card>
 
-        {/* Translation Completeness */}
-        <Card className="mb-8 p-6">
-          <h2 className="text-xl font-semibold mb-4">Translation Completeness</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(completeness).map(([tableName, langData]) => (
-              <div key={tableName} className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-medium text-gray-900 mb-2 capitalize">{tableName}</h3>
-                {Object.entries(langData).map(([langCode, percentage]) => (
-                  <div key={langCode} className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-gray-600">{langCode.toUpperCase()}</span>
-                    <div className="flex items-center">
-                      <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full"
-                          style={{ width: `${percentage}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm text-gray-900">{Math.round(percentage)}%</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* UI Translations */}
-        <Card className="mb-8 p-6">
-          <h2 className="text-xl font-semibold mb-4">UI Translations ({selectedLanguage.toUpperCase()})</h2>
-          <div className="space-y-4">
-            {Object.entries(uiTranslations).map(([key, value]) => (
-              <div key={key} className="flex items-center space-x-4">
-                <div className="w-48 text-sm text-gray-600 truncate" title={key}>
-                  {key}
-                </div>
-                <Input
-                  value={value}
-                  onChange={(e) => updateUITranslation(key, e.target.value)}
-                  className="flex-1"
-                  placeholder="Translation value"
-                />
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Hero Content */}
-        {heroData && (
-          <Card className="mb-8 p-6">
-            <h2 className="text-xl font-semibold mb-4">Hero Section ({selectedLanguage.toUpperCase()})</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                <textarea
-                  value={getTranslatedValue(heroData, 'description', heroData.description || '')}
-                  onChange={(e) => updateContentTranslation('hero', 'hero', 'description', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg"
-                  rows={3}
-                  placeholder="Hero description"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Roles (JSON Array)</label>
-                <textarea
-                  value={getTranslatedValue(heroData, 'roles', JSON.stringify(heroData.roles || []))}
-                  onChange={(e) => updateContentTranslation('hero', 'hero', 'roles', e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg font-mono text-sm"
-                  rows={4}
-                  placeholder='["Role 1", "Role 2", "Role 3"]'
-                />
-              </div>
+          {/* Language Selector */}
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">Select Language</h2>
+            <div className="flex flex-wrap gap-2">
+              {languages.map((lang) => (
+                <Button
+                  key={lang.code}
+                  variant={selectedLanguage === lang.code ? 'primary' : 'secondary'}
+                  onClick={() => setSelectedLanguage(lang.code)}
+                  size="sm"
+                >
+                  {lang.native_name} ({lang.code})
+                </Button>
+              ))}
             </div>
           </Card>
-        )}
+
+          {/* Translation Completeness */}
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">Translation Completeness</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Object.entries(completeness).map(([tableName, langData]) => (
+                <div key={tableName} className="bg-muted/30 p-4 rounded-lg">
+                  <h3 className="font-medium text-foreground mb-2 capitalize">{tableName}</h3>
+                  {Object.entries(langData).map(([langCode, percentage]) => (
+                    <div key={langCode} className="flex items-center justify-between mb-1">
+                      <span className="text-sm text-muted-foreground">{langCode.toUpperCase()}</span>
+                      <div className="flex items-center">
+                        <div className="w-16 bg-border rounded-full h-2 mr-2">
+                          <div
+                            className="bg-accent h-2 rounded-full"
+                            style={{ width: `${percentage}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-sm text-foreground">{Math.round(percentage)}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* UI Translations */}
+          <Card>
+            <h2 className="text-lg font-semibold text-foreground mb-4">UI Translations ({selectedLanguage.toUpperCase()})</h2>
+            <div className="space-y-4">
+              {Object.entries(uiTranslations).map(([key, value]) => (
+                <div key={key} className="flex items-center space-x-4">
+                  <div className="w-48 text-sm text-muted-foreground truncate" title={key}>
+                    {key}
+                  </div>
+                  <Input
+                    value={value}
+                    onChange={(e) => updateUITranslation(key, e.target.value)}
+                    className="flex-1"
+                    placeholder="Translation value"
+                  />
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Hero Content */}
+          {heroData && (
+            <Card>
+              <h2 className="text-lg font-semibold text-foreground mb-4">Hero Section ({selectedLanguage.toUpperCase()})</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Description</label>
+                  <textarea
+                    value={getTranslatedValue(heroData, 'description', heroData.description || '')}
+                    onChange={(e) => updateContentTranslation('hero', 'hero', 'description', e.target.value)}
+                    className="admin-input min-h-[80px]"
+                    rows={3}
+                    placeholder="Hero description"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Roles (JSON Array)</label>
+                  <textarea
+                    value={getTranslatedValue(heroData, 'roles', JSON.stringify(heroData.roles || []))}
+                    onChange={(e) => updateContentTranslation('hero', 'hero', 'roles', e.target.value)}
+                    className="admin-input font-mono text-sm min-h-[100px]"
+                    rows={4}
+                    placeholder='["Role 1", "Role 2", "Role 3"]'
+                  />
+                </div>
+              </div>
+            </Card>
+          )}
 
         {/* About Content */}
         {aboutData && (
@@ -380,7 +388,8 @@ export default function TranslationsPage() {
             </div>
           </Card>
         )}
-      </div>
-    </div>
+        </div>
+      </Layout>
+    </AuthWrapper>
   )
 }
