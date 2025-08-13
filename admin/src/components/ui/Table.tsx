@@ -35,6 +35,7 @@ interface TableCellProps {
   children: React.ReactNode
   className?: string
   align?: 'left' | 'center' | 'right'
+  colSpan?: number
 }
 
 export function Table({ children, className }: TableProps) {
@@ -122,18 +123,22 @@ export function TableHead({
 export function TableCell({ 
   children, 
   className,
-  align = 'left' 
+  align = 'left',
+  colSpan
 }: TableCellProps) {
   return (
-    <td className={clsx(
-      'p-2 align-middle',
-      {
-        'text-left': align === 'left',
-        'text-center': align === 'center',
-        'text-right': align === 'right'
-      },
-      className
-    )}>
+    <td 
+      colSpan={colSpan}
+      className={clsx(
+        'p-2 align-middle',
+        {
+          'text-left': align === 'left',
+          'text-center': align === 'center',
+          'text-right': align === 'right'
+        },
+        className
+      )}
+    >
       {children}
     </td>
   )
