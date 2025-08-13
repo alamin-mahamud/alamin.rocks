@@ -46,6 +46,7 @@ app.add_middleware(
         "admin.alamin.rocks",
         "http://localhost:3120",
         "http://localhost:3121",
+        "http://10.7.0.1:3121",
     ],
     allow_credentials=True,
     allow_methods=["*"],
