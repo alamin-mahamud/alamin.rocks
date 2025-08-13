@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Menu, X, Terminal, Code2 } from "lucide-react"
 import LanguageSelector from "@/components/LanguageSelector"
 import { useLanguage } from "@/contexts/LanguageContext"
@@ -12,7 +12,7 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home")
   const { t } = useLanguage()
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { name: t("nav.home"), href: "/", id: "home" },
     { name: t("nav.about"), href: "#about", id: "about" },
     { name: t("nav.experience"), href: "#experience", id: "experience" },
@@ -20,7 +20,7 @@ const Navigation = () => {
     { name: t("nav.goals"), href: "#goals-mission", id: "goals-mission" },
     { name: t("nav.podcast"), href: "/podcast", id: "podcast" },
     { name: t("nav.contact"), href: "#contact", id: "contact" },
-  ]
+  ], [t])
 
   // Handle scroll effect
   useEffect(() => {
@@ -45,7 +45,7 @@ const Navigation = () => {
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [navItems])
 
   const handleNavClick = (href: string, id: string) => {
     setActiveSection(id)

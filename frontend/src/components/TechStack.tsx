@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { 
   Code, 
   Database, 
@@ -38,7 +38,7 @@ const TechStack = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   // Comprehensive static tech skills data from resume
-  const staticTechSkills: LocalTechSkill[] = [
+  const staticTechSkills: LocalTechSkill[] = useMemo(() => [
     // Programming Languages
     { id: "python", name: "Python", category: "programming", level: 95, yearsExp: 8, years_exp: 8, icon: Code, color: "text-yellow-400", projects: 45 },
     { id: "go", name: "Go", category: "programming", level: 85, yearsExp: 4, years_exp: 4, icon: Code, color: "text-blue-400", projects: 12 },
@@ -93,7 +93,7 @@ const TechStack = () => {
     { id: "llm-integration", name: "LLM Integration", category: "programming", level: 85, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-600", projects: 8 },
     { id: "ai-sdk", name: "AI-SDK", category: "programming", level: 82, yearsExp: 1, years_exp: 1, icon: Code, color: "text-purple-400", projects: 6 },
     { id: "tensorflow", name: "TensorFlow", category: "programming", level: 75, yearsExp: 2, years_exp: 2, icon: Code, color: "text-orange-500", projects: 4 }
-  ]
+  ], [])
 
   useEffect(() => {
     const fetchTechSkills = async () => {
@@ -115,7 +115,7 @@ const TechStack = () => {
     }
 
     fetchTechSkills()
-  }, [])
+  }, [staticTechSkills])
 
   const categories: { id: string; name: string; icon: LucideIcon }[] = [
     { id: "all", name: "All Technologies", icon: Cpu },

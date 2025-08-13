@@ -18,6 +18,151 @@ import {
 } from "lucide-react"
 import { portfolioApi, Achievement } from "@/lib/api"
 
+// Local Achievement type for static data
+interface LocalAchievement {
+  id: string
+  title: string
+  value: string
+  description: string
+  icon: LucideIcon
+  color: string
+  percentage: number
+  details: string[]
+  category: string
+}
+
+// Static fallback achievements data
+const fallbackAchievements: LocalAchievement[] = [
+  {
+    id: "cloud-savings",
+    title: "Cloud Cost Optimization",
+    value: "$1.2M+",
+    description: "Total cloud infrastructure cost savings achieved",
+    icon: DollarSign,
+    color: "text-accent",
+    percentage: 100,
+    details: [
+      "Optimized AWS CloudWatch log ingestion saving $36.5K/year",
+      "Implemented intelligent resource rightsizing algorithms",
+      "Automated cost monitoring and alert systems",
+      "Cross-functional team leadership for cost optimization initiatives"
+    ],
+    category: "financial"
+  },
+  {
+    id: "saas-arr",
+    title: "SaaS ARR Generation",
+    value: "$20M+",
+    description: "Annual Recurring Revenue contribution to SaaS platforms",
+    icon: TrendingUp,
+    color: "text-accent",
+    percentage: 100,
+    details: [
+      "Designed and maintained highly available SaaS platforms",
+      "Implemented scalable cloud architectures",
+      "Enhanced platform reliability and performance",
+      "Drove customer retention through system optimization"
+    ],
+    category: "financial"
+  },
+  {
+    id: "platform-reliability",
+    title: "System Reliability",
+    value: "99.99%",
+    description: "Uptime SLA maintained across 50+ client environments",
+    icon: Shield,
+    color: "text-accent",
+    percentage: 99.99,
+    details: [
+      "Advanced monitoring and alerting systems",
+      "Blue/green deployment strategies eliminating downtime",
+      "Proactive incident response and resolution",
+      "Comprehensive disaster recovery planning"
+    ],
+    category: "operational"
+  },
+  {
+    id: "automation-efficiency",
+    title: "Automation Efficiency",
+    value: "75%",
+    description: "Reduction in manual operational tasks through automation",
+    icon: Zap,
+    color: "text-accent",
+    percentage: 75,
+    details: [
+      "Automated CI/CD pipelines reducing deployment time by 80%",
+      "Infrastructure as Code (IaC) with Terraform and Ansible",
+      "Automated monitoring, alerting, and incident response",
+      "Self-healing systems and auto-scaling mechanisms"
+    ],
+    category: "operational"
+  },
+  {
+    id: "performance-optimization",
+    title: "Performance Enhancement",
+    value: "3x",
+    description: "Average performance improvement across applications",
+    icon: BarChart3,
+    color: "text-accent",
+    percentage: 300,
+    details: [
+      "Database query optimization reducing response times by 70%",
+      "CDN and caching strategies improving load times",
+      "Application profiling and resource optimization",
+      "Load testing and capacity planning methodologies"
+    ],
+    category: "performance"
+  },
+  {
+    id: "security-compliance",
+    title: "Security & Compliance",
+    value: "100%",
+    description: "SOC2, HIPAA, and industry security standards compliance",
+    icon: Shield,
+    color: "text-accent",
+    percentage: 100,
+    details: [
+      "Implemented zero-trust security architectures",
+      "Automated security scanning and vulnerability management",
+      "Compliance framework design and implementation",
+      "Security incident response and forensics capabilities"
+    ],
+    category: "security"
+  },
+  {
+    id: "user-impact",
+    title: "User Experience Impact",
+    value: "2M+",
+    description: "Users positively impacted through system improvements",
+    icon: Users,
+    color: "text-accent",
+    percentage: 100,
+    details: [
+      "Improved system reliability affecting 2M+ users",
+      "Reduced application downtime by 95%",
+      "Enhanced user interface performance and responsiveness",
+      "Implemented user feedback loops and continuous improvement"
+    ],
+    category: "impact"
+  },
+  {
+    id: "team-satisfaction",
+    title: "Team Satisfaction",
+    value: "90%",
+    description: "High-profile customer and internal team satisfaction scores",
+    icon: CheckCircle,
+    color: "text-accent",
+    percentage: 90,
+    details: [
+      "Boosted high-profile customer satisfaction to 90%",
+      "Elevated internal team satisfaction by 20%",
+      "Led cross-functional teams improving scalability by 40%",
+      "Mentored junior engineers and knowledge sharing"
+    ],
+    category: "leadership"
+  }
+]
+
 // Icon mapping helper
 const iconMap: Record<string, LucideIcon> = {
   DollarSign,
@@ -134,138 +279,6 @@ const Achievements = () => {
 
     fetchAchievements()
   }, [])
-
-  // Keep fallback data for reference
-  const fallbackAchievements: LocalAchievement[] = [
-    {
-      id: "cloud-savings",
-      title: "Cloud Cost Optimization",
-      value: "$1.2M+",
-      description: "Total cloud infrastructure cost savings achieved",
-      icon: DollarSign,
-      color: "text-accent",
-      percentage: 100,
-      details: [
-        "Optimized AWS CloudWatch log ingestion saving $36.5K/year",
-        "Implemented intelligent resource rightsizing algorithms",
-        "Automated cost monitoring and alert systems",
-        "Cross-functional team leadership for cost optimization initiatives"
-      ],
-      category: "financial"
-    },
-    {
-      id: "saas-arr",
-      title: "SaaS ARR Generation",
-      value: "$20M+",
-      description: "Annual Recurring Revenue contribution to SaaS platforms",
-      icon: TrendingUp,
-      color: "text-accent",
-      percentage: 100,
-      details: [
-        "Designed and maintained highly available SaaS platforms",
-        "Implemented scalable cloud architectures",
-        "Enhanced platform reliability and performance",
-        "Drove customer retention through system optimization"
-      ],
-      category: "financial"
-    },
-    {
-      id: "platform-reliability",
-      title: "System Reliability",
-      value: "99.99%",
-      description: "Uptime SLA maintained across 50+ client environments",
-      icon: Shield,
-      color: "text-accent",
-      percentage: 99.99,
-      details: [
-        "Advanced monitoring and alerting systems",
-        "Blue/green deployment strategies eliminating downtime",
-        "Proactive incident response and resolution",
-        "Comprehensive disaster recovery planning"
-      ],
-      category: "operational"
-    },
-    {
-      id: "performance-improvement",
-      title: "Performance Optimization",
-      value: "40%",
-      description: "Average performance improvement across systems",
-      icon: Zap,
-      color: "text-warning",
-      percentage: 40,
-      details: [
-        "Accelerated time-to-market by 40% with MCP platform",
-        "Reduced page load times by 90% through caching",
-        "Eliminated 30% of production brownouts",
-        "Optimized runtime configuration and state management"
-      ],
-      category: "performance"
-    },
-    {
-      id: "user-impact",
-      title: "User Base Served",
-      value: "100K+",
-      description: "Active users across deployed platforms and systems",
-      icon: Users,
-      color: "text-accent",
-      percentage: 100,
-      details: [
-        "LeadSync.ai platform serving 50K+ users",
-        "AlterYouth scholarship platform with 10K+ users",
-        "HomeLab framework adopted by 200+ users",
-        "Enterprise platforms serving 50+ B2B clients"
-      ],
-      category: "impact"
-    },
-    {
-      id: "security-compliance",
-      title: "Security & Compliance",
-      value: "60%",
-      description: "Vulnerability exposure reduction achieving SOC2 compliance",
-      icon: Award,
-      color: "text-accent",
-      percentage: 60,
-      details: [
-        "Achieved SOC2 Type II compliance certification",
-        "Implemented comprehensive security frameworks",
-        "Mitigated data breaches and security vulnerabilities",
-        "Enhanced client data protection measures"
-      ],
-      category: "security"
-    },
-    {
-      id: "automation-efficiency",
-      title: "Automation Efficiency",
-      value: "80%",
-      description: "Infrastructure provisioning time reduction through automation",
-      icon: Target,
-      color: "text-accent",
-      percentage: 80,
-      details: [
-        "Terraform modules streamlined provisioning by 80%",
-        "CI/CD pipelines accelerated development cycles by 35%",
-        "Automated support operations reducing manual toil by 75%",
-        "GitOps workflows enabling continuous deployment"
-      ],
-      category: "operational"
-    },
-    {
-      id: "team-satisfaction",
-      title: "Team Satisfaction",
-      value: "90%",
-      description: "High-profile customer and internal team satisfaction scores",
-      icon: CheckCircle,
-      color: "text-accent",
-      percentage: 90,
-      details: [
-        "Boosted high-profile customer satisfaction to 90%",
-        "Elevated internal team satisfaction by 20%",
-        "Led cross-functional teams improving scalability by 40%",
-        "Mentored junior engineers and knowledge sharing"
-      ],
-      category: "leadership"
-    }
-  ]
 
   const categories: { id: string; name: string; icon: LucideIcon }[] = [
     { id: "all", name: "All Achievements", icon: Sparkles },

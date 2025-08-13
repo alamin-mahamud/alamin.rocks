@@ -187,7 +187,7 @@ const About = () => {
     }
 
     fetchAboutData()
-  }, [])
+  }, [language])
 
   // Update about data when language changes
   useEffect(() => {
