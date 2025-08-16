@@ -20,63 +20,135 @@ router = APIRouter(prefix="/api/assets", tags=["Asset Management"])
 
 
 def generate_sample_data():
-    """Generate random sample data for demonstration"""
+    """Generate comprehensive sample data for demonstration"""
     assets = []
     liabilities = []
     transactions = []
     
-    asset_categories = list(AssetCategory)
-    liability_categories = list(LiabilityCategory)
+    # Real asset names and values
+    asset_data = [
+        # Cash & Bank
+        {"name": "Chase Checking Account", "category": AssetCategory.BANK, "value": 15000, "purchase": 15000, "zakatable": True},
+        {"name": "Emergency Cash Fund", "category": AssetCategory.CASH, "value": 5000, "purchase": 5000, "zakatable": True},
+        {"name": "Wells Fargo Savings", "category": AssetCategory.BANK, "value": 25000, "purchase": 25000, "zakatable": True},
+        {"name": "Business Account", "category": AssetCategory.BANK, "value": 8500, "purchase": 8500, "zakatable": True},
+        
+        # Investments
+        {"name": "Apple Stock (AAPL)", "category": AssetCategory.INVESTMENT, "value": 45000, "purchase": 38000, "zakatable": True},
+        {"name": "S&P 500 Index Fund", "category": AssetCategory.INVESTMENT, "value": 75000, "purchase": 65000, "zakatable": True},
+        {"name": "Tesla Stock (TSLA)", "category": AssetCategory.INVESTMENT, "value": 28000, "purchase": 35000, "zakatable": True},
+        {"name": "Real Estate ETF", "category": AssetCategory.INVESTMENT, "value": 22000, "purchase": 20000, "zakatable": True},
+        {"name": "401(k) Retirement", "category": AssetCategory.INVESTMENT, "value": 125000, "purchase": 95000, "zakatable": False},
+        {"name": "Roth IRA", "category": AssetCategory.INVESTMENT, "value": 65000, "purchase": 50000, "zakatable": False},
+        
+        # Property
+        {"name": "Primary Residence", "category": AssetCategory.PROPERTY, "value": 450000, "purchase": 380000, "zakatable": False},
+        {"name": "Rental Property - Downtown", "category": AssetCategory.PROPERTY, "value": 320000, "purchase": 285000, "zakatable": True},
+        {"name": "Commercial Land Plot", "category": AssetCategory.PROPERTY, "value": 180000, "purchase": 150000, "zakatable": True},
+        
+        # Vehicles
+        {"name": "2022 Tesla Model S", "category": AssetCategory.VEHICLE, "value": 85000, "purchase": 95000, "zakatable": False},
+        {"name": "2020 Honda Civic", "category": AssetCategory.VEHICLE, "value": 22000, "purchase": 28000, "zakatable": False},
+        
+        # Equipment & Other
+        {"name": "MacBook Pro Setup", "category": AssetCategory.EQUIPMENT, "value": 8500, "purchase": 12000, "zakatable": False},
+        {"name": "Home Office Equipment", "category": AssetCategory.EQUIPMENT, "value": 15000, "purchase": 18000, "zakatable": False},
+        {"name": "Gold Jewelry", "category": AssetCategory.OTHER, "value": 12000, "purchase": 10000, "zakatable": True},
+        {"name": "Collectible Watches", "category": AssetCategory.OTHER, "value": 25000, "purchase": 20000, "zakatable": True},
+        {"name": "Inventory - Online Store", "category": AssetCategory.INVENTORY, "value": 35000, "purchase": 32000, "zakatable": True},
+    ]
     
-    for i in range(1, 6):
+    for i, asset_info in enumerate(asset_data, 1):
+        depreciation = max(0, asset_info["purchase"] - asset_info["value"])
         assets.append({
             "id": i,
             "account_id": 1,
-            "name": f"Asset {i}",
-            "category": random.choice(asset_categories).value,
-            "purchase_price": Decimal(str(random.uniform(1000, 50000))),
-            "current_value": Decimal(str(random.uniform(1000, 60000))),
-            "purchase_date": datetime.now() - timedelta(days=random.randint(30, 365)),
-            "description": f"Sample asset {i}",
-            "location": f"Location {i}",
-            "is_zakatable": random.choice([True, False]),
-            "depreciation_amount": Decimal(str(random.uniform(0, 1000))),
+            "name": asset_info["name"],
+            "category": asset_info["category"].value,
+            "purchase_price": Decimal(str(asset_info["purchase"])),
+            "current_value": Decimal(str(asset_info["value"])),
+            "purchase_date": datetime.now() - timedelta(days=random.randint(30, 1095)),
+            "description": f"Asset acquired for investment/business purposes",
+            "location": random.choice(["Home", "Office", "Bank", "Brokerage", "Property"]),
+            "is_zakatable": asset_info["zakatable"],
+            "depreciation_amount": Decimal(str(depreciation)),
             "created_at": datetime.now(),
             "updated_at": datetime.now()
         })
     
-    for i in range(1, 4):
+    # Real liability data
+    liability_data = [
+        {"name": "Primary Mortgage", "category": LiabilityCategory.MORTGAGE, "original": 320000, "current": 285000, "rate": 3.75, "payment": 1850},
+        {"name": "Rental Property Loan", "category": LiabilityCategory.MORTGAGE, "original": 240000, "current": 195000, "rate": 4.25, "payment": 1450},
+        {"name": "Chase Credit Card", "category": LiabilityCategory.CREDIT_CARD, "original": 15000, "current": 8500, "rate": 18.99, "payment": 450},
+        {"name": "American Express Gold", "category": LiabilityCategory.CREDIT_CARD, "original": 8000, "current": 2800, "rate": 21.24, "payment": 150},
+        {"name": "Tesla Car Loan", "category": LiabilityCategory.LOAN, "original": 75000, "current": 52000, "rate": 2.49, "payment": 1250},
+        {"name": "Business Line of Credit", "category": LiabilityCategory.LOAN, "original": 50000, "current": 12000, "rate": 6.5, "payment": 800},
+        {"name": "Student Loan", "category": LiabilityCategory.LOAN, "original": 45000, "current": 18000, "rate": 4.5, "payment": 350},
+    ]
+    
+    for i, liability_info in enumerate(liability_data, 1):
         liabilities.append({
             "id": i,
             "account_id": 2,
-            "name": f"Liability {i}",
-            "category": random.choice(liability_categories).value,
-            "original_amount": Decimal(str(random.uniform(5000, 30000))),
-            "current_balance": Decimal(str(random.uniform(1000, 25000))),
-            "interest_rate": Decimal(str(random.uniform(2, 15))),
-            "monthly_payment": Decimal(str(random.uniform(100, 1000))),
-            "due_date": datetime.now() + timedelta(days=random.randint(30, 365)),
-            "description": f"Sample liability {i}",
+            "name": liability_info["name"],
+            "category": liability_info["category"].value,
+            "original_amount": Decimal(str(liability_info["original"])),
+            "current_balance": Decimal(str(liability_info["current"])),
+            "interest_rate": Decimal(str(liability_info["rate"])),
+            "monthly_payment": Decimal(str(liability_info["payment"])),
+            "due_date": datetime.now() + timedelta(days=random.randint(15, 45)),
+            "description": f"Regular monthly payment due",
             "created_at": datetime.now(),
             "updated_at": datetime.now()
         })
     
-    for i in range(1, 21):
-        trans_type = random.choice([TransactionType.INCOME, TransactionType.EXPENSE])
-        transactions.append({
-            "id": i,
-            "from_account_id": 1 if trans_type == TransactionType.EXPENSE else None,
-            "to_account_id": 1 if trans_type == TransactionType.INCOME else None,
-            "transaction_type": trans_type.value,
-            "amount": Decimal(str(random.uniform(50, 5000))),
-            "transaction_date": datetime.now() - timedelta(days=random.randint(1, 30)),
-            "category": f"Category {random.randint(1, 5)}",
-            "description": f"Transaction {i}",
-            "reference_number": f"REF{i:04d}",
-            "tags": [f"tag{random.randint(1, 3)}", f"tag{random.randint(4, 6)}"],
-            "created_at": datetime.now(),
-            "updated_at": datetime.now()
-        })
+    # Generate realistic transactions
+    transaction_data = [
+        # Income transactions
+        {"type": TransactionType.INCOME, "amount": 8500, "category": "Salary", "desc": "Monthly Software Engineer Salary"},
+        {"type": TransactionType.INCOME, "amount": 1200, "category": "Rental Income", "desc": "Downtown Property Rent"},
+        {"type": TransactionType.INCOME, "amount": 750, "category": "Freelance", "desc": "Web Development Project"},
+        {"type": TransactionType.INCOME, "amount": 320, "category": "Dividends", "desc": "S&P 500 Quarterly Dividends"},
+        {"type": TransactionType.INCOME, "amount": 185, "category": "Interest", "desc": "Savings Account Interest"},
+        
+        # Expense transactions
+        {"type": TransactionType.EXPENSE, "amount": 1850, "category": "Housing", "desc": "Primary Mortgage Payment"},
+        {"type": TransactionType.EXPENSE, "amount": 1450, "category": "Investment", "desc": "Rental Property Mortgage"},
+        {"type": TransactionType.EXPENSE, "amount": 1250, "category": "Transportation", "desc": "Tesla Car Payment"},
+        {"type": TransactionType.EXPENSE, "amount": 850, "category": "Food", "desc": "Groceries & Dining"},
+        {"type": TransactionType.EXPENSE, "amount": 650, "category": "Utilities", "desc": "Electric, Gas, Internet"},
+        {"type": TransactionType.EXPENSE, "amount": 450, "category": "Credit Card", "desc": "Chase Card Payment"},
+        {"type": TransactionType.EXPENSE, "amount": 350, "category": "Education", "desc": "Student Loan Payment"},
+        {"type": TransactionType.EXPENSE, "amount": 280, "category": "Insurance", "desc": "Auto & Home Insurance"},
+        {"type": TransactionType.EXPENSE, "amount": 220, "category": "Healthcare", "desc": "Health Insurance Premium"},
+        {"type": TransactionType.EXPENSE, "amount": 180, "category": "Entertainment", "desc": "Streaming & Subscriptions"},
+        {"type": TransactionType.EXPENSE, "amount": 150, "category": "Shopping", "desc": "Clothing & Personal Items"},
+        {"type": TransactionType.EXPENSE, "amount": 120, "category": "Gas", "desc": "Fuel for Vehicles"},
+        {"type": TransactionType.EXPENSE, "amount": 95, "category": "Phone", "desc": "Mobile Phone Bill"},
+        {"type": TransactionType.EXPENSE, "amount": 85, "category": "Software", "desc": "Development Tools"},
+        {"type": TransactionType.EXPENSE, "amount": 75, "category": "Charity", "desc": "Monthly Donation"},
+    ]
+    
+    for i, trans_info in enumerate(transaction_data, 1):
+        # Create multiple instances of each transaction across different dates
+        for j in range(random.randint(1, 3)):
+            trans_id = i * 100 + j
+            days_ago = random.randint(1, 90)
+            transactions.append({
+                "id": trans_id,
+                "from_account_id": 1 if trans_info["type"] == TransactionType.EXPENSE else None,
+                "to_account_id": 1 if trans_info["type"] == TransactionType.INCOME else None,
+                "transaction_type": trans_info["type"].value,
+                "amount": Decimal(str(trans_info["amount"] * random.uniform(0.8, 1.2))),  # Add some variance
+                "transaction_date": datetime.now() - timedelta(days=days_ago),
+                "category": trans_info["category"],
+                "description": trans_info["desc"],
+                "reference_number": f"TXN{trans_id:06d}",
+                "tags": [trans_info["category"].lower(), "auto-generated"],
+                "created_at": datetime.now(),
+                "updated_at": datetime.now()
+            })
     
     return assets, liabilities, transactions
 
