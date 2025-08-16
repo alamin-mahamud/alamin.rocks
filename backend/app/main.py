@@ -4,6 +4,7 @@ from app.api import (
     about,
     achievements,
     analytics,
+    assets,
     auth,
     contact,
     contact_info,
@@ -103,6 +104,9 @@ app.include_router(
 )
 app.include_router(
     analytics.router, prefix="/api/analytics", tags=["analytics"]
+)
+app.include_router(
+    assets.router, tags=["assets"]
 )
 
 

@@ -11,7 +11,8 @@ import {
   Languages,
   LogOut,
   BarChart3,
-  ChevronRight
+  ChevronRight,
+  Wallet
 } from 'lucide-react'
 import { clsx } from 'clsx'
 
@@ -20,6 +21,7 @@ const navigation = [
   { name: 'Messages', href: '/messages', icon: MessageSquare, badge: 12 },
   { name: 'Projects', href: '/projects', icon: FolderOpen, badge: null },
   { name: 'Resume', href: '/resume', icon: FileText, badge: null },
+  { name: 'Assets', href: '/assets', icon: Wallet, badge: null },
   { name: 'Translations', href: '/translations', icon: Languages, badge: 2 },
   { name: 'Analytics', href: '/analytics', icon: BarChart3, badge: null },
   { name: 'Settings', href: '/settings', icon: Settings, badge: null },
