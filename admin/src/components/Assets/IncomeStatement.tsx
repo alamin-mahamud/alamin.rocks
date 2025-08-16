@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
-import { Card } from '@/components/ui/Card';
 import { assetAPI } from '@/lib/assets-api';
 import { IncomeStatementResponse } from '@/types/assets';
 
@@ -36,25 +35,25 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
 
   if (loading) {
     return (
-      <Card className={`p-6 ${className}`}>
+      <div className={`p-6 ${className}`}>
         <div className="text-center">Loading income statement...</div>
-      </Card>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Card className={`p-6 ${className}`}>
-        <div className="text-red-500">Error: {error}</div>
-      </Card>
+      <div className={`p-6 ${className}`}>
+        <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+      </div>
     );
   }
 
   if (!incomeStatement) {
     return (
-      <Card className={`p-6 ${className}`}>
+      <div className={`p-6 ${className}`}>
         <div className="text-center">No data available</div>
-      </Card>
+      </div>
     );
   }
 
@@ -102,13 +101,13 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <Card className="p-6">
+      <div className="admin-card">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Income Statement</h2>
+          <h2 className="text-lg font-semibold text-foreground">Income Statement</h2>
           <select
             value={period}
             onChange={(e) => setPeriod(Number(e.target.value))}
-            className="px-3 py-2 border border-gray-300 rounded-md"
+            className="admin-input w-auto"
           >
             <option value={7}>Last 7 days</option>
             <option value={30}>Last 30 days</option>
@@ -119,26 +118,26 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
         
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Card className="p-4 bg-green-50 border-green-200">
+          <div className="p-4 bg-green-50 border-green-200">
             <h3 className="text-lg font-semibold text-green-800">Total Revenue</h3>
             <p className="text-2xl font-bold text-green-600">
               ${incomeStatement.total_revenue.toLocaleString()}
             </p>
-          </Card>
-          <Card className="p-4 bg-red-50 border-red-200">
+          </div>
+          <div className="p-4 bg-red-50 border-red-200">
             <h3 className="text-lg font-semibold text-red-800">Total Expenses</h3>
             <p className="text-2xl font-bold text-red-600">
               ${incomeStatement.total_expenses.toLocaleString()}
             </p>
-          </Card>
-          <Card className={`p-4 ${incomeStatement.net_income >= 0 ? 'bg-blue-50 border-blue-200' : 'bg-red-50 border-red-200'}`}>
+          </div>
+          <div className={`p-4 ${incomeStatement.net_income >= 0 ? 'bg-blue-50 border-blue-200' : 'bg-red-50 border-red-200'}`}>
             <h3 className={`text-lg font-semibold ${incomeStatement.net_income >= 0 ? 'text-blue-800' : 'text-red-800'}`}>
               Net Income
             </h3>
             <p className={`text-2xl font-bold ${incomeStatement.net_income >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
               ${incomeStatement.net_income.toLocaleString()}
             </p>
-          </Card>
+          </div>
         </div>
 
         {/* Summary Bar Chart */}
@@ -270,12 +269,12 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
           </div>
         </div>
 
-        <div className="mt-6 text-sm text-gray-500">
+        <div className="mt-6 text-sm text-muted-foreground">
           Period: {new Date(incomeStatement.period_start).toLocaleDateString()} - {new Date(incomeStatement.period_end).toLocaleDateString()}
           <br />
           Generated on: {new Date(incomeStatement.generated_at).toLocaleString()}
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

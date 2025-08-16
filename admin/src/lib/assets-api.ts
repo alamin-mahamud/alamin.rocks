@@ -1,3 +1,4 @@
+import api from './api';
 import {
   Account,
   Asset,
@@ -10,93 +11,72 @@ import {
   FinancialSummary
 } from '@/types/assets';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-
 class AssetAPI {
-  private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    const url = `${API_BASE_URL}${endpoint}`;
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options?.headers,
-      },
-      ...options,
-    });
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.statusText}`);
-    }
-
-    return response.json();
-  }
 
   // Account endpoints
   async getAccounts(): Promise<Account[]> {
-    return this.request<Account[]>('/api/assets/accounts');
+    const response = await api.get('/api/assets/accounts');
+    return response.data;
   }
 
   async createAccount(account: Omit<Account, 'id' | 'balance' | 'created_at' | 'updated_at'>): Promise<Account> {
-    return this.request<Account>('/api/assets/accounts', {
-      method: 'POST',
-      body: JSON.stringify(account),
-    });
+    const response = await api.post('/api/assets/accounts', account);
+    return response.data;
   }
 
   // Asset endpoints
   async getAssets(): Promise<Asset[]> {
-    return this.request<Asset[]>('/api/assets/assets');
+    const response = await api.get('/api/assets/assets');
+    return response.data;
   }
 
   async createAsset(asset: Omit<Asset, 'id' | 'depreciation_amount' | 'created_at' | 'updated_at'>): Promise<Asset> {
-    return this.request<Asset>('/api/assets/assets', {
-      method: 'POST',
-      body: JSON.stringify(asset),
-    });
+    const response = await api.post('/api/assets/assets', asset);
+    return response.data;
   }
 
   // Liability endpoints
   async getLiabilities(): Promise<Liability[]> {
-    return this.request<Liability[]>('/api/assets/liabilities');
+    const response = await api.get('/api/assets/liabilities');
+    return response.data;
   }
 
   async createLiability(liability: Omit<Liability, 'id' | 'created_at' | 'updated_at'>): Promise<Liability> {
-    return this.request<Liability>('/api/assets/liabilities', {
-      method: 'POST',
-      body: JSON.stringify(liability),
-    });
+    const response = await api.post('/api/assets/liabilities', liability);
+    return response.data;
   }
 
   // Transaction endpoints
   async getTransactions(limit: number = 50, offset: number = 0): Promise<Transaction[]> {
-    return this.request<Transaction[]>(`/api/assets/transactions?limit=${limit}&offset=${offset}`);
+    const response = await api.get('/api/assets/transactions', { params: { limit, offset } });
+    return response.data;
   }
 
   async createTransaction(transaction: Omit<Transaction, 'id' | 'created_at' | 'updated_at'>): Promise<Transaction> {
-    return this.request<Transaction>('/api/assets/transactions', {
-      method: 'POST',
-      body: JSON.stringify(transaction),
-    });
+    const response = await api.post('/api/assets/transactions', transaction);
+    return response.data;
   }
 
   // Financial reports
   async getBalanceSheet(): Promise<BalanceSheetResponse> {
-    return this.request<BalanceSheetResponse>('/api/assets/balance-sheet');
+    const response = await api.get('/api/assets/balance-sheet');
+    return response.data;
   }
 
   async getIncomeStatement(periodDays: number = 30): Promise<IncomeStatementResponse> {
-    return this.request<IncomeStatementResponse>(`/api/assets/income-statement?period_days=${periodDays}`);
+    const response = await api.get('/api/assets/income-statement', { params: { period_days: periodDays } });
+    return response.data;
   }
 
   async getFinancialSummary(): Promise<FinancialSummary> {
-    return this.request<FinancialSummary>('/api/assets/summary');
+    const response = await api.get('/api/assets/summary');
+    return response.data;
   }
 
   // Zakat calculation
   async calculateZakat(request: ZakatCalculationRequest): Promise<ZakatCalculationResponse> {
-    return this.request<ZakatCalculationResponse>('/api/assets/zakat/calculate', {
-      method: 'POST',
-      body: JSON.stringify(request),
-    });
+    const response = await api.post('/api/assets/zakat/calculate', request);
+    return response.data;
   }
 }
 

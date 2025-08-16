@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Card } from '@/components/ui/Card';
 import { assetAPI } from '@/lib/assets-api';
 import { BalanceSheetResponse } from '@/types/assets';
 
@@ -35,25 +34,25 @@ export default function BalanceSheet({ className }: BalanceSheetProps) {
 
   if (loading) {
     return (
-      <Card className={`p-6 ${className}`}>
+      <div className={`admin-card ${className}`}>
         <div className="text-center">Loading balance sheet...</div>
-      </Card>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Card className={`p-6 ${className}`}>
-        <div className="text-red-500">Error: {error}</div>
-      </Card>
+      <div className={`admin-card ${className}`}>
+        <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+      </div>
     );
   }
 
   if (!balanceSheet) {
     return (
-      <Card className={`p-6 ${className}`}>
+      <div className={`admin-card ${className}`}>
         <div className="text-center">No data available</div>
-      </Card>
+      </div>
     );
   }
 
@@ -75,31 +74,31 @@ export default function BalanceSheet({ className }: BalanceSheetProps) {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Balance Sheet</h2>
+      <div className="admin-card">
+        <h2 className="text-lg font-semibold text-foreground mb-6">Balance Sheet</h2>
         
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <Card className="p-4 bg-green-50 border-green-200">
-            <h3 className="text-lg font-semibold text-green-800">Total Assets</h3>
-            <p className="text-2xl font-bold text-green-600">
+          <div className="admin-card bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+            <h3 className="text-sm font-medium text-green-800 dark:text-green-400 uppercase tracking-wide">Total Assets</h3>
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400 mt-2">
               ${balanceSheet.total_assets.toLocaleString()}
             </p>
-          </Card>
-          <Card className="p-4 bg-red-50 border-red-200">
-            <h3 className="text-lg font-semibold text-red-800">Total Liabilities</h3>
-            <p className="text-2xl font-bold text-red-600">
+          </div>
+          <div className="admin-card bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+            <h3 className="text-sm font-medium text-red-800 dark:text-red-400 uppercase tracking-wide">Total Liabilities</h3>
+            <p className="text-2xl font-bold text-red-600 dark:text-red-400 mt-2">
               ${balanceSheet.total_liabilities.toLocaleString()}
             </p>
-          </Card>
-          <Card className={`p-4 ${balanceSheet.net_worth >= 0 ? 'bg-blue-50 border-blue-200' : 'bg-red-50 border-red-200'}`}>
-            <h3 className={`text-lg font-semibold ${balanceSheet.net_worth >= 0 ? 'text-blue-800' : 'text-red-800'}`}>
+          </div>
+          <div className={`admin-card ${balanceSheet.net_worth >= 0 ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'}`}>
+            <h3 className={`text-sm font-medium uppercase tracking-wide ${balanceSheet.net_worth >= 0 ? 'text-blue-800 dark:text-blue-400' : 'text-red-800 dark:text-red-400'}`}>
               Net Worth
             </h3>
-            <p className={`text-2xl font-bold ${balanceSheet.net_worth >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
+            <p className={`text-2xl font-bold mt-2 ${balanceSheet.net_worth >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400'}`}>
               ${balanceSheet.net_worth.toLocaleString()}
             </p>
-          </Card>
+          </div>
         </div>
 
         {/* Summary Bar Chart */}
@@ -214,10 +213,10 @@ export default function BalanceSheet({ className }: BalanceSheetProps) {
           </div>
         </div>
 
-        <div className="mt-6 text-sm text-gray-500">
+        <div className="mt-6 text-sm text-muted-foreground">
           Generated on: {new Date(balanceSheet.generated_at).toLocaleString()}
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

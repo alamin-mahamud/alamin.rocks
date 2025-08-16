@@ -2,9 +2,6 @@
 
 import { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { assetAPI } from '@/lib/assets-api';
 import { ZakatCalculationRequest, ZakatCalculationResponse } from '@/types/assets';
 
@@ -60,8 +57,8 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <Card className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Zakat Calculator</h2>
+      <div className="admin-card">
+        <h2 className="text-lg font-semibold text-foreground mb-6">Zakat Calculator</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Form */}
@@ -70,18 +67,20 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Gold (grams)</label>
-                <Input
+                <label className="block text-sm font-medium text-foreground mb-2">Gold (grams)</label>
+                <input
                   type="number"
                   value={formData.gold_weight_grams || ''}
                   onChange={(e) => handleInputChange('gold_weight_grams', Number(e.target.value))}
                   placeholder="0"
+                  className="admin-input"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Gold Price ($/gram)</label>
-                <Input
+                <label className="block text-sm font-medium text-foreground mb-2">Gold Price ($/gram)</label>
+                <input
                   type="number"
+                  className="admin-input"
                   value={formData.gold_price_per_gram || ''}
                   onChange={(e) => handleInputChange('gold_price_per_gram', Number(e.target.value))}
                   placeholder="60"
@@ -91,18 +90,20 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Silver (grams)</label>
-                <Input
+                <label className="block text-sm font-medium text-foreground mb-2">Silver (grams)</label>
+                <input
                   type="number"
                   value={formData.silver_weight_grams || ''}
                   onChange={(e) => handleInputChange('silver_weight_grams', Number(e.target.value))}
                   placeholder="0"
+                  className="admin-input"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Silver Price ($/gram)</label>
-                <Input
+                <label className="block text-sm font-medium text-foreground mb-2">Silver Price ($/gram)</label>
+                <input
                   type="number"
+                  className="admin-input"
                   value={formData.silver_price_per_gram || ''}
                   onChange={(e) => handleInputChange('silver_price_per_gram', Number(e.target.value))}
                   placeholder="0.75"
@@ -112,74 +113,74 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
 
             <div>
               <label className="block text-sm font-medium mb-2">Cash Amount ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.cash_amount || ''}
                 onChange={(e) => handleInputChange('cash_amount', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Bank Balance ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.bank_balance || ''}
                 onChange={(e) => handleInputChange('bank_balance', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Investment Value ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.investment_value || ''}
                 onChange={(e) => handleInputChange('investment_value', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Trade Goods Value ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.trade_goods_value || ''}
                 onChange={(e) => handleInputChange('trade_goods_value', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Receivables ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.receivables || ''}
                 onChange={(e) => handleInputChange('receivables', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2">Liabilities ($)</label>
-              <Input
+              <input
                 type="number"
                 value={formData.liabilities || ''}
                 onChange={(e) => handleInputChange('liabilities', Number(e.target.value))}
-                placeholder="0"
+                placeholder="0" className="admin-input"
               />
             </div>
 
-            <Button 
+            <button 
               onClick={calculateZakat} 
               disabled={loading}
-              className="w-full"
+              className="admin-button-primary w-full"
             >
               {loading ? 'Calculating...' : 'Calculate Zakat'}
-            </Button>
+            </button>
 
             {error && (
-              <div className="text-red-500 text-sm">{error}</div>
+              <div className="text-red-600 dark:text-red-400 text-sm">{error}</div>
             )}
           </div>
 
@@ -191,39 +192,39 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                 
                 {/* Summary Cards */}
                 <div className="space-y-4">
-                  <Card className="p-4 bg-blue-50 border-blue-200">
-                    <h4 className="text-lg font-semibold text-blue-800">Total Zakatable Wealth</h4>
-                    <p className="text-2xl font-bold text-blue-600">
+                  <div className="admin-card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                    <h4 className="text-sm font-medium text-blue-800 dark:text-blue-400 uppercase tracking-wide">Total Zakatable Wealth</h4>
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">
                       ${result.total_zakatable_wealth.toLocaleString()}
                     </p>
-                  </Card>
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <Card className="p-4 bg-yellow-50 border-yellow-200">
+                    <div className="p-4 bg-yellow-50 border-yellow-200">
                       <h4 className="text-sm font-semibold text-yellow-800">Nisab (Gold)</h4>
                       <p className="text-lg font-bold text-yellow-600">
                         ${result.nisab_threshold_gold.toLocaleString()}
                       </p>
-                    </Card>
-                    <Card className="p-4 bg-gray-50 border-gray-200">
+                    </div>
+                    <div className="p-4 bg-gray-50 border-gray-200">
                       <h4 className="text-sm font-semibold text-gray-800">Nisab (Silver)</h4>
                       <p className="text-lg font-bold text-gray-600">
                         ${result.nisab_threshold_silver.toLocaleString()}
                       </p>
-                    </Card>
+                    </div>
                   </div>
 
-                  <Card className={`p-4 ${result.is_above_nisab ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                  <div className={`p-4 ${result.is_above_nisab ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
                     <h4 className={`text-lg font-semibold ${result.is_above_nisab ? 'text-green-800' : 'text-red-800'}`}>
                       Zakat Status
                     </h4>
                     <p className={`text-sm ${result.is_above_nisab ? 'text-green-600' : 'text-red-600'}`}>
                       {result.is_above_nisab ? 'Zakat is due' : 'Below nisab threshold'}
                     </p>
-                  </Card>
+                  </div>
 
                   {result.is_above_nisab && (
-                    <Card className="p-4 bg-purple-50 border-purple-200">
+                    <div className="p-4 bg-purple-50 border-purple-200">
                       <h4 className="text-lg font-semibold text-purple-800">Zakat Due</h4>
                       <p className="text-3xl font-bold text-purple-600">
                         ${result.zakat_due.toLocaleString()}
@@ -231,7 +232,7 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                       <p className="text-sm text-purple-600">
                         ({(result.zakat_rate * 100).toFixed(1)}% of zakatable wealth)
                       </p>
-                    </Card>
+                    </div>
                   )}
                 </div>
 
@@ -277,7 +278,7 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                 </div>
 
                 {/* Islamic Information */}
-                <Card className="p-4 bg-green-50 border-green-200">
+                <div className="p-4 bg-green-50 border-green-200">
                   <h4 className="text-lg font-semibold text-green-800 mb-2">Islamic Guidelines</h4>
                   <div className="text-sm text-green-700 space-y-2">
                     <p>• Zakat is calculated at 2.5% (1/40) of eligible wealth</p>
@@ -287,9 +288,9 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                     <p>• Wealth must be held for one lunar year (Hawl)</p>
                     <p>• Debts and immediate expenses can be deducted</p>
                   </div>
-                </Card>
+                </div>
 
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-muted-foreground">
                   Calculated on: {new Date(result.calculated_at).toLocaleString()}
                   {result.lunar_year && <br />}
                   {result.lunar_year && `Lunar Year: ${result.lunar_year} AH`}
@@ -298,7 +299,7 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
             )}
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
