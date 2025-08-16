@@ -63,7 +63,7 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Form */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold mb-4">Assets & Wealth</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Assets & Wealth</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -180,7 +180,9 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
             </button>
 
             {error && (
-              <div className="text-red-600 dark:text-red-400 text-sm">{error}</div>
+              <div className="admin-card border-l-4 border-l-red-500">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
             )}
           </div>
 
@@ -188,58 +190,80 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
           <div>
             {result && (
               <div className="space-y-6">
-                <h3 className="text-xl font-semibold">Zakat Calculation Results</h3>
+                <h3 className="text-lg font-semibold text-foreground">Zakat Calculation Results</h3>
                 
                 {/* Summary Cards */}
                 <div className="space-y-4">
-                  <div className="admin-card bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
-                    <h4 className="text-sm font-medium text-blue-800 dark:text-blue-400 uppercase tracking-wide">Total Zakatable Wealth</h4>
-                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-2">
-                      ${result.total_zakatable_wealth.toLocaleString()}
-                    </p>
+                  <div className="admin-card">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Total Zakatable Wealth</p>
+                        <p className="text-2xl font-bold text-foreground">${result.total_zakatable_wealth.toLocaleString()}</p>
+                      </div>
+                      <div className="h-12 w-12 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <div className="h-6 w-6 rounded-full bg-blue-500"></div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-yellow-50 border-yellow-200">
-                      <h4 className="text-sm font-semibold text-yellow-800">Nisab (Gold)</h4>
-                      <p className="text-lg font-bold text-yellow-600">
-                        ${result.nisab_threshold_gold.toLocaleString()}
-                      </p>
+                    <div className="admin-card">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground">Nisab (Gold)</p>
+                          <p className="text-lg font-bold text-foreground">${result.nisab_threshold_gold.toLocaleString()}</p>
+                        </div>
+                        <div className="h-8 w-8 rounded-full bg-yellow-500/10 flex items-center justify-center">
+                          <div className="h-4 w-4 rounded-full bg-yellow-500"></div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="p-4 bg-gray-50 border-gray-200">
-                      <h4 className="text-sm font-semibold text-gray-800">Nisab (Silver)</h4>
-                      <p className="text-lg font-bold text-gray-600">
-                        ${result.nisab_threshold_silver.toLocaleString()}
-                      </p>
+                    <div className="admin-card">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground">Nisab (Silver)</p>
+                          <p className="text-lg font-bold text-foreground">${result.nisab_threshold_silver.toLocaleString()}</p>
+                        </div>
+                        <div className="h-8 w-8 rounded-full bg-gray-500/10 flex items-center justify-center">
+                          <div className="h-4 w-4 rounded-full bg-gray-500"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className={`p-4 ${result.is_above_nisab ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
-                    <h4 className={`text-lg font-semibold ${result.is_above_nisab ? 'text-green-800' : 'text-red-800'}`}>
-                      Zakat Status
-                    </h4>
-                    <p className={`text-sm ${result.is_above_nisab ? 'text-green-600' : 'text-red-600'}`}>
-                      {result.is_above_nisab ? 'Zakat is due' : 'Below nisab threshold'}
-                    </p>
+                  <div className="admin-card">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">Zakat Status</p>
+                        <p className={`text-lg font-bold ${result.is_above_nisab ? 'text-green-600' : 'text-red-600'}`}>
+                          {result.is_above_nisab ? 'Zakat is due' : 'Below nisab threshold'}
+                        </p>
+                      </div>
+                      <div className={`h-8 w-8 rounded-full ${result.is_above_nisab ? 'bg-green-500/10' : 'bg-red-500/10'} flex items-center justify-center`}>
+                        <div className={`h-4 w-4 rounded-full ${result.is_above_nisab ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                      </div>
+                    </div>
                   </div>
 
                   {result.is_above_nisab && (
-                    <div className="p-4 bg-purple-50 border-purple-200">
-                      <h4 className="text-lg font-semibold text-purple-800">Zakat Due</h4>
-                      <p className="text-3xl font-bold text-purple-600">
-                        ${result.zakat_due.toLocaleString()}
-                      </p>
-                      <p className="text-sm text-purple-600">
-                        ({(result.zakat_rate * 100).toFixed(1)}% of zakatable wealth)
-                      </p>
+                    <div className="admin-card">
+                      <div className="text-center">
+                        <p className="text-sm font-medium text-muted-foreground mb-2">Zakat Due</p>
+                        <p className="text-3xl font-bold text-purple-600 mb-1">
+                          ${result.zakat_due.toLocaleString()}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          ({(result.zakat_rate * 100).toFixed(1)}% of zakatable wealth)
+                        </p>
+                      </div>
                     </div>
                   )}
                 </div>
 
                 {/* Breakdown Chart */}
                 {breakdownData.length > 0 && (
-                  <div>
-                    <h4 className="text-lg font-semibold mb-4">Wealth Breakdown</h4>
+                  <div className="admin-card">
+                    <h4 className="text-lg font-semibold text-foreground mb-4">Wealth Breakdown</h4>
                     <ResponsiveContainer width="100%" height={300}>
                       <PieChart>
                         <Pie
@@ -263,12 +287,12 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                 )}
 
                 {/* Detailed Breakdown */}
-                <div>
-                  <h4 className="text-lg font-semibold mb-4">Detailed Breakdown</h4>
-                  <div className="space-y-2">
+                <div className="admin-card">
+                  <h4 className="text-lg font-semibold text-foreground mb-4">Detailed Breakdown</h4>
+                  <div className="space-y-3">
                     {Object.entries(result.breakdown).map(([key, value]) => (
-                      <div key={key} className="flex justify-between p-3 bg-gray-50 rounded">
-                        <span className="capitalize">{key.replace('_', ' ')}</span>
+                      <div key={key} className="flex justify-between items-center p-3 bg-background rounded border">
+                        <span className="capitalize text-foreground">{key.replace('_', ' ')}</span>
                         <span className={`font-semibold ${Number(value) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                           {Number(value) >= 0 ? '+' : ''}${Number(value).toLocaleString()}
                         </span>
@@ -278,9 +302,9 @@ export default function ZakatCalculator({ className }: ZakatCalculatorProps) {
                 </div>
 
                 {/* Islamic Information */}
-                <div className="p-4 bg-green-50 border-green-200">
-                  <h4 className="text-lg font-semibold text-green-800 mb-2">Islamic Guidelines</h4>
-                  <div className="text-sm text-green-700 space-y-2">
+                <div className="admin-card border-l-4 border-l-green-500">
+                  <h4 className="text-lg font-semibold text-foreground mb-3">Islamic Guidelines</h4>
+                  <div className="text-sm text-muted-foreground space-y-2">
                     <p>• Zakat is calculated at 2.5% (1/40) of eligible wealth</p>
                     <p>• Nisab is the minimum threshold for zakat obligation</p>
                     <p>• Gold nisab: 85 grams (~3 oz) of gold</p>

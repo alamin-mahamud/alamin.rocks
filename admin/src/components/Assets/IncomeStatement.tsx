@@ -35,24 +35,38 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
 
   if (loading) {
     return (
-      <div className={`p-6 ${className}`}>
-        <div className="text-center">Loading income statement...</div>
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading income statement...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className={`p-6 ${className}`}>
-        <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+      <div className="flex items-center justify-center py-12">
+        <div className="admin-card p-8 max-w-md text-center">
+          <h2 className="text-xl font-bold text-destructive mb-4">Error</h2>
+          <p className="text-muted-foreground mb-4">{error}</p>
+          <button 
+            onClick={fetchIncomeStatement}
+            className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
   if (!incomeStatement) {
     return (
-      <div className={`p-6 ${className}`}>
-        <div className="text-center">No data available</div>
+      <div className="flex items-center justify-center py-12">
+        <div className="admin-card p-8 text-center">
+          <p className="text-muted-foreground">No data available</p>
+        </div>
       </div>
     );
   }
@@ -118,31 +132,46 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
         
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="p-4 bg-green-50 border-green-200">
-            <h3 className="text-lg font-semibold text-green-800">Total Revenue</h3>
-            <p className="text-2xl font-bold text-green-600">
-              ${incomeStatement.total_revenue.toLocaleString()}
-            </p>
+          <div className="admin-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Revenue</p>
+                <p className="text-2xl font-bold text-foreground">${incomeStatement.total_revenue.toLocaleString()}</p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                <div className="h-6 w-6 rounded-full bg-green-500"></div>
+              </div>
+            </div>
           </div>
-          <div className="p-4 bg-red-50 border-red-200">
-            <h3 className="text-lg font-semibold text-red-800">Total Expenses</h3>
-            <p className="text-2xl font-bold text-red-600">
-              ${incomeStatement.total_expenses.toLocaleString()}
-            </p>
+          <div className="admin-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Expenses</p>
+                <p className="text-2xl font-bold text-foreground">${incomeStatement.total_expenses.toLocaleString()}</p>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-red-500/10 flex items-center justify-center">
+                <div className="h-6 w-6 rounded-full bg-red-500"></div>
+              </div>
+            </div>
           </div>
-          <div className={`p-4 ${incomeStatement.net_income >= 0 ? 'bg-blue-50 border-blue-200' : 'bg-red-50 border-red-200'}`}>
-            <h3 className={`text-lg font-semibold ${incomeStatement.net_income >= 0 ? 'text-blue-800' : 'text-red-800'}`}>
-              Net Income
-            </h3>
-            <p className={`text-2xl font-bold ${incomeStatement.net_income >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
-              ${incomeStatement.net_income.toLocaleString()}
-            </p>
+          <div className="admin-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Net Income</p>
+                <p className={`text-2xl font-bold ${incomeStatement.net_income >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  ${incomeStatement.net_income.toLocaleString()}
+                </p>
+              </div>
+              <div className={`h-12 w-12 rounded-full ${incomeStatement.net_income >= 0 ? 'bg-blue-500/10' : 'bg-red-500/10'} flex items-center justify-center`}>
+                <div className={`h-6 w-6 rounded-full ${incomeStatement.net_income >= 0 ? 'bg-blue-500' : 'bg-red-500'}`}></div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Summary Bar Chart */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-4">Financial Performance</h3>
+        <div className="admin-card mb-8">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Financial Performance</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={summaryData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -159,8 +188,8 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
         </div>
 
         {/* Daily Trend */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-4">Daily Trend (Last 7 Days)</h3>
+        <div className="admin-card mb-8">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Daily Trend (Last 7 Days)</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={dailyData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -176,10 +205,10 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
         </div>
 
         {/* Revenue and Expense Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Revenue Breakdown */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Revenue Breakdown</h3>
+          <div className="admin-card">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Revenue Breakdown</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -202,8 +231,8 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
           </div>
 
           {/* Expense Breakdown */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Expense Breakdown</h3>
+          <div className="admin-card">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Expense Breakdown</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -227,16 +256,16 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
         </div>
 
         {/* Detailed Transaction Lists */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
           {/* Revenue Transactions */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Recent Revenue</h3>
-            <div className="space-y-2 max-h-60 overflow-y-auto">
+          <div className="admin-card">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Recent Revenue</h3>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
               {incomeStatement.revenue.slice(0, 10).map((transaction) => (
-                <div key={transaction.id} className="flex justify-between p-3 bg-green-50 rounded">
+                <div key={transaction.id} className="flex justify-between items-center p-3 bg-background rounded border">
                   <div>
-                    <div className="font-medium">{transaction.description || 'Income'}</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="font-medium text-foreground">{transaction.description || 'Income'}</div>
+                    <div className="text-sm text-muted-foreground">
                       {transaction.category} • {new Date(transaction.transaction_date).toLocaleDateString()}
                     </div>
                   </div>
@@ -249,14 +278,14 @@ export default function IncomeStatement({ className }: IncomeStatementProps) {
           </div>
 
           {/* Expense Transactions */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Recent Expenses</h3>
-            <div className="space-y-2 max-h-60 overflow-y-auto">
+          <div className="admin-card">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Recent Expenses</h3>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
               {incomeStatement.expenses.slice(0, 10).map((transaction) => (
-                <div key={transaction.id} className="flex justify-between p-3 bg-red-50 rounded">
+                <div key={transaction.id} className="flex justify-between items-center p-3 bg-background rounded border">
                   <div>
-                    <div className="font-medium">{transaction.description || 'Expense'}</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="font-medium text-foreground">{transaction.description || 'Expense'}</div>
+                    <div className="text-sm text-muted-foreground">
                       {transaction.category} • {new Date(transaction.transaction_date).toLocaleDateString()}
                     </div>
                   </div>
