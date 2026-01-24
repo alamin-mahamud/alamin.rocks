@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { ArrowDown, Github, Linkedin, Mail, Terminal, Code, Cloud, Zap } from "lucide-react"
 import { portfolioApi, Hero as HeroType } from "@/lib/api"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { DotGrid, GradientBlob, GradientOrb } from "@/components/decorations"
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0)
@@ -124,12 +125,31 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-16 bg-background relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-          backgroundSize: '24px 24px'
-        }} />
+      {/* Background decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <DotGrid opacity={0.08} fade="radial" dotSize={1} spacing={24} />
+        <GradientBlob
+          position="top-right"
+          size="lg"
+          opacity={0.12}
+          colors={['hsl(var(--accent))', 'hsl(var(--info))']}
+          blur={80}
+        />
+        <GradientOrb
+          className="absolute top-1/4 left-[10%]"
+          color="hsl(var(--accent))"
+          size={300}
+          blur={100}
+          opacity={0.08}
+          animate
+        />
+        <GradientBlob
+          position="bottom-left"
+          size="md"
+          opacity={0.08}
+          colors={['hsl(var(--success))', 'hsl(var(--info))']}
+          blur={60}
+        />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

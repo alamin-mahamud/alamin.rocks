@@ -2,24 +2,48 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { 
-  LayoutDashboard, 
-  MessageSquare, 
-  FolderOpen, 
-  FileText, 
+import {
+  LayoutDashboard,
+  MessageSquare,
+  FolderOpen,
+  FileText,
   Settings,
   Languages,
   LogOut,
   BarChart3,
   ChevronRight,
-  Wallet
+  Wallet,
+  Home,
+  User,
+  Briefcase,
+  Code2,
+  GraduationCap,
+  Trophy,
+  Award,
+  Mail,
+  FileCode
 } from 'lucide-react'
 import { clsx } from 'clsx'
 
-const navigation = [
+const mainNavigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard, badge: null },
   { name: 'Messages', href: '/messages', icon: MessageSquare, badge: 12 },
+]
+
+const contentNavigation = [
+  { name: 'Hero', href: '/hero', icon: Home, badge: null },
+  { name: 'About', href: '/about', icon: User, badge: null },
+  { name: 'Experience', href: '/experience', icon: Briefcase, badge: null },
+  { name: 'Skills', href: '/skills', icon: Code2, badge: null },
+  { name: 'Education', href: '/education', icon: GraduationCap, badge: null },
+  { name: 'Achievements', href: '/achievements', icon: Trophy, badge: null },
+  { name: 'Certifications', href: '/certifications', icon: Award, badge: null },
   { name: 'Projects', href: '/projects', icon: FolderOpen, badge: null },
+  { name: 'CV Editor', href: '/cv', icon: FileCode, badge: null },
+  { name: 'Contact Info', href: '/contact-info', icon: Mail, badge: null },
+]
+
+const settingsNavigation = [
   { name: 'Resume', href: '/resume', icon: FileText, badge: null },
   { name: 'Assets', href: '/assets', icon: Wallet, badge: null },
   { name: 'Translations', href: '/translations', icon: Languages, badge: 2 },
@@ -43,45 +67,142 @@ export function Sidebar() {
       </div>
       
       {/* Navigation - Vercel Style */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {navigation.map((item) => {
-          const isActive = pathname === item.href
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={clsx(
-                'flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors group relative',
-                isActive
-                  ? 'bg-muted text-foreground font-medium'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              )}
-            >
-              <div className="flex items-center">
-                <item.icon className={clsx(
-                  'mr-3 h-4 w-4 flex-shrink-0',
-                  isActive ? 'text-foreground' : 'text-muted-foreground'
-                )} />
-                <span>{item.name}</span>
-              </div>
-              <div className="flex items-center">
-                {item.badge && (
-                  <span className={clsx(
-                    'text-xs px-1.5 py-0.5 rounded font-medium mr-1',
-                    isActive 
-                      ? 'bg-foreground/10 text-foreground'
-                      : 'bg-muted text-muted-foreground'
-                  )}>
-                    {item.badge}
-                  </span>
+      <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
+        {/* Main Navigation */}
+        <div className="space-y-0.5">
+          {mainNavigation.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={clsx(
+                  'flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors group relative',
+                  isActive
+                    ? 'bg-muted text-foreground font-medium'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                 )}
-                {isActive && (
-                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
-                )}
-              </div>
-            </Link>
-          )
-        })}
+              >
+                <div className="flex items-center">
+                  <item.icon className={clsx(
+                    'mr-3 h-4 w-4 flex-shrink-0',
+                    isActive ? 'text-foreground' : 'text-muted-foreground'
+                  )} />
+                  <span>{item.name}</span>
+                </div>
+                <div className="flex items-center">
+                  {item.badge && (
+                    <span className={clsx(
+                      'text-xs px-1.5 py-0.5 rounded font-medium mr-1',
+                      isActive
+                        ? 'bg-foreground/10 text-foreground'
+                        : 'bg-muted text-muted-foreground'
+                    )}>
+                      {item.badge}
+                    </span>
+                  )}
+                  {isActive && (
+                    <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                  )}
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Content Management */}
+        <div>
+          <div className="px-3 py-1.5 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Content
+          </div>
+          <div className="space-y-0.5">
+            {contentNavigation.map((item) => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={clsx(
+                    'flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors group relative',
+                    isActive
+                      ? 'bg-muted text-foreground font-medium'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  )}
+                >
+                  <div className="flex items-center">
+                    <item.icon className={clsx(
+                      'mr-3 h-4 w-4 flex-shrink-0',
+                      isActive ? 'text-foreground' : 'text-muted-foreground'
+                    )} />
+                    <span>{item.name}</span>
+                  </div>
+                  <div className="flex items-center">
+                    {item.badge && (
+                      <span className={clsx(
+                        'text-xs px-1.5 py-0.5 rounded font-medium mr-1',
+                        isActive
+                          ? 'bg-foreground/10 text-foreground'
+                          : 'bg-muted text-muted-foreground'
+                      )}>
+                        {item.badge}
+                      </span>
+                    )}
+                    {isActive && (
+                      <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                    )}
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Settings & Tools */}
+        <div>
+          <div className="px-3 py-1.5 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            Tools
+          </div>
+          <div className="space-y-0.5">
+            {settingsNavigation.map((item) => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={clsx(
+                    'flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors group relative',
+                    isActive
+                      ? 'bg-muted text-foreground font-medium'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  )}
+                >
+                  <div className="flex items-center">
+                    <item.icon className={clsx(
+                      'mr-3 h-4 w-4 flex-shrink-0',
+                      isActive ? 'text-foreground' : 'text-muted-foreground'
+                    )} />
+                    <span>{item.name}</span>
+                  </div>
+                  <div className="flex items-center">
+                    {item.badge && (
+                      <span className={clsx(
+                        'text-xs px-1.5 py-0.5 rounded font-medium mr-1',
+                        isActive
+                          ? 'bg-foreground/10 text-foreground'
+                          : 'bg-muted text-muted-foreground'
+                      )}>
+                        {item.badge}
+                      </span>
+                    )}
+                    {isActive && (
+                      <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                    )}
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </nav>
       
       {/* User Section - Vercel Style */}

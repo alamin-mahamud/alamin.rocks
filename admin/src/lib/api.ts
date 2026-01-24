@@ -198,4 +198,24 @@ export const contactInfoApi = {
   getContactInfo: () => api.get("/api/contact-info"),
 };
 
+// CV API
+export const cvApi = {
+  getCV: () => api.get("/api/cv"),
+  getCVList: () => api.get("/api/cv/list"),
+  getCVSource: () => api.get("/api/cv/source"),
+  getCVSourceById: (id: string) => api.get(`/api/cv/source/${id}`),
+  updateCVSource: (latex_source: string, name?: string) =>
+    api.put("/api/cv/source", { latex_source, name }),
+  compileCV: (latex_source: string, save?: boolean, name?: string) =>
+    api.post("/api/cv/compile", { latex_source, save, name }),
+  createCV: (latex_source: string, name?: string) =>
+    api.post("/api/cv", { latex_source, name }),
+  updateCV: (id: string, data: { name?: string; latex_source?: string; is_active?: boolean }) =>
+    api.put(`/api/cv/${id}`, data),
+  deleteCV: (id: string) => api.delete(`/api/cv/${id}`),
+  activateCV: (id: string) => api.post(`/api/cv/${id}/activate`),
+  getTemplates: () => api.get("/api/cv/templates"),
+  getTemplate: (id: string) => api.get(`/api/cv/templates/${id}`),
+};
+
 export default api;

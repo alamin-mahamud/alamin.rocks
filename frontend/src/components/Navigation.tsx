@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect, useMemo } from "react"
-import { Menu, X, Terminal, Code2 } from "lucide-react"
+import { Menu, X, Terminal, Code2, FileText } from "lucide-react"
 import LanguageSelector from "@/components/LanguageSelector"
 import { useLanguage } from "@/contexts/LanguageContext"
 
@@ -17,7 +17,7 @@ const Navigation = () => {
     { name: t("nav.about"), href: "#about", id: "about" },
     { name: t("nav.experience"), href: "#experience", id: "experience" },
     { name: t("nav.projects"), href: "#projects", id: "projects" },
-    { name: t("nav.goals"), href: "#goals-mission", id: "goals-mission" },
+    { name: "CV", href: "/cv", id: "cv" },
     { name: t("nav.podcast"), href: "/podcast", id: "podcast" },
     { name: t("nav.contact"), href: "#contact", id: "contact" },
   ], [t])

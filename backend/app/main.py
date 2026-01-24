@@ -1,4 +1,5 @@
 import logging.config
+from pathlib import Path
 
 from app.api import (
     about,
@@ -8,6 +9,8 @@ from app.api import (
     auth,
     contact,
     contact_info,
+    content,
+    cv,
     hero,
     portfolio,
     projects,
@@ -21,6 +24,7 @@ from app.core.logging import setup_logging
 from app.core.middleware import ErrorHandlingMiddleware, LoggingMiddleware
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 # Set up logging
 setup_logging()
@@ -108,6 +112,17 @@ app.include_router(
 app.include_router(
     assets.router, tags=["assets"]
 )
+app.include_router(
+    cv.router, prefix="/api/cv", tags=["cv"]
+)
+app.include_router(
+    content.router, prefix="/api/content", tags=["content"]
+)
+
+# Mount static files for CV PDFs
+static_path = Path(__file__).parent.parent / "static"
+if static_path.exists():
+    app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
 
 # Startup event
