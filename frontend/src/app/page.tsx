@@ -101,58 +101,85 @@ const DotGrid = ({ className = "" }: { className?: string }) => (
   />
 )
 
-// Multilingual content
+// Multilingual content - English terms kept in English, headings uppercase
 const translations = {
   en: {
-    name: "Alamin Mahamud",
-    tagline: "Platform & SRE Architect",
-    years: "10+ Years",
+    firstName: "AL AMIN",
+    lastName: "MAHAMUD",
+    tagline: "PLATFORM & SRE ARCHITECT",
+    years: "10+ YEARS",
     heroDesc: "Building mission-critical infrastructure.",
-    uptime: "99.99% uptime",
+    uptime: "99.99% UPTIME",
     mau: "2M+ MAU",
     infrastructure: "$60M+",
-    getInTouch: "Get in Touch",
-    viewCV: "View CV",
-    about: "About",
-    experience: "Experience",
-    skills: "Skills",
-    education: "Education",
-    contact: "Contact",
-    recommendations: "Recommendations"
+    getInTouch: "GET IN TOUCH",
+    viewCV: "VIEW CV",
+    about: "ABOUT",
+    experience: "EXPERIENCE",
+    skills: "SKILLS",
+    education: "EDUCATION",
+    contact: "CONTACT",
+    recommendations: "RECOMMENDATIONS",
+    strategicLeader: "STRATEGIC LEADER.",
+    globalImpact: "GLOBAL IMPACT.",
+    careerHighlights: "CAREER HIGHLIGHTS.",
+    technicalExpertise: "TECHNICAL EXPERTISE.",
+    academicBackground: "ACADEMIC BACKGROUND.",
+    colleaguesSay: "WHAT COLLEAGUES SAY.",
+    letsConnect: "LET'S CONNECT.",
+    recognition: "RECOGNITION."
   },
   bn: {
-    name: "আলামিন মাহমুদ",
-    tagline: "প্ল্যাটফর্ম ও এসআরই আর্কিটেক্ট",
-    years: "১০+ বছর",
-    heroDesc: "মিশন-ক্রিটিক্যাল অবকাঠামো নির্মাণ।",
-    uptime: "৯৯.৯৯% আপটাইম",
-    mau: "২০ লক্ষ+ মাসিক ব্যবহারকারী",
-    infrastructure: "$৬০ মিলিয়ন+",
+    firstName: "আল আমিন",
+    lastName: "মাহমুদ",
+    tagline: "PLATFORM & SRE ARCHITECT",
+    years: "10+ বছর",
+    heroDesc: "Mission-critical infrastructure নির্মাণ।",
+    uptime: "99.99% UPTIME",
+    mau: "2M+ MAU",
+    infrastructure: "$60M+",
     getInTouch: "যোগাযোগ করুন",
-    viewCV: "সিভি দেখুন",
+    viewCV: "CV দেখুন",
     about: "সম্পর্কে",
     experience: "অভিজ্ঞতা",
     skills: "দক্ষতা",
     education: "শিক্ষা",
     contact: "যোগাযোগ",
-    recommendations: "সুপারিশ"
+    recommendations: "সুপারিশ",
+    strategicLeader: "STRATEGIC LEADER।",
+    globalImpact: "GLOBAL IMPACT।",
+    careerHighlights: "CAREER HIGHLIGHTS।",
+    technicalExpertise: "TECHNICAL EXPERTISE।",
+    academicBackground: "ACADEMIC BACKGROUND।",
+    colleaguesSay: "সহকর্মীদের মতামত।",
+    letsConnect: "যোগাযোগ করুন।",
+    recognition: "স্বীকৃতি।"
   },
   ar: {
-    name: "ألمين محمود",
-    tagline: "مهندس منصات وموثوقية",
-    years: "+١٠ سنوات",
-    heroDesc: "بناء بنية تحتية حيوية.",
-    uptime: "٩٩.٩٩٪ وقت التشغيل",
-    mau: "+٢ مليون مستخدم شهرياً",
-    infrastructure: "+٦٠ مليون$",
+    firstName: "AL AMIN",
+    lastName: "MAHAMUD",
+    tagline: "PLATFORM & SRE ARCHITECT",
+    years: "10+ سنوات",
+    heroDesc: "بناء Mission-critical infrastructure.",
+    uptime: "99.99% UPTIME",
+    mau: "2M+ MAU",
+    infrastructure: "$60M+",
     getInTouch: "تواصل معي",
-    viewCV: "عرض السيرة الذاتية",
-    about: "نبذة عني",
+    viewCV: "عرض CV",
+    about: "نبذة",
     experience: "الخبرات",
     skills: "المهارات",
     education: "التعليم",
-    contact: "اتصل بي",
-    recommendations: "التوصيات"
+    contact: "اتصل",
+    recommendations: "التوصيات",
+    strategicLeader: "STRATEGIC LEADER.",
+    globalImpact: "GLOBAL IMPACT.",
+    careerHighlights: "CAREER HIGHLIGHTS.",
+    technicalExpertise: "TECHNICAL EXPERTISE.",
+    academicBackground: "ACADEMIC BACKGROUND.",
+    colleaguesSay: "ماذا يقول الزملاء.",
+    letsConnect: "لنتواصل.",
+    recognition: "التقدير."
   }
 }
 
@@ -565,8 +592,8 @@ export default function Home() {
               </p>
 
               <h1 className="magazine-display mb-6 sm:mb-8">
-                {lang === 'en' ? 'Alamin' : lang === 'bn' ? 'আলামিন' : 'ألمين'}<br />
-                <span className="gradient-text">{lang === 'en' ? 'Mahamud' : lang === 'bn' ? 'মাহমুদ' : 'محمود'}</span>
+                <span className="ltr-text">{t.firstName}</span><br />
+                <span className="gradient-text ltr-text">{t.lastName}</span>
               </h1>
 
               <p className="text-lg sm:text-xl lg:text-2xl max-w-3xl mb-10 sm:mb-14 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
@@ -620,8 +647,8 @@ export default function Home() {
               <div>
                 <p className="section-label mb-4 sm:mb-6">{t.about}</p>
                 <h2 className="magazine-headline mb-6 sm:mb-8">
-                  {lang === 'en' ? 'Strategic leader.' : lang === 'bn' ? 'কৌশলগত নেতৃত্ব।' : 'قائد استراتيجي.'}<br />
-                  <span className="highlight">{lang === 'en' ? 'Global impact.' : lang === 'bn' ? 'বৈশ্বিক প্রভাব।' : 'تأثير عالمي.'}</span>
+                  <span className="ltr-text">{t.strategicLeader}</span><br />
+                  <span className="highlight ltr-text">{t.globalImpact}</span>
                 </h2>
               </div>
               <div className="space-y-6 sm:space-y-8">
@@ -657,7 +684,7 @@ export default function Home() {
             <div className="max-w-5xl mx-auto">
               <p className="section-label mb-4 sm:mb-6">{t.experience}</p>
               <h2 className="magazine-headline mb-12 sm:mb-16">
-                {lang === 'en' ? 'Career' : lang === 'bn' ? 'ক্যারিয়ার' : 'المسيرة'} <span className="highlight">{lang === 'en' ? 'highlights' : lang === 'bn' ? 'হাইলাইটস' : 'المهنية'}</span>.
+                <span className="ltr-text">{t.careerHighlights}</span>
               </h2>
 
               <div className="space-y-10 sm:space-y-14">
@@ -701,7 +728,7 @@ export default function Home() {
             <div className="text-center mb-12 sm:mb-16">
               <p className="section-label mb-4 sm:mb-6">{t.skills}</p>
               <h2 className="magazine-headline">
-                {lang === 'en' ? 'Technical' : lang === 'bn' ? 'প্রযুক্তিগত' : 'الخبرة'} <span className="highlight">{lang === 'en' ? 'expertise' : lang === 'bn' ? 'দক্ষতা' : 'التقنية'}</span>.
+                <span className="ltr-text">{t.technicalExpertise}</span>
               </h2>
             </div>
 
@@ -735,7 +762,7 @@ export default function Home() {
                 <div>
                   <p className="section-label mb-4 sm:mb-6">{t.education}</p>
                   <h2 className="magazine-title mb-8 sm:mb-12">
-                    {lang === 'en' ? 'Academic' : lang === 'bn' ? 'একাডেমিক' : 'الخلفية'} <span className="highlight">{lang === 'en' ? 'background' : lang === 'bn' ? 'পটভূমি' : 'الأكاديمية'}</span>.
+                    <span className="ltr-text">{t.academicBackground}</span>
                   </h2>
 
                   {education.map((edu) => (
@@ -761,9 +788,9 @@ export default function Home() {
 
                 {/* Awards */}
                 <div>
-                  <p className="section-label mb-4 sm:mb-6">Awards</p>
+                  <p className="section-label mb-4 sm:mb-6">AWARDS</p>
                   <h2 className="magazine-title mb-8 sm:mb-12">
-                    <span className="highlight">Recognition</span>.
+                    <span className="ltr-text">{t.recognition}</span>
                   </h2>
 
                   <div className="space-y-6">
@@ -797,7 +824,7 @@ export default function Home() {
               <div className="text-center mb-12 sm:mb-16">
                 <p className="section-label mb-4 sm:mb-6">{t.recommendations}</p>
                 <h2 className="magazine-headline">
-                  {lang === 'en' ? 'What' : lang === 'bn' ? 'সহকর্মীদের' : 'ماذا يقول'} <span className="highlight">{lang === 'en' ? 'colleagues say' : lang === 'bn' ? 'মতামত' : 'الزملاء'}</span>.
+                  <span className="ltr-text">{t.colleaguesSay}</span>
                 </h2>
               </div>
 
@@ -833,7 +860,7 @@ export default function Home() {
             <div className="max-w-4xl mx-auto text-center">
               <p className="section-label mb-4 sm:mb-6">{t.contact}</p>
               <h2 className="magazine-display mb-8 sm:mb-12">
-                {lang === 'en' ? "Let's" : lang === 'bn' ? 'চলুন' : 'لنتواصل'} <span className="highlight">{lang === 'en' ? 'connect' : lang === 'bn' ? 'যোগাযোগ করি' : 'معاً'}</span>.
+                <span className="ltr-text">{t.letsConnect}</span>
               </h2>
               <p className="text-lg sm:text-xl lg:text-2xl mb-12 sm:mb-16 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
                 Have a project in mind or want to discuss opportunities?<br />

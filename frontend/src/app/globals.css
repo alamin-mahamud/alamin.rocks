@@ -196,34 +196,47 @@ body {
 
 /* Display - Hero name, main CTAs */
 .magazine-display {
-  font-size: clamp(3.5rem, 15vw, 12rem);
+  font-size: clamp(4rem, 18vw, 14rem);
   font-weight: 900;
-  line-height: 0.85;
+  line-height: 1.05;
   letter-spacing: -0.04em;
 }
 
 /* Headline - Section headers */
 .magazine-headline {
-  font-size: clamp(2rem, 8vw, 5rem);
+  font-size: clamp(2.5rem, 10vw, 6rem);
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 1.15;
   letter-spacing: -0.03em;
 }
 
 /* Title - Subsection headers */
 .magazine-title {
-  font-size: clamp(1.5rem, 5vw, 3rem);
+  font-size: clamp(1.75rem, 6vw, 3.5rem);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 /* Metric - Big numbers */
 .magazine-metric {
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(3rem, 10vw, 6rem);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: -0.03em;
+}
+
+/* Body text improvements */
+.slide p {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.7;
+}
+
+/* LTR text within RTL context */
+.ltr-text {
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
 }
 
 /* ===========================================
