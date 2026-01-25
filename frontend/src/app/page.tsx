@@ -156,16 +156,16 @@ const translations = {
     recognition: "স্বীকৃতি।"
   },
   ar: {
-    firstName: "AL AMIN",
-    lastName: "MAHAMUD",
+    firstName: "الأمين",
+    lastName: "محمود",
     tagline: "PLATFORM & SRE ARCHITECT",
-    years: "10+ سنوات",
-    heroDesc: "بناء Mission-critical infrastructure.",
+    years: "+10 سنوات",
+    heroDesc: "بناء البنية التحتية الحيوية.",
     uptime: "99.99% UPTIME",
     mau: "2M+ MAU",
     infrastructure: "$60M+",
     getInTouch: "تواصل معي",
-    viewCV: "عرض CV",
+    viewCV: "عرض السيرة",
     about: "نبذة",
     experience: "الخبرات",
     skills: "المهارات",
@@ -177,7 +177,7 @@ const translations = {
     careerHighlights: "CAREER HIGHLIGHTS.",
     technicalExpertise: "TECHNICAL EXPERTISE.",
     academicBackground: "ACADEMIC BACKGROUND.",
-    colleaguesSay: "ماذا يقول الزملاء.",
+    colleaguesSay: "آراء الزملاء.",
     letsConnect: "لنتواصل.",
     recognition: "التقدير."
   }
@@ -526,8 +526,10 @@ export default function Home() {
     sectionElements[index]?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  // For Arabic: Keep layout LTR but text content RTL for better UX
+  // This is a common pattern for multilingual sites
   return (
-    <div dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={isRTL ? 'arabic-mode' : ''}>
       {/* Navigation */}
       <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
         <div className="container flex items-center justify-between">
@@ -591,9 +593,9 @@ export default function Home() {
                 <span className="highlight">{t.tagline}</span> — <span className="highlight">{t.years}</span>
               </p>
 
-              <h1 className="magazine-display mb-6 sm:mb-8">
-                <span className="ltr-text">{t.firstName}</span><br />
-                <span className="gradient-text ltr-text">{t.lastName}</span>
+              <h1 className="magazine-display mb-6 sm:mb-8" dir="auto">
+                {t.firstName}<br />
+                <span className="gradient-text">{t.lastName}</span>
               </h1>
 
               <p className="text-lg sm:text-xl lg:text-2xl max-w-3xl mb-10 sm:mb-14 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
@@ -647,8 +649,8 @@ export default function Home() {
               <div>
                 <p className="section-label mb-4 sm:mb-6">{t.about}</p>
                 <h2 className="magazine-headline mb-6 sm:mb-8">
-                  <span className="ltr-text">{t.strategicLeader}</span><br />
-                  <span className="highlight ltr-text">{t.globalImpact}</span>
+                  <span className="bidi-isolate">{t.strategicLeader}</span><br />
+                  <span className="highlight bidi-isolate">{t.globalImpact}</span>
                 </h2>
               </div>
               <div className="space-y-6 sm:space-y-8">
@@ -684,7 +686,7 @@ export default function Home() {
             <div className="max-w-5xl mx-auto">
               <p className="section-label mb-4 sm:mb-6">{t.experience}</p>
               <h2 className="magazine-headline mb-12 sm:mb-16">
-                <span className="ltr-text">{t.careerHighlights}</span>
+                <span className="bidi-isolate">{t.careerHighlights}</span>
               </h2>
 
               <div className="space-y-10 sm:space-y-14">
@@ -728,7 +730,7 @@ export default function Home() {
             <div className="text-center mb-12 sm:mb-16">
               <p className="section-label mb-4 sm:mb-6">{t.skills}</p>
               <h2 className="magazine-headline">
-                <span className="ltr-text">{t.technicalExpertise}</span>
+                <span className="bidi-isolate">{t.technicalExpertise}</span>
               </h2>
             </div>
 
@@ -762,7 +764,7 @@ export default function Home() {
                 <div>
                   <p className="section-label mb-4 sm:mb-6">{t.education}</p>
                   <h2 className="magazine-title mb-8 sm:mb-12">
-                    <span className="ltr-text">{t.academicBackground}</span>
+                    <span className="bidi-isolate">{t.academicBackground}</span>
                   </h2>
 
                   {education.map((edu) => (
@@ -790,7 +792,7 @@ export default function Home() {
                 <div>
                   <p className="section-label mb-4 sm:mb-6">AWARDS</p>
                   <h2 className="magazine-title mb-8 sm:mb-12">
-                    <span className="ltr-text">{t.recognition}</span>
+                    {t.recognition}
                   </h2>
 
                   <div className="space-y-6">
@@ -824,7 +826,7 @@ export default function Home() {
               <div className="text-center mb-12 sm:mb-16">
                 <p className="section-label mb-4 sm:mb-6">{t.recommendations}</p>
                 <h2 className="magazine-headline">
-                  <span className="ltr-text">{t.colleaguesSay}</span>
+                  {t.colleaguesSay}
                 </h2>
               </div>
 
@@ -860,7 +862,7 @@ export default function Home() {
             <div className="max-w-4xl mx-auto text-center">
               <p className="section-label mb-4 sm:mb-6">{t.contact}</p>
               <h2 className="magazine-display mb-8 sm:mb-12">
-                <span className="ltr-text">{t.letsConnect}</span>
+                {t.letsConnect}
               </h2>
               <p className="text-lg sm:text-xl lg:text-2xl mb-12 sm:mb-16 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
                 Have a project in mind or want to discuss opportunities?<br />

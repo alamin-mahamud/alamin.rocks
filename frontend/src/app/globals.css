@@ -196,7 +196,7 @@ body {
 
 /* Display - Hero name, main CTAs */
 .magazine-display {
-  font-size: clamp(4rem, 18vw, 14rem);
+  font-size: clamp(3.5rem, 15vw, 12rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -204,7 +204,7 @@ body {
 
 /* Headline - Section headers */
 .magazine-headline {
-  font-size: clamp(2.5rem, 10vw, 6rem);
+  font-size: clamp(2rem, 8vw, 5rem);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -212,7 +212,7 @@ body {
 
 /* Title - Subsection headers */
 .magazine-title {
-  font-size: clamp(1.75rem, 6vw, 3.5rem);
+  font-size: clamp(1.5rem, 5vw, 3rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -220,23 +220,89 @@ body {
 
 /* Metric - Big numbers */
 .magazine-metric {
-  font-size: clamp(3rem, 10vw, 6rem);
+  font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.03em;
 }
 
-/* Body text improvements */
-.slide p {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  line-height: 1.7;
+/* ===========================================
+   BIDIRECTIONAL TEXT SUPPORT (Arabic)
+=========================================== */
+
+/* Isolate English text in RTL context - prevents reordering */
+.bidi-isolate {
+  unicode-bidi: isolate;
 }
 
-/* LTR text within RTL context */
-.ltr-text {
+/* Force LTR for English content blocks */
+.ltr-block {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Inline English text that should stay LTR */
+.ltr-inline {
   direction: ltr;
   unicode-bidi: embed;
+  display: inline;
+}
+
+/* For mixed content - auto-detect direction */
+.bidi-auto {
+  unicode-bidi: plaintext;
+}
+
+/* Arabic mode - selective RTL for text, LTR for layout */
+.arabic-mode {
+  /* Keep layout LTR but enable RTL for text */
+}
+
+.arabic-mode .magazine-display,
+.arabic-mode .magazine-headline,
+.arabic-mode .magazine-title {
+  /* Arabic text naturally flows RTL */
+  direction: rtl;
+  text-align: right;
+}
+
+.arabic-mode .section-label {
+  direction: rtl;
+  text-align: right;
+}
+
+/* English technical content stays LTR */
+.arabic-mode .skill-tag,
+.arabic-mode .nav-link,
+.arabic-mode .btn {
+  direction: ltr;
+}
+
+/* Timeline and cards for Arabic */
+.arabic-mode .timeline-item {
+  text-align: right;
+  direction: rtl;
+}
+
+.arabic-mode .timeline-item h3,
+.arabic-mode .timeline-item .highlight {
+  direction: ltr;
   display: inline-block;
+}
+
+.arabic-mode .card {
+  text-align: right;
+  direction: rtl;
+}
+
+.arabic-mode .recommendation-card p {
+  direction: rtl;
+}
+
+/* Keep numbers and technical terms LTR */
+.arabic-mode .highlight {
+  direction: ltr;
+  unicode-bidi: embed;
 }
 
 /* ===========================================
