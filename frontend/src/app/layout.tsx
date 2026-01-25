@@ -4,11 +4,8 @@ import { Suspense } from "react"
 import { ThemeProvider } from "@/contexts/ThemeContext"
 import { AccessibilityProvider } from "@/contexts/AccessibilityContext"
 import { LanguageProvider } from "@/contexts/LanguageContext"
-import FloatingThemeToggle from "@/components/FloatingThemeToggle"
 import ThemeTransition from "@/components/ThemeTransition"
-import AccessibilityPanel from "@/components/AccessibilityPanel"
 import SkipNavigation from "@/components/SkipNavigation"
-import AccessibilityTester from "@/components/AccessibilityTester"
 import LanguageWrapper from "@/components/LanguageWrapper"
 
 export const metadata: Metadata = {
@@ -96,9 +93,6 @@ export default function RootLayout({
                 <Suspense fallback={<HeroSkeleton />}>
                   {children}
                 </Suspense>
-                <FloatingThemeToggle />
-                <AccessibilityPanel />
-                <AccessibilityTester />
                 <ThemeTransition />
                 <PerformanceMonitor />
               </LanguageWrapper>

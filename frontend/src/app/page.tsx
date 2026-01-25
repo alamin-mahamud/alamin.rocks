@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Github, Linkedin, Mail, ArrowRight, ExternalLink, MapPin, Briefcase, GraduationCap, Trophy, Server, Shield, Award, Quote, ChevronLeft, ChevronRight, Sun, Moon } from "lucide-react"
+import { Github, Linkedin, Mail, ArrowRight, ExternalLink, MapPin, Briefcase, GraduationCap, Trophy, Server, Shield, Award, Quote, ChevronLeft, ChevronRight, Sun, Moon, Globe } from "lucide-react"
 import Link from "next/link"
 
 // Geometric SVG components
@@ -18,6 +18,77 @@ const GeometricTriangle = ({ className = "" }: { className?: string }) => (
   </svg>
 )
 
+// Connecting Dots Graph - Network visualization
+const ConnectingDotsGraph = ({ className = "" }: { className?: string }) => (
+  <svg className={`absolute pointer-events-none ${className}`} viewBox="0 0 300 300" fill="none" aria-hidden="true">
+    {/* Nodes */}
+    <circle cx="50" cy="50" r="6" fill="currentColor" opacity="0.15" />
+    <circle cx="150" cy="30" r="8" fill="currentColor" opacity="0.12" />
+    <circle cx="250" cy="60" r="5" fill="currentColor" opacity="0.18" />
+    <circle cx="80" cy="150" r="7" fill="currentColor" opacity="0.14" />
+    <circle cx="200" cy="130" r="9" fill="currentColor" opacity="0.1" />
+    <circle cx="270" cy="180" r="6" fill="currentColor" opacity="0.16" />
+    <circle cx="30" cy="220" r="5" fill="currentColor" opacity="0.12" />
+    <circle cx="120" cy="250" r="8" fill="currentColor" opacity="0.15" />
+    <circle cx="220" cy="270" r="6" fill="currentColor" opacity="0.13" />
+    <circle cx="150" cy="150" r="10" fill="currentColor" opacity="0.08" />
+
+    {/* Connecting Lines */}
+    <line x1="50" y1="50" x2="150" y2="30" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="150" y1="30" x2="250" y2="60" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="50" y1="50" x2="80" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="150" y1="30" x2="200" y2="130" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="250" y1="60" x2="270" y2="180" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="80" y1="150" x2="150" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="150" y1="150" x2="200" y2="130" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="200" y1="130" x2="270" y2="180" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="30" y1="220" x2="80" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="30" y1="220" x2="120" y2="250" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="120" y1="250" x2="150" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="120" y1="250" x2="220" y2="270" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="220" y1="270" x2="270" y2="180" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+  </svg>
+)
+
+// 3D Cube
+const Cube3D = ({ className = "" }: { className?: string }) => (
+  <svg className={`absolute pointer-events-none ${className}`} viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    {/* Back face */}
+    <polygon points="60,40 140,40 140,120 60,120" stroke="currentColor" strokeWidth="1" opacity="0.06" fill="none" />
+    {/* Front face */}
+    <polygon points="40,60 120,60 120,140 40,140" stroke="currentColor" strokeWidth="1" opacity="0.1" fill="none" />
+    {/* Connecting edges */}
+    <line x1="40" y1="60" x2="60" y2="40" stroke="currentColor" strokeWidth="1" opacity="0.08" />
+    <line x1="120" y1="60" x2="140" y2="40" stroke="currentColor" strokeWidth="1" opacity="0.08" />
+    <line x1="120" y1="140" x2="140" y2="120" stroke="currentColor" strokeWidth="1" opacity="0.08" />
+    <line x1="40" y1="140" x2="60" y2="120" stroke="currentColor" strokeWidth="1" opacity="0.08" />
+  </svg>
+)
+
+// 3D Pyramid
+const Pyramid3D = ({ className = "" }: { className?: string }) => (
+  <svg className={`absolute pointer-events-none ${className}`} viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    {/* Base */}
+    <polygon points="30,150 100,180 170,150 100,120" stroke="currentColor" strokeWidth="1" opacity="0.08" fill="none" />
+    {/* Apex lines */}
+    <line x1="100" y1="40" x2="30" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.1" />
+    <line x1="100" y1="40" x2="100" y2="180" stroke="currentColor" strokeWidth="1" opacity="0.06" />
+    <line x1="100" y1="40" x2="170" y2="150" stroke="currentColor" strokeWidth="1" opacity="0.1" />
+    <line x1="100" y1="40" x2="100" y2="120" stroke="currentColor" strokeWidth="1" opacity="0.08" />
+  </svg>
+)
+
+// 3D Sphere (wireframe)
+const Sphere3D = ({ className = "" }: { className?: string }) => (
+  <svg className={`absolute pointer-events-none ${className}`} viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <circle cx="100" cy="100" r="60" stroke="currentColor" strokeWidth="1" opacity="0.1" fill="none" />
+    <ellipse cx="100" cy="100" rx="60" ry="20" stroke="currentColor" strokeWidth="1" opacity="0.08" fill="none" />
+    <ellipse cx="100" cy="100" rx="20" ry="60" stroke="currentColor" strokeWidth="1" opacity="0.08" fill="none" />
+    <ellipse cx="100" cy="100" rx="45" ry="60" stroke="currentColor" strokeWidth="1" opacity="0.06" fill="none" transform="rotate(30 100 100)" />
+    <ellipse cx="100" cy="100" rx="45" ry="60" stroke="currentColor" strokeWidth="1" opacity="0.06" fill="none" transform="rotate(-30 100 100)" />
+  </svg>
+)
+
 const DotGrid = ({ className = "" }: { className?: string }) => (
   <div
     className={`absolute inset-0 ${className}`}
@@ -29,6 +100,63 @@ const DotGrid = ({ className = "" }: { className?: string }) => (
     aria-hidden="true"
   />
 )
+
+// Multilingual content
+const translations = {
+  en: {
+    name: "Alamin Mahamud",
+    tagline: "Platform & SRE Architect",
+    years: "10+ Years",
+    heroDesc: "Building mission-critical infrastructure.",
+    uptime: "99.99% uptime",
+    mau: "2M+ MAU",
+    infrastructure: "$60M+",
+    getInTouch: "Get in Touch",
+    viewCV: "View CV",
+    about: "About",
+    experience: "Experience",
+    skills: "Skills",
+    education: "Education",
+    contact: "Contact",
+    recommendations: "Recommendations"
+  },
+  bn: {
+    name: "আলামিন মাহমুদ",
+    tagline: "প্ল্যাটফর্ম ও এসআরই আর্কিটেক্ট",
+    years: "১০+ বছর",
+    heroDesc: "মিশন-ক্রিটিক্যাল অবকাঠামো নির্মাণ।",
+    uptime: "৯৯.৯৯% আপটাইম",
+    mau: "২০ লক্ষ+ মাসিক ব্যবহারকারী",
+    infrastructure: "$৬০ মিলিয়ন+",
+    getInTouch: "যোগাযোগ করুন",
+    viewCV: "সিভি দেখুন",
+    about: "সম্পর্কে",
+    experience: "অভিজ্ঞতা",
+    skills: "দক্ষতা",
+    education: "শিক্ষা",
+    contact: "যোগাযোগ",
+    recommendations: "সুপারিশ"
+  },
+  ar: {
+    name: "ألمين محمود",
+    tagline: "مهندس منصات وموثوقية",
+    years: "+١٠ سنوات",
+    heroDesc: "بناء بنية تحتية حيوية.",
+    uptime: "٩٩.٩٩٪ وقت التشغيل",
+    mau: "+٢ مليون مستخدم شهرياً",
+    infrastructure: "+٦٠ مليون$",
+    getInTouch: "تواصل معي",
+    viewCV: "عرض السيرة الذاتية",
+    about: "نبذة عني",
+    experience: "الخبرات",
+    skills: "المهارات",
+    education: "التعليم",
+    contact: "اتصل بي",
+    recommendations: "التوصيات"
+  }
+}
+
+type Language = 'en' | 'bn' | 'ar'
 
 // Pagination component
 const Pagination = ({ current, total, onPageChange }: { current: number; total: number; onPageChange: (page: number) => void }) => (
@@ -285,12 +413,53 @@ const ThemeToggle = () => {
   )
 }
 
+// Language Switcher Component
+const LanguageSwitcher = ({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) => {
+  const [open, setOpen] = useState(false)
+  const languages: { code: Language; label: string; native: string }[] = [
+    { code: 'en', label: 'English', native: 'EN' },
+    { code: 'bn', label: 'বাংলা', native: 'বাং' },
+    { code: 'ar', label: 'العربية', native: 'عر' }
+  ]
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="p-2 hover:opacity-70 transition-opacity flex items-center gap-1"
+        aria-label="Change language"
+      >
+        <Globe size={18} />
+        <span className="text-sm font-medium">{languages.find(l => l.code === lang)?.native}</span>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-2 bg-[hsl(var(--card))] border border-[hsl(var(--border))] shadow-lg z-50 min-w-[120px]">
+          {languages.map((l) => (
+            <button
+              key={l.code}
+              onClick={() => { setLang(l.code); setOpen(false); }}
+              className={`w-full px-4 py-2 text-left text-sm hover:bg-[hsl(var(--muted))] transition-colors ${lang === l.code ? 'font-bold' : ''}`}
+              dir={l.code === 'ar' ? 'rtl' : 'ltr'}
+            >
+              {l.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0)
   const [scrolled, setScrolled] = useState(false)
   const [expPage, setExpPage] = useState(0)
   const [recPage, setRecPage] = useState(0)
   const [skillPage, setSkillPage] = useState(0)
+  const [lang, setLang] = useState<Language>('en')
+
+  const t = translations[lang]
+  const isRTL = lang === 'ar'
 
   const expPerPage = 3
   const recPerPage = 2
@@ -331,7 +500,7 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Navigation */}
       <nav className={`nav ${scrolled ? 'nav-scrolled' : ''}`}>
         <div className="container flex items-center justify-between">
@@ -339,17 +508,25 @@ export default function Home() {
             AM<span className="text-[hsl(var(--muted-foreground))]">.</span>
           </Link>
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {['About', 'Experience', 'Skills', 'Education', 'CV', 'Contact'].map((item) => (
+            {[
+              { key: 'about', label: t.about },
+              { key: 'experience', label: t.experience },
+              { key: 'skills', label: t.skills },
+              { key: 'education', label: t.education },
+              { key: 'cv', label: 'CV' },
+              { key: 'contact', label: t.contact }
+            ].map((item) => (
               <Link
-                key={item}
-                href={item === 'CV' ? '/cv' : `#${item.toLowerCase()}`}
+                key={item.key}
+                href={item.key === 'cv' ? '/cv' : `#${item.key}`}
                 className="nav-link"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <LanguageSwitcher lang={lang} setLang={setLang} />
             <ThemeToggle />
             <a href="https://github.com/alamin-mahamud" target="_blank" rel="noopener noreferrer" className="p-2 hover:opacity-70" aria-label="GitHub">
               <Github size={20} />
@@ -377,31 +554,32 @@ export default function Home() {
         {/* Hero Section */}
         <section id="hero" className="slide">
           <DotGrid />
-          <GeometricCircle className="w-64 sm:w-96 lg:w-[500px] h-64 sm:h-96 lg:h-[500px] top-10 right-0 sm:right-10 text-gray-400" />
-          <GeometricTriangle className="w-48 sm:w-64 lg:w-80 h-48 sm:h-64 lg:h-80 bottom-10 left-0 sm:left-10 text-gray-400" />
+          <ConnectingDotsGraph className="w-72 sm:w-96 lg:w-[500px] h-72 sm:h-96 lg:h-[500px] top-10 right-0 sm:right-10 text-gray-400" />
+          <Cube3D className="w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bottom-20 left-0 sm:left-10 text-gray-400" />
+          <Sphere3D className="w-40 sm:w-56 lg:w-72 h-40 sm:h-56 lg:h-72 top-1/3 left-1/4 text-gray-400 hidden lg:block" />
 
           <div className="container relative z-10">
             <div className="max-w-5xl">
               <p className="text-sm sm:text-base lg:text-lg uppercase tracking-[0.2em] mb-6 sm:mb-8" style={{ color: 'hsl(var(--muted-foreground))' }}>
-                <span className="highlight">Platform & SRE Architect</span> — <span className="highlight">10+ Years</span>
+                <span className="highlight">{t.tagline}</span> — <span className="highlight">{t.years}</span>
               </p>
 
               <h1 className="magazine-display mb-6 sm:mb-8">
-                Alamin<br />
-                <span className="gradient-text">Mahamud</span>
+                {lang === 'en' ? 'Alamin' : lang === 'bn' ? 'আলামিন' : 'ألمين'}<br />
+                <span className="gradient-text">{lang === 'en' ? 'Mahamud' : lang === 'bn' ? 'মাহমুদ' : 'محمود'}</span>
               </h1>
 
               <p className="text-lg sm:text-xl lg:text-2xl max-w-3xl mb-10 sm:mb-14 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
-                Building mission-critical infrastructure. <span className="highlight">99.99% uptime</span> for <span className="highlight">2M+ MAU</span>. Managing <span className="highlight">$60M+</span> infrastructure.
+                {t.heroDesc} <span className="highlight">{t.uptime}</span> {lang === 'en' ? 'for' : ''} <span className="highlight">{t.mau}</span>. {lang === 'en' ? 'Managing' : ''} <span className="highlight">{t.infrastructure}</span> {lang === 'en' ? 'infrastructure' : ''}.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className={`flex flex-col sm:flex-row gap-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                 <Link href="#contact" className="btn btn-primary text-base sm:text-lg">
-                  Get in Touch
-                  <ArrowRight size={20} />
+                  {t.getInTouch}
+                  <ArrowRight size={20} className={isRTL ? 'rotate-180' : ''} />
                 </Link>
                 <Link href="/cv" className="btn btn-secondary text-base sm:text-lg">
-                  View CV
+                  {t.viewCV}
                 </Link>
               </div>
             </div>
@@ -435,13 +613,15 @@ export default function Home() {
         {/* About Section */}
         <section id="about" className="slide">
           <DotGrid className="opacity-[0.02]" />
+          <Pyramid3D className="w-48 sm:w-64 h-48 sm:h-64 top-20 right-10 text-gray-400 hidden md:block" />
+          <ConnectingDotsGraph className="w-64 sm:w-80 h-64 sm:h-80 bottom-10 left-0 text-gray-400 hidden lg:block" />
           <div className="container relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div>
-                <p className="section-label mb-4 sm:mb-6">About</p>
+                <p className="section-label mb-4 sm:mb-6">{t.about}</p>
                 <h2 className="magazine-headline mb-6 sm:mb-8">
-                  Strategic leader.<br />
-                  <span className="highlight">Global impact.</span>
+                  {lang === 'en' ? 'Strategic leader.' : lang === 'bn' ? 'কৌশলগত নেতৃত্ব।' : 'قائد استراتيجي.'}<br />
+                  <span className="highlight">{lang === 'en' ? 'Global impact.' : lang === 'bn' ? 'বৈশ্বিক প্রভাব।' : 'تأثير عالمي.'}</span>
                 </h2>
               </div>
               <div className="space-y-6 sm:space-y-8">
@@ -471,12 +651,13 @@ export default function Home() {
 
         {/* Experience Section - Paginated */}
         <section id="experience" className="slide slide-auto-height">
-          <GeometricTriangle className="w-64 sm:w-96 h-64 sm:h-96 bottom-20 right-0 sm:right-10 text-gray-400" />
+          <Cube3D className="w-48 sm:w-64 h-48 sm:h-64 bottom-20 right-0 sm:right-10 text-gray-400" />
+          <Sphere3D className="w-40 sm:w-56 h-40 sm:h-56 top-40 left-0 text-gray-400 hidden lg:block" />
           <div className="container relative z-10">
             <div className="max-w-5xl mx-auto">
-              <p className="section-label mb-4 sm:mb-6">Experience</p>
+              <p className="section-label mb-4 sm:mb-6">{t.experience}</p>
               <h2 className="magazine-headline mb-12 sm:mb-16">
-                Career <span className="highlight">highlights</span>.
+                {lang === 'en' ? 'Career' : lang === 'bn' ? 'ক্যারিয়ার' : 'المسيرة'} <span className="highlight">{lang === 'en' ? 'highlights' : lang === 'bn' ? 'হাইলাইটস' : 'المهنية'}</span>.
               </h2>
 
               <div className="space-y-10 sm:space-y-14">
@@ -514,12 +695,13 @@ export default function Home() {
 
         {/* Skills Section - Paginated */}
         <section id="skills" className="slide slide-alt slide-auto-height">
-          <GeometricCircle className="w-64 sm:w-96 h-64 sm:h-96 top-1/4 left-0 sm:left-10 text-gray-400" />
+          <ConnectingDotsGraph className="w-72 sm:w-96 h-72 sm:h-96 top-1/4 left-0 sm:left-10 text-gray-400" />
+          <Pyramid3D className="w-48 sm:w-64 h-48 sm:h-64 bottom-20 right-10 text-gray-400 hidden md:block" />
           <div className="container relative z-10">
             <div className="text-center mb-12 sm:mb-16">
-              <p className="section-label mb-4 sm:mb-6">Skills</p>
+              <p className="section-label mb-4 sm:mb-6">{t.skills}</p>
               <h2 className="magazine-headline">
-                Technical <span className="highlight">expertise</span>.
+                {lang === 'en' ? 'Technical' : lang === 'bn' ? 'প্রযুক্তিগত' : 'الخبرة'} <span className="highlight">{lang === 'en' ? 'expertise' : lang === 'bn' ? 'দক্ষতা' : 'التقنية'}</span>.
               </h2>
             </div>
 
@@ -545,14 +727,15 @@ export default function Home() {
         {/* Education & Awards Section */}
         <section id="education" className="slide slide-auto-height">
           <DotGrid className="opacity-[0.02]" />
+          <Sphere3D className="w-48 sm:w-64 h-48 sm:h-64 top-20 right-10 text-gray-400 hidden md:block" />
           <div className="container relative z-10">
             <div className="max-w-5xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
                 {/* Education */}
                 <div>
-                  <p className="section-label mb-4 sm:mb-6">Education</p>
+                  <p className="section-label mb-4 sm:mb-6">{t.education}</p>
                   <h2 className="magazine-title mb-8 sm:mb-12">
-                    Academic <span className="highlight">background</span>.
+                    {lang === 'en' ? 'Academic' : lang === 'bn' ? 'একাডেমিক' : 'الخلفية'} <span className="highlight">{lang === 'en' ? 'background' : lang === 'bn' ? 'পটভূমি' : 'الأكاديمية'}</span>.
                   </h2>
 
                   {education.map((edu) => (
@@ -607,12 +790,14 @@ export default function Home() {
 
         {/* Recommendations Section - Paginated */}
         <section id="recommendations" className="slide slide-alt slide-auto-height">
+          <ConnectingDotsGraph className="w-64 sm:w-80 h-64 sm:h-80 top-20 left-10 text-gray-400 hidden lg:block" />
+          <Cube3D className="w-40 sm:w-56 h-40 sm:h-56 bottom-20 right-10 text-gray-400 hidden md:block" />
           <div className="container relative z-10">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12 sm:mb-16">
-                <p className="section-label mb-4 sm:mb-6">Recommendations</p>
+                <p className="section-label mb-4 sm:mb-6">{t.recommendations}</p>
                 <h2 className="magazine-headline">
-                  What <span className="highlight">colleagues say</span>.
+                  {lang === 'en' ? 'What' : lang === 'bn' ? 'সহকর্মীদের' : 'ماذا يقول'} <span className="highlight">{lang === 'en' ? 'colleagues say' : lang === 'bn' ? 'মতামত' : 'الزملاء'}</span>.
                 </h2>
               </div>
 
@@ -642,13 +827,13 @@ export default function Home() {
 
         {/* Contact Section */}
         <section id="contact" className="slide">
-          <GeometricTriangle className="w-64 sm:w-80 lg:w-96 h-64 sm:h-80 lg:h-96 top-10 left-0 sm:left-10 text-gray-400" />
-          <GeometricCircle className="w-48 sm:w-64 h-48 sm:h-64 bottom-10 right-0 sm:right-10 text-gray-400" />
+          <Pyramid3D className="w-64 sm:w-80 lg:w-96 h-64 sm:h-80 lg:h-96 top-10 left-0 sm:left-10 text-gray-400" />
+          <ConnectingDotsGraph className="w-72 sm:w-96 h-72 sm:h-96 bottom-10 right-0 sm:right-10 text-gray-400" />
           <div className="container relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <p className="section-label mb-4 sm:mb-6">Contact</p>
+              <p className="section-label mb-4 sm:mb-6">{t.contact}</p>
               <h2 className="magazine-display mb-8 sm:mb-12">
-                Let&apos;s <span className="highlight">connect</span>.
+                {lang === 'en' ? "Let's" : lang === 'bn' ? 'চলুন' : 'لنتواصل'} <span className="highlight">{lang === 'en' ? 'connect' : lang === 'bn' ? 'যোগাযোগ করি' : 'معاً'}</span>.
               </h2>
               <p className="text-lg sm:text-xl lg:text-2xl mb-12 sm:mb-16 leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>
                 Have a project in mind or want to discuss opportunities?<br />
@@ -697,6 +882,6 @@ export default function Home() {
           </div>
         </footer>
       </main>
-    </>
+    </div>
   )
 }
