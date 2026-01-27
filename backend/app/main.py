@@ -12,6 +12,8 @@ from app.api import (
     content,
     cv,
     hero,
+    holdings,
+    moe,
     portfolio,
     projects,
     recommendations,
@@ -117,6 +119,12 @@ app.include_router(
 )
 app.include_router(
     content.router, prefix="/api/content", tags=["content"]
+)
+app.include_router(
+    holdings.router, tags=["holdings"]
+)
+app.include_router(
+    moe.router, tags=["moe"]
 )
 
 # Mount static files for CV PDFs

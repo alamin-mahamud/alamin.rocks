@@ -1,8 +1,8 @@
 import logging
 from datetime import datetime, timedelta
-from typing import Dict
+from typing import Dict, Optional
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Header, status
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -136,10 +136,19 @@ async def logout(request: TokenRequest):
         )
 
 @router.get("/me")
-async def get_current_user(token: str):
+async def get_current_user(token: Optional[str] = None, authorization: Optional[str] = Header(None)):
     """
-    Get current user info
+    Get current user info. Accepts token as query param or Bearer token in Authorization header.
     """
+    # Extract token from Authorization header if not provided as query param
+    if not token and authorization:
+        if authorization.startswith("Bearer "):
+            token = authorization[7:]
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token required (query param or Authorization header)"
+        )
     try:
         if token not in active_tokens:
             raise HTTPException(

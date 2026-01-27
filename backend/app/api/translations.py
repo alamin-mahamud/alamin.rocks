@@ -15,25 +15,25 @@ from app.models.translations import (
 
 router = APIRouter(prefix="/translations", tags=["translations"])
 
-@router.get("/languages", response_model=LanguagesResponse)
+@router.get("/languages")
 async def get_languages():
     """Get all available languages"""
     try:
         languages = await translation_service.get_languages()
-        return LanguagesResponse(languages=languages)
+        return {"languages": [lang.model_dump() for lang in languages]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching languages: {str(e)}")
 
-@router.get("/ui/{language_code}", response_model=TranslationsResponse)
+@router.get("/ui/{language_code}")
 async def get_ui_translations(language_code: str = "en"):
     """Get UI translations for a specific language"""
     try:
         translations = await translation_service.get_ui_translations(language_code)
-        return TranslationsResponse(language_code=language_code, translations=translations)
+        return {"language_code": language_code, "translations": translations}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching UI translations: {str(e)}")
 
-@router.get("/hero", response_model=TranslatedHero)
+@router.get("/hero")
 async def get_hero_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -41,14 +41,12 @@ async def get_hero_with_translations(
     try:
         hero = await translation_service.get_hero_with_translations(lang)
         if not hero:
-            raise HTTPException(status_code=404, detail="Hero data not found")
+            return {"message": "Hero data not available", "translations": {}}
         return hero
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching hero data: {str(e)}")
 
-@router.get("/about", response_model=TranslatedAbout)
+@router.get("/about")
 async def get_about_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -56,14 +54,12 @@ async def get_about_with_translations(
     try:
         about = await translation_service.get_about_with_translations(lang)
         if not about:
-            raise HTTPException(status_code=404, detail="About data not found")
+            return {"message": "About data not available", "translations": {}}
         return about
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching about data: {str(e)}")
 
-@router.get("/contact", response_model=TranslatedContactInfo)
+@router.get("/contact")
 async def get_contact_info_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -71,14 +67,12 @@ async def get_contact_info_with_translations(
     try:
         contact = await translation_service.get_contact_info_with_translations(lang)
         if not contact:
-            raise HTTPException(status_code=404, detail="Contact info not found")
+            return {"message": "Contact info not available", "translations": {}}
         return contact
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching contact info: {str(e)}")
 
-@router.get("/projects", response_model=List[TranslatedProject])
+@router.get("/projects")
 async def get_projects_with_translations(
     lang: str = Query("en", description="Language code for translations"),
     featured: bool = Query(False, description="Get only featured projects")
@@ -90,7 +84,7 @@ async def get_projects_with_translations(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching projects: {str(e)}")
 
-@router.get("/tech-skills", response_model=List[TranslatedTechSkill])
+@router.get("/tech-skills")
 async def get_tech_skills_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -101,7 +95,7 @@ async def get_tech_skills_with_translations(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching tech skills: {str(e)}")
 
-@router.get("/achievements", response_model=List[TranslatedAchievement])
+@router.get("/achievements")
 async def get_achievements_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -112,7 +106,7 @@ async def get_achievements_with_translations(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching achievements: {str(e)}")
 
-@router.get("/experiences", response_model=List[TranslatedExperience])
+@router.get("/experiences")
 async def get_experiences_with_translations(
     lang: str = Query("en", description="Language code for translations")
 ):
@@ -136,7 +130,7 @@ async def get_translation_completeness():
 @router.post("/content/{table_name}/{record_id}/{field_name}")
 async def add_or_update_content_translation(
     table_name: str,
-    record_id: str, 
+    record_id: str,
     field_name: str,
     language_code: str,
     content: str

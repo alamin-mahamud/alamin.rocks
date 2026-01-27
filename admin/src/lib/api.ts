@@ -218,4 +218,92 @@ export const cvApi = {
   getTemplate: (id: string) => api.get(`/api/cv/templates/${id}`),
 };
 
+// Holdings API
+export const holdingsApi = {
+  // Summary
+  getSummary: () => api.get("/api/holdings/summary"),
+
+  // Stocks
+  getStocks: () => api.get("/api/holdings/stocks"),
+  createStock: (data: any) => api.post("/api/holdings/stocks", data),
+  updateStock: (id: number, data: any) => api.put(`/api/holdings/stocks/${id}`, data),
+  deleteStock: (id: number) => api.delete(`/api/holdings/stocks/${id}`),
+
+  // Real Estate
+  getRealEstate: () => api.get("/api/holdings/real-estate"),
+  createProperty: (data: any) => api.post("/api/holdings/real-estate", data),
+  updateProperty: (id: number, data: any) => api.put(`/api/holdings/real-estate/${id}`, data),
+  deleteProperty: (id: number) => api.delete(`/api/holdings/real-estate/${id}`),
+
+  // Business Interests
+  getBusinessInterests: () => api.get("/api/holdings/business"),
+  createBusiness: (data: any) => api.post("/api/holdings/business", data),
+  updateBusiness: (id: number, data: any) => api.put(`/api/holdings/business/${id}`, data),
+  deleteBusiness: (id: number) => api.delete(`/api/holdings/business/${id}`),
+
+  // Income Sources
+  getIncomeSources: () => api.get("/api/holdings/income-sources"),
+  createIncomeSource: (data: any) => api.post("/api/holdings/income-sources", data),
+
+  // Balance Sheet & Zakat
+  getBalanceSheet: () => api.get("/api/holdings/balance-sheet"),
+  updateBalanceSheet: (data: any) => api.put("/api/holdings/balance-sheet", data),
+  getZakat: () => api.get("/api/holdings/zakat"),
+  updateZakat: (data: any) => api.put("/api/holdings/zakat", data),
+};
+
+// MoE (Mission & Objectives Engine) API
+export const moeApi = {
+  // Summary
+  getSummary: () => api.get("/api/moe/summary"),
+
+  // Super Objective
+  getSuperObjective: () => api.get("/api/moe/super-objective"),
+  updateSuperObjective: (data: { super_objective: string; target_date: string }) =>
+    api.put("/api/moe/super-objective", data),
+
+  // Personas
+  getPersonas: () => api.get("/api/moe/personas"),
+  getPersona: (id: number) => api.get(`/api/moe/personas/${id}`),
+  createPersona: (data: any) => api.post("/api/moe/personas", data),
+  updatePersona: (id: number, data: any) => api.put(`/api/moe/personas/${id}`, data),
+  deletePersona: (id: number) => api.delete(`/api/moe/personas/${id}`),
+  reorderPersonas: (ids: number[]) => api.post("/api/moe/personas/reorder", { ids }),
+
+  // Milestones
+  addMilestone: (data: { persona_id: number; date: string; goal: string }) =>
+    api.post("/api/moe/milestones", data),
+  deleteMilestone: (personaId: number, index: number) =>
+    api.delete(`/api/moe/personas/${personaId}/milestones/${index}`),
+
+  // Principles
+  getPrinciples: () => api.get("/api/moe/principles"),
+  getPrinciple: (id: number) => api.get(`/api/moe/principles/${id}`),
+  createPrinciple: (data: any) => api.post("/api/moe/principles", data),
+  updatePrinciple: (id: number, data: any) => api.put(`/api/moe/principles/${id}`, data),
+  deletePrinciple: (id: number) => api.delete(`/api/moe/principles/${id}`),
+  reorderPrinciples: (ids: number[]) => api.post("/api/moe/principles/reorder", { ids }),
+
+  // Schedule
+  getScheduleBlocks: () => api.get("/api/moe/schedule"),
+  createScheduleBlock: (data: any) => api.post("/api/moe/schedule", data),
+  deleteScheduleBlock: (id: number) => api.delete(`/api/moe/schedule/${id}`),
+  getScheduleTable: () => api.get("/api/moe/schedule-table"),
+
+  // Lifestyle Guidelines
+  getLifestyleGuidelines: () => api.get("/api/moe/lifestyle-guidelines"),
+  createLifestyleGuideline: (data: any) => api.post("/api/moe/lifestyle-guidelines", data),
+  updateLifestyleGuideline: (id: number, data: any) =>
+    api.put(`/api/moe/lifestyle-guidelines/${id}`, data),
+  deleteLifestyleGuideline: (id: number) => api.delete(`/api/moe/lifestyle-guidelines/${id}`),
+
+  // Non-negotiables
+  getNonNegotiables: () => api.get("/api/moe/non-negotiables"),
+  updateNonNegotiables: (items: string[]) => api.put("/api/moe/non-negotiables", { items }),
+
+  // Dua
+  getDua: () => api.get("/api/moe/dua"),
+  updateDua: (dua: string) => api.put("/api/moe/dua", { dua }),
+};
+
 export default api;

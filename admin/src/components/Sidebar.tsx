@@ -21,7 +21,9 @@ import {
   Trophy,
   Award,
   Mail,
-  FileCode
+  FileCode,
+  Target,
+  PiggyBank
 } from 'lucide-react'
 import { clsx } from 'clsx'
 
@@ -46,6 +48,8 @@ const contentNavigation = [
 const settingsNavigation = [
   { name: 'Resume', href: '/resume', icon: FileText, badge: null },
   { name: 'Assets', href: '/assets', icon: Wallet, badge: null },
+  { name: 'Holdings', href: '/holdings', icon: PiggyBank, badge: null },
+  { name: 'MoE', href: '/moe', icon: Target, badge: null },
   { name: 'Translations', href: '/translations', icon: Languages, badge: 2 },
   { name: 'Analytics', href: '/analytics', icon: BarChart3, badge: null },
   { name: 'Settings', href: '/settings', icon: Settings, badge: null },
