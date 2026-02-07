@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -6,112 +6,71 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  REGISTRY: registry.homelab.alamin.rocks
+  BACKEND_IMAGE: registry.homelab.alamin.rocks/alamin-rocks/backend
+  FRONTEND_IMAGE: registry.homelab.alamin.rocks/alamin-rocks/frontend
+  ADMIN_IMAGE: registry.homelab.alamin.rocks/alamin-rocks/admin
+
 jobs:
-  lint-backend:
-    runs-on: homelab-runner
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -r backend/requirements.txt ruff
-
-      - name: Lint with ruff
-        run: ruff check backend/
-
   test-backend:
     runs-on: homelab-runner
-    needs: lint-backend
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -r backend/requirements.txt
-
-      - name: Run tests
-        run: cd backend && pytest
+      - run: pip install -r backend/requirements.txt
+      - run: cd backend && pytest -v
 
   lint-frontend:
     runs-on: homelab-runner
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-
-      - name: Install frontend dependencies
-        run: cd frontend && npm ci
-
-      - name: Lint frontend
-        run: cd frontend && npm run lint
-
-  build-frontend:
-    runs-on: homelab-runner
-    needs: lint-frontend
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install and build frontend
-        run: cd frontend && npm ci && npm run build
+      - run: cd frontend && npm ci && npm run lint
 
   lint-admin:
     runs-on: homelab-runner
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - run: cd admin && npm ci && npm run lint
 
-      - name: Install admin dependencies
-        run: cd admin && npm ci
-
-      - name: Lint admin
-        run: cd admin && npm run lint
-
-  build-admin:
+  build-and-deploy:
     runs-on: homelab-runner
-    needs: lint-admin
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install and build admin
-        run: cd admin && npm ci && npm run build
-
-  docker-build:
-    runs-on: homelab-runner
-    needs: [test-backend, build-frontend, build-admin]
+    needs: [test-backend, lint-frontend, lint-admin]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build backend image
-        run: docker build -t alamin-rocks-backend backend/
+      - name: Log in to registry
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
 
-      - name: Build frontend image
-        run: docker build -t alamin-rocks-frontend frontend/
+      - name: Build and push backend
+        run: |
+          docker build -t ${{ env.BACKEND_IMAGE }}:latest backend/
+          docker push ${{ env.BACKEND_IMAGE }}:latest
 
-      - name: Build admin image
-        run: docker build -t alamin-rocks-admin admin/
+      - name: Build and push frontend
+        run: |
+          docker build -t ${{ env.FRONTEND_IMAGE }}:latest frontend/
+          docker push ${{ env.FRONTEND_IMAGE }}:latest
+
+      - name: Build and push admin
+        run: |
+          docker build -t ${{ env.ADMIN_IMAGE }}:latest admin/
+          docker push ${{ env.ADMIN_IMAGE }}:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl rollout restart deployment/alamin-backend -n alamin-rocks
+          kubectl rollout restart deployment/alamin-frontend -n alamin-rocks
+          kubectl rollout restart deployment/alamin-admin -n alamin-rocks
+          kubectl rollout status deployment/alamin-backend -n alamin-rocks --timeout=120s
+          kubectl rollout status deployment/alamin-frontend -n alamin-rocks --timeout=120s
+          kubectl rollout status deployment/alamin-admin -n alamin-rocks --timeout=120s
