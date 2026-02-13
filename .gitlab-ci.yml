@@ -1,0 +1,53 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  REGISTRY: gitlab-registry.homelab.alamin.rocks/alamin-rocks/app
+
+.build:
+  stage: build
+  image: docker:27
+  tags: [homelab]
+  services:
+    - docker:27-dind
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: tcp://localhost:2375
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build:backend:
+  extends: .build
+  script:
+    - docker build -t $REGISTRY/backend:latest -t $REGISTRY/backend:$CI_COMMIT_SHORT_SHA backend/
+    - docker push $REGISTRY/backend --all-tags
+
+build:frontend:
+  extends: .build
+  script:
+    - docker build -t $REGISTRY/frontend:latest -t $REGISTRY/frontend:$CI_COMMIT_SHORT_SHA frontend/
+    - docker push $REGISTRY/frontend --all-tags
+
+build:admin:
+  extends: .build
+  script:
+    - docker build -t $REGISTRY/admin:latest -t $REGISTRY/admin:$CI_COMMIT_SHORT_SHA admin/
+    - docker push $REGISTRY/admin --all-tags
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  tags: [homelab]
+  needs: ["build:backend", "build:frontend", "build:admin"]
+  script:
+    - kubectl rollout restart deployment/alamin-backend -n alamin-rocks
+    - kubectl rollout restart deployment/alamin-frontend -n alamin-rocks
+    - kubectl rollout restart deployment/alamin-admin -n alamin-rocks
+    - kubectl rollout status deployment/alamin-backend -n alamin-rocks --timeout=120s
+    - kubectl rollout status deployment/alamin-frontend -n alamin-rocks --timeout=120s
+    - kubectl rollout status deployment/alamin-admin -n alamin-rocks --timeout=120s
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
