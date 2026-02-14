@@ -24,19 +24,19 @@ variables:
 build:backend:
   extends: .build
   script:
-    - docker build -t $REGISTRY/backend:latest -t $REGISTRY/backend:$CI_COMMIT_SHORT_SHA backend/
+    - docker build --network host -t $REGISTRY/backend:latest -t $REGISTRY/backend:$CI_COMMIT_SHORT_SHA backend/
     - docker push $REGISTRY/backend --all-tags
 
 build:frontend:
   extends: .build
   script:
-    - docker build -t $REGISTRY/frontend:latest -t $REGISTRY/frontend:$CI_COMMIT_SHORT_SHA frontend/
+    - docker build --network host -t $REGISTRY/frontend:latest -t $REGISTRY/frontend:$CI_COMMIT_SHORT_SHA frontend/
     - docker push $REGISTRY/frontend --all-tags
 
 build:admin:
   extends: .build
   script:
-    - docker build -t $REGISTRY/admin:latest -t $REGISTRY/admin:$CI_COMMIT_SHORT_SHA admin/
+    - docker build --network host -t $REGISTRY/admin:latest -t $REGISTRY/admin:$CI_COMMIT_SHORT_SHA admin/
     - docker push $REGISTRY/admin --all-tags
 
 deploy:
