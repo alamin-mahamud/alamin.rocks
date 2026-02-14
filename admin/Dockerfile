@@ -8,7 +8,7 @@ RUN npm install && npm cache clean --force
 
 # Copy source code and build
 COPY . .
-RUN npm run build
+RUN npm run build && mkdir -p public
 
 # Production stage - serve with Next.js standalone
 FROM node:22-alpine AS runner
