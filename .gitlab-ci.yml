@@ -10,7 +10,8 @@ variables:
   image: docker:27
   tags: [homelab]
   services:
-    - docker:27-dind
+    - name: docker:27-dind
+      command: ["--dns", "8.8.8.8"]
   variables:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_HOST: tcp://localhost:2375
@@ -23,19 +24,19 @@ variables:
 build:backend:
   extends: .build
   script:
-    - docker build --dns 8.8.8.8 -t $REGISTRY/backend:latest -t $REGISTRY/backend:$CI_COMMIT_SHORT_SHA backend/
+    - docker build -t $REGISTRY/backend:latest -t $REGISTRY/backend:$CI_COMMIT_SHORT_SHA backend/
     - docker push $REGISTRY/backend --all-tags
 
 build:frontend:
   extends: .build
   script:
-    - docker build --dns 8.8.8.8 -t $REGISTRY/frontend:latest -t $REGISTRY/frontend:$CI_COMMIT_SHORT_SHA frontend/
+    - docker build -t $REGISTRY/frontend:latest -t $REGISTRY/frontend:$CI_COMMIT_SHORT_SHA frontend/
     - docker push $REGISTRY/frontend --all-tags
 
 build:admin:
   extends: .build
   script:
-    - docker build --dns 8.8.8.8 -t $REGISTRY/admin:latest -t $REGISTRY/admin:$CI_COMMIT_SHORT_SHA admin/
+    - docker build -t $REGISTRY/admin:latest -t $REGISTRY/admin:$CI_COMMIT_SHORT_SHA admin/
     - docker push $REGISTRY/admin --all-tags
 
 deploy:
